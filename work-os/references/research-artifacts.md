@@ -37,6 +37,59 @@ Decide once where each artifact type lives (e.g. a notes vault for
 distillation, the repo's `docs/` for artifacts coupled to code) and keep
 it consistent, so humans and agents both know where to look.
 
+## Source-to-artifact discipline
+
+In agentic work, "source" is no longer just code. The **source bundle**
+is everything required to reproduce the result: code, configs, pipeline
+definitions, dependency declarations, prompts, natural-language
+instructions and playbooks, experiment plans, evaluation criteria,
+environment assumptions. If a natural-language instruction is required
+for reproduction, it is source — version it; don't leave it in chat.
+The test of a good bundle: given only this, can someone (human or
+agent) rerun the pipeline, change parameters, test counterfactuals, or
+extend the work?
+
+Three lifecycles, three treatments:
+
+- **Source bundle: version-controlled.** It is the generative harness.
+- **Final artifact: persisted.** The compressed durable result (report,
+  table, metrics snapshot, plots + their backend). Needs clear naming
+  and a stable home; does not need code-style versioning.
+- **Intermediates: disposable materializations.** Extracted tables,
+  temp parquet, embeddings, debug snapshots can be huge and accidental.
+  Keep them for speed, inspection, or audit; otherwise delete freely —
+  source bundle + DAG can regenerate them (see
+  traceable-computation.md for the semantic-identity rules that make
+  this safe).
+
+## Diagrammatic research lineage
+
+A conclusion like "A beats B because it is faster" hides the path that
+produced it. Prose is fragile (agents omit, smooth over, hallucinate
+connections) and code hides structure. So serious result artifacts
+include a lightweight **lineage graph** — the review target is the
+graph, not only the narrative. Two coupled layers:
+
+- **Idea DAG** — the epistemic structure: observations, questions,
+  hypotheses, subproblems, experiments, findings, decisions, rejected
+  paths, accepted claims. Edges are epistemic relations: *tests*,
+  *supports*, *weakens*, *follows-from*, *part-of*. Rejected paths
+  belong in the graph; they are evidence too.
+- **Data DAG** — how raw data became evidence: sources, filters, joins,
+  aggregations, feature calculations, tests, metrics. Edges are
+  transformations. Claims are only as good as this path, and the
+  killer questions are always upstream (what was filtered out? was the
+  join valid? was ground truth actually ground truth?).
+
+The diagram is an **interface, not decoration**: nodes are public
+concepts, edges are morphisms, and layout/grouping/hierarchy are part
+of the review surface — missing steps, unsupported claims, and
+suspicious jumps become visible at a glance. Generate it from
+structured metadata declared during construction (each step declares
+what data enters/exits and what claim it supports), never hand-drawn
+after the fact. Per backend-first: structured enough for agents to
+parse, rendered for humans to review.
+
 ## Backend-first, dual display
 
 Humans ingest visuals; agents operate on structured text. An artifact

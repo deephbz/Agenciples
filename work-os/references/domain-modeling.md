@@ -57,6 +57,30 @@ Two refinements from practice:
   boundaries. The invariant that survives is: how many concepts must a
   reader hold to use this correctly. Keep *that* minimal.
 
+## Intent is the optimization target
+
+Agents search the implementation space cheaply: given clear intent,
+constraints, tests, and an evaluator, they can iterate designs and
+implementations faster than any human. What they cannot supply is the
+objective function. The scarce human contribution is specifying intent:
+what problem, what public contract, what invariants must hold, which
+failure modes matter, which tradeoffs are acceptable, what defines
+success.
+
+- **Interfaces preserve human intent; implementations are where agents
+  search.** A bad interface is not a technical inconvenience — it is
+  crystallized misunderstanding, and agents will optimize diligently
+  inside the wrong frame.
+- **Review interfaces harder than implementations.** In review, ask:
+  are the nouns and verbs right? are the contracts explicit? are the
+  boundaries placed correctly? do the tests measure the real goal?
+  The implementation can be regenerated, refactored, or replaced; the
+  interface is where the worldview lives.
+- **The evaluator is part of the source.** Tests and evaluation
+  criteria are not an afterthought — they are the encoded intent that
+  makes agent search safe. An agent loop without an evaluator is
+  optimizing an unstated objective.
+
 ## Component boundaries: three forces, in order
 
 Evaluate splits in this order:

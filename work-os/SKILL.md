@@ -1,6 +1,6 @@
 ---
 name: work-os
-description: Personal Work OS methodology playbooks for research-heavy, agent-assisted engineering. Use this whenever starting or reviewing non-trivial work — designing a new module/API/system, naming domain concepts, drawing component boundaries, building or debugging data/ML pipelines, running experiments or analyses, producing research outputs (reports, notebooks, charts, dashboards), or setting up agent workflows/skills/memory — even if the user never says "work os". Especially load it before writing significant code from scratch or before answering "how should I structure this".
+description: Personal Work OS methodology playbooks for research-heavy, agent-assisted engineering. Use this whenever starting or reviewing non-trivial work — designing a new module/API/system, naming domain concepts, drawing component boundaries, building or debugging data/ML pipelines, deciding what to version/cache/persist, reviewing an interface or a research conclusion, running experiments or analyses, producing research outputs (reports, notebooks, charts, dashboards), or setting up agent workflows/skills/memory — even if the user never says "work os". Especially load it before writing significant code from scratch or before answering "how should I structure this".
 ---
 
 # Work OS
@@ -11,13 +11,20 @@ investigability, and continuity. Everything below serves those three.
 
 1. **Full-stack traceability** — abstractions must be investigable.
    Clean default output, plus a trace mode exposing intermediate state
-   and provenance.
+   and provenance. Pipelines are semantic DAGs: cached intermediates
+   are materialized views whose identity is inputs+params+code, not
+   file existence.
 2. **Ontology-first design** — model the domain's irreducible nouns,
    verbs, and relations before designing APIs or generating code. Good
-   ontology yields a minimal public surface.
+   ontology yields a minimal public surface. Interfaces preserve human
+   intent; implementations are the agents' search space — so review
+   interfaces harder than implementations.
 3. **Artifact-first, backend-first** — work starts from a durable
    written problem artifact and ends with a durable result artifact
    whose canonical form is machine-operable; visuals are renderings.
+   Version-control the full source bundle (code, configs, prompts,
+   plans, evaluators), persist final artifacts, treat intermediates as
+   disposable, and expose reasoning/data lineage as reviewable graphs.
 
 ## Scenario routing
 
@@ -26,9 +33,9 @@ after. Load at most what the task needs.
 
 | Scenario | Read |
 |---|---|
-| Designing/refactoring a module or pipeline; debugging "why is this number wrong"; adding observability | [references/traceable-computation.md](references/traceable-computation.md) |
-| New system or API design; naming concepts; schema design; deciding component boundaries or whether to split | [references/domain-modeling.md](references/domain-modeling.md) |
-| Research work: framing a question, running experiments, analyzing data, writing up results, producing charts/notebooks/reports | [references/research-artifacts.md](references/research-artifacts.md) |
+| Designing/refactoring a module or pipeline; debugging "why is this number wrong"; adding observability; cache/materialization semantics | [references/traceable-computation.md](references/traceable-computation.md) |
+| New system or API design; naming concepts; schema design; deciding component boundaries or whether to split; reviewing an interface | [references/domain-modeling.md](references/domain-modeling.md) |
+| Research work: framing a question, running experiments, analyzing data, writing up results, producing charts/notebooks/reports; deciding what to version vs persist vs discard; reviewing a research conclusion | [references/research-artifacts.md](references/research-artifacts.md) |
 | Agent workflow setup: writing skills, memory files, CLAUDE.md/AGENTS.md content, multi-session or multi-agent continuity | [references/agent-continuity.md](references/agent-continuity.md) |
 
 Tasks often span two scenarios (e.g. a new experiment pipeline is both
@@ -53,11 +60,18 @@ most often fail in practice:
   skills, memories, and ontologies are net-negative without human
   curation. Propose; let the human ratify before it becomes durable
   context.
+- **Identity is semantic, not material.** A cached file existing is not
+  the result being valid. A computation's identity is its inputs,
+  parameters, code, and assumptions; when those change, the old
+  materialization is a different (stale) thing, whatever its filename
+  says.
 
 ## Provenance
 
-Distilled from a personal "Work OS" essay, cross-checked against a
-methodology review of ~80 curated sources mapping each principle to
-established lineages: Parnas, Evans (DDD), Ousterhout, Brooks, Knuth,
-Luhmann, Hamming, Dapper/OpenTelemetry, W3C PROV, and the emerging
-context-engineering canon.
+Distilled from personal "Work OS" essays (core principles plus the
+artifact-layer continuation: source bundles, materialization
+transparency, intent as optimization target, diagrammatic lineage),
+cross-checked against a methodology review of ~80 curated sources
+mapping each principle to established lineages: Parnas, Evans (DDD),
+Ousterhout, Brooks, Knuth, Luhmann, Hamming, Dapper/OpenTelemetry,
+W3C PROV, and the emerging context-engineering canon.
