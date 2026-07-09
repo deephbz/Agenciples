@@ -41,14 +41,20 @@ The four playbooks:
 
 - [traceable-computation.md](work-os/references/traceable-computation.md)
   — dual-mode interfaces, canonical run records, raw-first provenance,
-  and why traceability still needs a verification anchor.
+  semantic DAGs with materialization transparency (a cache is a view,
+  not a result), and why traceability still needs a verification
+  anchor.
 - [domain-modeling.md](work-os/references/domain-modeling.md)
-  — glossary-first ontology design, distinctions into types,
-  minimal cognitive surface, and a three-force ordering for component
-  boundaries.
+  — glossary-first ontology design, distinctions into types, minimal
+  cognitive surface, intent as the optimization target (review
+  interfaces harder than implementations), and a three-force ordering
+  for component boundaries.
 - [research-artifacts.md](work-os/references/research-artifacts.md)
-  — the problem → plan → result artifact chain, the transformation
-  test, backend-first dual-display results, predict-before-run.
+  — the problem → plan → result artifact chain, source-to-artifact
+  discipline (version the bundle, persist the artifact, discard the
+  intermediates), diagrammatic research lineage (idea DAG + data DAG
+  as the review surface), the transformation test, backend-first
+  dual-display results, predict-before-run.
 - [agent-continuity.md](work-os/references/agent-continuity.md)
   — start from artifacts and write back, human-gated persistence,
   re-anchoring against decay, betting on durable primitives.

@@ -57,6 +57,30 @@ Implementation notes:
   no SSH mutation, config-only entry points). Constraining is usually
   cheaper than reconstructing. Prefer it for experiment infra.
 
+## Semantic DAGs and materialization transparency
+
+Model a pipeline as a DAG whose nodes are meaningful data states (raw,
+filtered, joined, features, metrics, report) and whose edges are
+transformations. A node's identity is **semantic**: input data versions
++ parameters + transformation code + environment assumptions. It is not
+whether a file currently exists on disk.
+
+- A persisted intermediate is a *materialized view* of a DAG node. The
+  node must mean the same thing whether computed live or loaded from
+  cache; callers should not be able to tell the difference.
+- Cache keys encode semantic identity. If inputs, parameters, code, or
+  assumptions changed, it is a different node — invalidate, don't
+  reuse. Store the identity (a hash of those components) alongside the
+  materialization so staleness is checkable, not vibes.
+- "The file exists" is not "the result is valid." Stale
+  materializations produced by old code under old assumptions are the
+  classic quiet corruption of research pipelines. This is the
+  materialized-view discipline from databases applied to research.
+- This also bounds what to keep: materialize intermediates for speed,
+  inspection, or audit; delete them freely otherwise, since the source
+  bundle plus the DAG can regenerate any node
+  (see research-artifacts.md on source-to-artifact discipline).
+
 ## Minimum provenance for any persisted result
 
 Whenever a result outlives the session (a figure, a metric, a table),
