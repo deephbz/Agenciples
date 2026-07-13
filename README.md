@@ -1,9 +1,10 @@
 # Agenciples
 
-**Agent principles, progressively disclosed.** A working methodology for
-research-heavy, agent-assisted engineering, packaged the way agent
-harnesses actually consume context: a one-paragraph always-on prior,
-a routing skill, and per-scenario playbooks that load only when needed.
+**Principles for agents and for the humans who design their harnesses.**
+Agenciples has two audiences: agent-facing instructions, progressively
+disclosed as an always-on snippet, a routing skill, and scenario playbooks;
+and human-facing guidance for shaping agentic work systems without mistaking
+tool activity for useful work.
 
 ## Why
 
@@ -16,7 +17,7 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-Agenciples encodes three principles targeting exactly those scarcities,
+The agent-facing package encodes three principles targeting exactly those scarcities,
 each with the failure modes that show up in practice (a trace is not a
 verification; summaries corrupt, keep raw; model-generated memory needs
 a human gate).
@@ -27,9 +28,33 @@ Design, Ousterhout's deep modules, Knuth's literate programming,
 Luhmann's Zettelkasten, Hamming, distributed tracing, W3C PROV, and the
 emerging context-engineering canon. The contribution is the packaging:
 methodology shaped for consumption by humans *and* agents sharing one
-harness.
+harness, while keeping their different needs explicit.
 
-## Structure (progressive disclosure)
+## Designing the harness around the human
+
+Agent visibility, throughput, tool calls, and cost are useful signals, but
+they are not the product objective. Start from the human control and decision
+loop: in what situation does the operator return, what decision must they
+make, what evidence and still-current context make that decision sound, and
+what action lets work continue? Only then choose capabilities, component
+responsibilities, tools, storage, or dashboards. This keeps the system aimed
+at attention quality, context recovery, and continuity of deep work rather
+than maximizing visible agent motion.
+
+Keep semantic continuity separate from runtime continuity. Semantic work
+identity and context lineage may outlive any given model invocation, process,
+terminal, host, or other replaceable carrier. A crash, restart, relocation,
+or model change must not by itself create a new semantic boundary, while one
+durable project may intentionally span many conversations and executions.
+Model work identity, context lineage, reasoning execution, runtime process,
+location, and external aliases as distinct concepts whenever their lifecycles
+differ. Otherwise operational accidents become false boundaries in the work.
+
+This README is the canonical human-facing explanation. Agents do not need it
+for ordinary work, but when explicitly designing or reviewing an agent
+harness they should read this rationale before selecting its abstractions.
+
+## Agent-facing structure (progressive disclosure)
 
 | Level | File | When it's in context |
 |---|---|---|
@@ -56,8 +81,9 @@ The four playbooks:
   as the review surface), the transformation test, backend-first
   dual-display results, predict-before-run.
 - [agent-continuity.md](work-os/references/agent-continuity.md)
-  — start from artifacts and write back, human-gated persistence,
-  re-anchoring against decay, betting on durable primitives.
+  — start from artifacts and write back, separate historical evidence
+  from current working context and recomputable assessment, human-gated
+  persistence, re-anchoring against decay, betting on durable primitives.
 
 ## Install
 

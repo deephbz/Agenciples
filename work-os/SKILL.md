@@ -11,9 +11,9 @@ investigability, and continuity. Everything below serves those three.
 
 1. **Full-stack traceability** — abstractions must be investigable.
    Clean default output, plus a trace mode exposing intermediate state
-   and provenance. Pipelines are semantic DAGs: cached intermediates
-   are materialized views whose identity is inputs+params+code, not
-   file existence.
+   and provenance. Keep raw records and anchor important claims to an
+   external verification signal; a trace or document is not proof of
+   correctness.
 2. **Ontology-first design** — model the domain's irreducible nouns,
    verbs, and relations before designing APIs or generating code. Good
    ontology yields a minimal public surface. Interfaces preserve human
@@ -37,13 +37,14 @@ after. Load at most what the task needs.
 | New system or API design; naming concepts; schema design; deciding component boundaries or whether to split; reviewing an interface | [references/domain-modeling.md](references/domain-modeling.md) |
 | Research work: framing a question, running experiments, analyzing data, writing up results, producing charts/notebooks/reports; deciding what to version vs persist vs discard; reviewing a research conclusion | [references/research-artifacts.md](references/research-artifacts.md) |
 | Agent workflow setup: writing skills, memory files, CLAUDE.md/AGENTS.md content, multi-session or multi-agent continuity | [references/agent-continuity.md](references/agent-continuity.md) |
+| Explicitly designing or reviewing an agent harness | [the canonical human-facing harness rationale](../README.md#designing-the-harness-around-the-human), then the relevant references above |
 
 Tasks often span two scenarios (e.g. a new experiment pipeline is both
 domain-modeling and research-artifacts). Read both; they are short.
 
 ## Cross-cutting invariants
 
-These three hold in every scenario, and they are where the principles
+These hold in every scenario, and they are where the principles
 most often fail in practice:
 
 - **Anchor to a verification signal.** A trace, a doc, or a memory is
@@ -51,26 +52,24 @@ most often fail in practice:
   still be wrong by 20000x. Every important claim needs an external
   anchor: a benchmark, a spec check, a test against known-good output,
   or explicit human review. If no anchor exists, say so in the artifact.
-- **Keep raw, derive compressed.** Summaries, aggregations, and
-  "lessons learned" are derived views; the raw record (data, trace,
-  transcript) is the source of truth and must survive. Self-summarized
-  memory measurably corrupts (100%→54% on ARC-AGI). Never destroy raw
-  to save the summary.
+- **Separate evidence, working context, and assessment.** Historical
+  evidence preserves source records and observations, which may be
+  incomplete or wrong. Current working context records what still matters
+  and is corrected or superseded as understanding changes. Assessments and
+  projections record what is currently inferred; keep them recomputable and
+  label their provenance, freshness, uncertainty, and derivation version.
+  Never destroy evidence to save a summary, and never present an assessment
+  as an observed fact.
 - **Human quality gate on anything that persists.** Model-generated
   skills, memories, and ontologies are net-negative without human
   curation. Propose; let the human ratify before it becomes durable
   context.
-- **Identity is semantic, not material.** A cached file existing is not
-  the result being valid. A computation's identity is its inputs,
-  parameters, code, and assumptions; when those change, the old
-  materialization is a different (stale) thing, whatever its filename
-  says.
 
 ## Provenance
 
 Distilled from personal "Work OS" essays (core principles plus the
-artifact-layer continuation: source bundles, materialization
-transparency, intent as optimization target, diagrammatic lineage),
+artifact-layer continuation: source bundles, intent as optimization
+target, diagrammatic lineage),
 cross-checked against a methodology review of ~80 curated sources
 mapping each principle to established lineages: Parnas, Evans (DDD),
 Ousterhout, Brooks, Knuth, Luhmann, Hamming, Dapper/OpenTelemetry,
