@@ -11,6 +11,31 @@ fast but forgetful — every task looks finished, but the organization
 accumulates nothing. With it, each solved problem leaves concepts,
 contracts, traces, and artifacts that make the next problem cheaper.
 
+## Preserve three information classes
+
+Do not collapse durable evidence, maintained context, and current judgment
+into one note or status:
+
+- **Historical evidence** preserves source records and observations:
+  transcripts, commits, task history, experiment records, and runtime
+  observations. It says what occurred *according to that source*, not that
+  the source is complete or correct. Preserve it and append corrections; do
+  not rewrite it to match the latest story.
+- **Current working context** records what still matters: active goals,
+  constraints, accepted decisions, unresolved questions, and takeaways.
+  Curate it deliberately. Mark corrections, retirement, and supersession so
+  stale context does not silently remain authoritative, while keeping links
+  back to the evidence that justified each change.
+- **Assessment or projection** records what is currently inferred: priority,
+  readiness, risk, need for human attention, or a synthesized status. Treat
+  it as recomputable output, not source truth. Record its evidence links,
+  freshness, uncertainty, and derivation/model version.
+
+This separation gives compression honest mutation semantics: evidence is
+preserved, working context evolves, and assessments can be discarded and
+recomputed. When presenting a judgment, expose enough provenance for a human
+or later agent to recover the evidence instead of trusting the label.
+
 ## Start from artifacts, end by writing back
 
 - Begin sessions from durable artifacts (problem docs, design docs,
