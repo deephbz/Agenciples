@@ -60,6 +60,12 @@ most often fail in practice:
   label their provenance, freshness, uncertainty, and derivation version.
   Never destroy evidence to save a summary, and never present an assessment
   as an observed fact.
+- **Separate projections by audience.** Agent-visible content spends context
+  on the meaning needed for reasoning. Machine-facing details preserve full
+  structured state, provenance, versions, and receipts. Human-facing views
+  use hierarchy, layout, comparison, visualization, and, when useful, sound.
+  Keep all three traceable to the same authoritative records rather than
+  letting a convenient projection become a competing source of truth.
 - **Human quality gate on anything that persists.** Model-generated
   skills, memories, and ontologies are net-negative without human
   curation. Propose; let the human ratify before it becomes durable
