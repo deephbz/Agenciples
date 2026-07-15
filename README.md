@@ -50,6 +50,26 @@ Model work identity, context lineage, reasoning execution, runtime process,
 location, and external aliases as distinct concepts whenever their lifecycles
 differ. Otherwise operational accidents become false boundaries in the work.
 
+Design agent-facing interfaces for capable reasoning, not as workflow forms
+that attempt to anticipate every future case. Expose a small set of
+semantically stable verbs; give their schemas only the structured coordinates
+needed for safe, unambiguous composition; and carry rich task intent,
+constraints, and criteria in prose the agent can interpret. Locking, retries,
+graph validation, history, and receipts belong behind that small contract.
+Likewise, review is a risk-based collaboration choice rather than a universal
+stage: the assigner asks for it on complex or high-risk work, while simple work
+proceeds directly. A harness should mechanically block execution only when a
+demonstrated invariant requires enforcement.
+
+Do not make one representation serve agents, machines, and humans equally
+badly. An agent-visible projection should preserve the meaning needed for
+reasoning while spending context deliberately. A machine-facing projection
+should retain complete structured state, provenance, versions, and receipts.
+A human-facing projection should exploit human perception through hierarchy,
+layout, comparison, visualization, and, where it genuinely helps, sound. These
+are projections of shared authoritative records, not three competing sources
+of truth; each should remain traceable back to the same underlying evidence.
+
 This README is the canonical human-facing explanation. Agents do not need it
 for ordinary work, but when explicitly designing or reviewing an agent
 harness they should read this rationale before selecting its abstractions.
@@ -71,9 +91,10 @@ The four playbooks:
   anchor.
 - [domain-modeling.md](work-os/references/domain-modeling.md)
   — glossary-first ontology design, distinctions into types, minimal
-  cognitive surface, intent as the optimization target (review
-  interfaces harder than implementations), and a three-force ordering
-  for component boundaries.
+  cognitive surface, small interfaces for capable agents, audience-specific
+  projections, risk-based rather than ceremonial review, intent as the
+  optimization target (review interfaces harder than implementations), and a
+  three-force ordering for component boundaries.
 - [research-artifacts.md](work-os/references/research-artifacts.md)
   — the problem → plan → result artifact chain, source-to-artifact
   discipline (version the bundle, persist the artifact, discard the

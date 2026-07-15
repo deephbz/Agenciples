@@ -57,6 +57,65 @@ Two refinements from practice:
   boundaries. The invariant that survives is: how many concepts must a
   reader hold to use this correctly. Keep *that* minimal.
 
+## Design interfaces for capable agents
+
+A capable agent does not need every collaboration convention encoded as a
+workflow state or every task-specific detail decomposed into schema fields.
+Over-modeling raises cognitive load, freezes guesses about future work into
+the public contract, and makes ordinary changes require more tool calls.
+
+- **Expose few, semantically stable verbs.** Each public operation should be
+  an irreducible domain action, not a transient UI step or implementation
+  convenience.
+- **Structure only what safe composition needs.** Identity, target, durable
+  relations, desired state transition, and concurrency/version coordinates
+  belong in schema when machines must query, validate, or act on them.
+- **Carry rich meaning in prose.** Goals, context, constraints, rationale,
+  criteria, and case-specific instructions are often better expressed as
+  agent-readable text than as a proliferating set of optional fields.
+- **Hide complex correctness behind the contract.** Locking, retries,
+  idempotency, graph validation, history, and receipts remain implementation
+  responsibilities unless a caller must coordinate them explicitly.
+
+This does not weaken the rule that distinctions which affect behavior belong
+in types. It sharpens it: encode the distinctions required for safe,
+deterministic behavior, not every distinction an agent can understand from
+context. If a proposed field neither prevents an invalid action nor enables a
+necessary machine query or transition, it is probably prose or a derived
+projection rather than core schema.
+
+## Separate projections by audience
+
+One authoritative record can support different interfaces without acquiring
+different meanings:
+
+- **Agent-visible content** is concise, semantically complete for the next
+  reasoning step, and deliberately economical with context.
+- **Machine-facing details** preserve complete structured state, identifiers,
+  versions, provenance, receipts, and other data needed for deterministic
+  composition and reconstruction.
+- **Human-facing views** exploit human perceptual strengths: hierarchy,
+  spatial layout, comparison, visualization, animation, and, where it adds
+  real signal, sound.
+
+These are projections, not independent authorities. A terse agent result or
+visual dashboard must link back to the machine-facing record and ultimately
+to its evidence; a renderer must not silently invent domain state.
+
+## Gates encode invariants, not ceremony
+
+Review should be optional by default. The assigner asks for review when a task
+is complex, high-risk, difficult to reverse, or otherwise benefits from a
+second judgment; simple work proceeds directly. Do not force every task
+through plan submission, approval, or equivalent states merely to standardize
+the workflow.
+
+A mechanical gate is justified only when the system must enforce a
+demonstrated invariant that prose instructions and team convention cannot
+safely protect. Otherwise, review remains a collaboration policy expressed in
+the task context and communication flow, so teams can add scrutiny without
+paying its latency and cognitive cost on every action.
+
 ## Intent is the optimization target
 
 Agents search the implementation space cheaply: given clear intent,
