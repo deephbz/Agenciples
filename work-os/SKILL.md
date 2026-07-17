@@ -1,11 +1,11 @@
 ---
 name: work-os
-description: Personal Work OS methodology playbooks for research-heavy, agent-assisted engineering. Use this whenever starting or reviewing non-trivial work — designing a new module/API/system, naming domain concepts, drawing component boundaries, building or debugging data/ML pipelines, deciding what to version/cache/persist, reviewing an interface or a research conclusion, running experiments or analyses, producing research outputs (reports, notebooks, charts, dashboards), or setting up agent workflows/skills/memory — even if the user never says "work os". Especially load it before writing significant code from scratch or before answering "how should I structure this".
+description: Personal Work OS methodology playbooks for research-heavy, agent-assisted engineering. Use this whenever starting or reviewing non-trivial work — designing a new module/API/system, naming domain concepts, drawing component boundaries, building or debugging data/ML pipelines, deciding what to version/cache/persist, deciding whether a spec or procedure should live in docs, types, or scripts, judging whether tests/linters/CI fit the project's current stage, reviewing an interface or a research conclusion, running experiments or analyses, producing research outputs (reports, notebooks, charts, dashboards), or setting up agent workflows/skills/memory — even if the user never says "work os". Especially load it before writing significant code from scratch or before answering "how should I structure this".
 ---
 
 # Work OS
 
-Three principles govern all work here. They exist because agents made
+Five principles govern all work here. They exist because agents made
 implementation cheap: the scarce resources now are concept clarity,
 investigability, and continuity. Everything below serves those three.
 
@@ -25,6 +25,25 @@ investigability, and continuity. Everything below serves those three.
    Version-control the full source bundle (code, configs, prompts,
    plans, evaluators), persist final artifacts, treat intermediates as
    disposable, and expose reasoning/data lineage as reviewable graphs.
+   Idea/data diagrams and the evergreen doc are first-class authored
+   artifacts: diagrams agreed before development starts and refreshed
+   at milestones, not drawn after the software exists.
+4. **Single source of truth, fluid representation** — every fact,
+   spec, or procedure has one authoritative home, and that home
+   migrates as work matures: shaping-stage truth lives in docs and
+   diagrams; once interfaces stabilize it moves into types and public
+   APIs, and docs trim to intent plus pointers. Natural and
+   programming language read the same to agents but differ in
+   verifiability and reliability — allocate deliberately and
+   re-allocate as procedures harden (SOP doc → script → library).
+5. **Stage-calibrated rigor ("where are we?")** — establish the
+   project's lifecycle stage before choosing practices: infer it, ask
+   when ambiguous, declare it in the evergreen doc. Exploration wants
+   glue scripts and fast insight to discover the right shape;
+   extensive unit tests before the shape exists are tautological;
+   linters, formatters, and CI/CD earn their keep once work is
+   functional, performant, and heading for a PR. Stage lowers the
+   formality of verification anchors, never their existence.
 
 ## Scenario routing
 
@@ -37,6 +56,8 @@ after. Load at most what the task needs.
 | New system or API design; naming concepts; schema design; deciding component boundaries or whether to split; reviewing an interface | [references/domain-modeling.md](references/domain-modeling.md) |
 | Research work: framing a question, running experiments, analyzing data, writing up results, producing charts/notebooks/reports; deciding what to version vs persist vs discard; reviewing a research conclusion | [references/research-artifacts.md](references/research-artifacts.md) |
 | Agent workflow setup: writing skills, memory files, CLAUDE.md/AGENTS.md content, multi-session or multi-agent continuity | [references/agent-continuity.md](references/agent-continuity.md) |
+| Deciding where a spec or procedure lives (doc vs diagram vs types vs script); trimming docs after APIs stabilize; hardening an SOP/skill into scripts or libraries; docs↔code cross-pointers | [references/source-allocation.md](references/source-allocation.md) |
+| Kicking off or joining work: determining the project's lifecycle stage; deciding whether tests, linters, CI/CD, refactors, or abstraction are appropriate yet | [references/stage-calibration.md](references/stage-calibration.md) |
 | Explicitly designing or reviewing an agent harness | [the canonical human-facing harness rationale](../README.md#designing-the-harness-around-the-human), then the relevant references above |
 
 Tasks often span two scenarios (e.g. a new experiment pipeline is both
@@ -52,6 +73,9 @@ most often fail in practice:
   still be wrong by 20000x. Every important claim needs an external
   anchor: a benchmark, a spec check, a test against known-good output,
   or explicit human review. If no anchor exists, say so in the artifact.
+  The anchor's formality scales with stage — a spot-check in
+  exploration, a test suite at hardening — but its existence does not
+  (stage-calibration.md).
 - **Separate evidence, working context, and assessment.** Historical
   evidence preserves source records and observations, which may be
   incomplete or wrong. Current working context records what still matters
@@ -66,6 +90,11 @@ most often fail in practice:
   use hierarchy, layout, comparison, visualization, and, when useful, sound.
   Keep all three traceable to the same authoritative records rather than
   letting a convenient projection become a competing source of truth.
+- **One home per fact.** When a spec lives in both a doc and code, one
+  is already stale. After behavior stabilizes into types and public
+  APIs, code is the source of truth; trim docs to intent, rationale,
+  and pointers, and keep docs and code pointing at each other in both
+  directions.
 - **Human quality gate on anything that persists.** Model-generated
   skills, memories, and ontologies are net-negative without human
   curation. Propose; let the human ratify before it becomes durable
@@ -78,5 +107,6 @@ artifact-layer continuation: source bundles, intent as optimization
 target, diagrammatic lineage),
 cross-checked against a methodology review of ~80 curated sources
 mapping each principle to established lineages: Parnas, Evans (DDD),
-Ousterhout, Brooks, Knuth, Luhmann, Hamming, Dapper/OpenTelemetry,
-W3C PROV, and the emerging context-engineering canon.
+Ousterhout, Brooks, Knuth, Luhmann, Hamming, Hunt & Thomas (DRY),
+Shape Up, Dapper/OpenTelemetry, W3C PROV, and the emerging
+context-engineering canon.

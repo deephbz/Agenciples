@@ -26,6 +26,9 @@ Working procedure:
    environment behaves differently from a mutable one, encode it so
    illegal states are unrepresentable. A behavioral difference living
    only in a docstring will be violated, by humans and agents alike.
+   Once a distinction stabilizes into types and public surfaces, the
+   code becomes the single source of truth for it — trim the doc to
+   intent and pointers (source-allocation.md).
 3. **Trim to a minimal public surface.** Only stable, irreducible
    concepts deserve to be public. Everything else stays internal where
    it can churn freely. Deep modules: small interface, substantial
@@ -33,6 +36,13 @@ Working procedure:
 4. **Implementation may be messy behind a clear contract.** Mess behind
    a clean surface is debuggable and replaceable; a confused surface
    makes the mess structural.
+
+A cheap design-time test: sketch the concept graph with candidate type
+and API names as node labels — imagined names are fine before any code
+exists. Programming language is still language; if the design does not
+read cleanly as diagram phrases, the ontology has a flaw that generated
+code will inherit and hide (see research-artifacts.md on diagrams
+first).
 
 Why this got more important, not less: agents generate thousands of
 lines frictionlessly, so implementation is no longer scarce — coherent
