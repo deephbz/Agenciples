@@ -22,6 +22,8 @@ are transport, not storage; anything that matters graduates to a file.
    checkpoint — reviewing a plan is cheap, reviewing 3000 lines of
    generated code is not. Practitioners converge on this independently:
    have the agent produce a reviewable design doc, not an ephemeral PR.
+   The authored idea/data diagram belongs here (see below): agreed
+   before development starts, refreshed at each milestone.
 3. **Result artifact** (after): findings, interpretation, and the full
    provenance bundle (see below). The next round of work starts from
    this artifact, not from memory or chat scrollback.
@@ -62,12 +64,17 @@ Three lifecycles, three treatments:
   traceable-computation.md for the semantic-identity rules that make
   this safe).
 
-## Diagrammatic research lineage
+## Diagrams first: idea DAG + data DAG
 
-A conclusion like "A beats B because it is faster" hides the path that
-produced it. Prose is fragile (agents omit, smooth over, hallucinate
-connections) and code hides structure. So serious result artifacts
-include a lightweight **lineage graph** — the review target is the
+The idea/data diagram is a first-class artifact, not documentation
+rendered after the software exists. It is authored, reviewed, and
+agreed before development starts — it aligns the human (does the plan
+cohere?), the team (are we building the same thing?), and the agents
+(a graph is bootstrappable context that prose smooths over) — and it
+is refreshed at every milestone and every new R&D kickoff. A
+conclusion like "A beats B because it is faster" hides the path that
+produced it; prose is fragile (agents omit, smooth over, hallucinate
+connections) and code hides structure. The review target is the
 graph, not only the narrative. Two coupled layers:
 
 - **Idea DAG** — the epistemic structure: observations, questions,
@@ -84,11 +91,26 @@ graph, not only the narrative. Two coupled layers:
 The diagram is an **interface, not decoration**: nodes are public
 concepts, edges are morphisms, and layout/grouping/hierarchy are part
 of the review surface — missing steps, unsupported claims, and
-suspicious jumps become visible at a glance. Generate it from
-structured metadata declared during construction (each step declares
-what data enters/exits and what claim it supports), never hand-drawn
-after the fact. Per backend-first: structured enough for agents to
-parse, rendered for humans to review.
+suspicious jumps become visible at a glance. The design-stage graph is
+authored; during execution, keep it true by generating the lineage
+view from structured metadata declared as steps run (each step
+declares what data enters/exits and what claim it supports) rather
+than redrawing it by hand afterward. Per backend-first: structured
+enough for agents to parse, rendered for humans to review.
+
+**Diagram language is design language.** Label nodes with concrete —
+or, before implementation exists, imagined — type and API names when
+apt. Programming language is still language: a design that reads well
+as diagram phrases tends to yield good types, and distilling existing
+code into diagram phrases exposes its weaknesses immediately — a node
+that can't be named cleanly is a boundary drawn wrong. This is the
+cheapest interface review available (domain-modeling.md).
+
+**Density discipline.** The diagram is the highest-density artifact in
+the chain: critical concepts and relations only. The evergreen doc may
+carry slightly more (agent-continuity.md); journals carry everything.
+If a detail doesn't change how a reviewer judges the work, it doesn't
+belong in the diagram.
 
 ## Backend-first, dual display
 

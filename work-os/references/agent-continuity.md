@@ -42,10 +42,21 @@ or later agent to recover the evidence instead of trusting the label.
   memory files, repo docs), never from "as we discussed". If required
   context lives only in a previous chat, first extract it into a file.
 - End nontrivial work by writing back: what changed, what was learned,
-  what remains. The dual-doc pattern works well for long tasks: a
-  stable *task doc* (goal, constraints — rarely edited) plus an
-  append-only *progress doc* (state, decisions, next steps) that
-  carries across sessions and context windows.
+  what remains. Keep a stable *task doc* (goal, constraints — rarely
+  edited) plus two files with opposite mutation semantics: an
+  append-only **journal** (attempts, back-and-forth, solved problems,
+  superseded blockers — historical evidence, never rewritten) and a
+  curated **evergreen doc** (the declared lifecycle stage, decisions
+  still in force, latest status, pending problems, current blockers,
+  next steps — working context, ruthlessly pruned). This is the evidence / working-context
+  separation above, made concrete as files. When a problem is solved,
+  its story stays in the journal and it leaves the evergreen doc; a
+  solved problem or dead blocker still sitting there is a bug. The
+  next session boots from the evergreen doc and consults the journal
+  only when it needs to know *why*. Density runs diagram < evergreen
+  doc < journal: the diagram holds only critical concepts
+  (research-artifacts.md), the evergreen doc slightly more, the
+  journal everything.
 - "If agents can't see it, it doesn't exist." Tribal knowledge in
   heads, Slack, or chat history is invisible; encode it as versioned
   files. Entry-point files (CLAUDE.md/AGENTS.md) are a table of

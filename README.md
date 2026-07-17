@@ -17,16 +17,18 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-The agent-facing package encodes three principles targeting exactly those scarcities,
+The agent-facing package encodes five principles targeting exactly those scarcities,
 each with the failure modes that show up in practice (a trace is not a
 verification; summaries corrupt, keep raw; model-generated memory needs
-a human gate).
+a human gate; a doc that duplicates stabilized code is already stale;
+tests written before the shape exists are tautological).
 
 None of this is new — deliberately. The principles map onto
 long-established lineages: Parnas information hiding, Domain-Driven
-Design, Ousterhout's deep modules, Knuth's literate programming,
-Luhmann's Zettelkasten, Hamming, distributed tracing, W3C PROV, and the
-emerging context-engineering canon. The contribution is the packaging:
+Design, Ousterhout's deep modules, Hunt & Thomas's DRY, Knuth's
+literate programming, Luhmann's Zettelkasten, Hamming, Basecamp's
+Shape Up, distributed tracing, W3C PROV, and the emerging
+context-engineering canon. The contribution is the packaging:
 methodology shaped for consumption by humans *and* agents sharing one
 harness, while keeping their different needs explicit.
 
@@ -82,7 +84,7 @@ harness they should read this rationale before selecting its abstractions.
 | 1 | [work-os/SKILL.md](work-os/SKILL.md) | When the skill triggers — scenario routing + cross-cutting invariants |
 | 2 | [work-os/references/](work-os/references/) | On demand — one playbook per scenario |
 
-The four playbooks:
+The six playbooks:
 
 - [traceable-computation.md](work-os/references/traceable-computation.md)
   — dual-mode interfaces, canonical run records, raw-first provenance,
@@ -98,13 +100,27 @@ The four playbooks:
 - [research-artifacts.md](work-os/references/research-artifacts.md)
   — the problem → plan → result artifact chain, source-to-artifact
   discipline (version the bundle, persist the artifact, discard the
-  intermediates), diagrammatic research lineage (idea DAG + data DAG
-  as the review surface), the transformation test, backend-first
-  dual-display results, predict-before-run.
+  intermediates), diagram-first lineage (idea DAG + data DAG authored
+  before development, refreshed at milestones, reviewed as the
+  interface), the transformation test, backend-first dual-display
+  results, predict-before-run.
 - [agent-continuity.md](work-os/references/agent-continuity.md)
   — start from artifacts and write back, separate historical evidence
-  from current working context and recomputable assessment, human-gated
-  persistence, re-anchoring against decay, betting on durable primitives.
+  from current working context and recomputable assessment, the
+  evergreen doc / journal split, human-gated persistence, re-anchoring
+  against decay, betting on durable primitives.
+- [source-allocation.md](work-os/references/source-allocation.md)
+  — single source of truth with fluid representation: truth migrates
+  from docs and diagrams into types and public APIs as work stabilizes
+  (docs trim to intent plus pointers), natural vs programming language
+  allocated by verifiability and reliability rather than habit, and
+  the SOP → script → library hardening gradient.
+- [stage-calibration.md](work-os/references/stage-calibration.md)
+  — "where are we?": infer or ask the project's lifecycle stage before
+  choosing practices; the shaping → exploration → consolidation →
+  hardening → sharing ladder, stage windows for tests/linters/CI
+  (tests before the shape exists are tautological), premature vs
+  overdue rigor, and why verification anchors survive every stage.
 
 ## Install
 
