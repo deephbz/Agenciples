@@ -100,8 +100,9 @@ The seven playbooks:
   anchor.
 - [domain-modeling.md](work-os/references/domain-modeling.md)
   — glossary-first ontology design, distinctions into types, minimal
-  cognitive surface, small safe contracts that let implementations evolve
-  without caller breakage, interfaces for capable agents, audience-specific
+  cognitive surface, compatibility only for accepted contracts or verified
+  consumers, small safe contracts that let implementations evolve, interfaces
+  for capable agents, audience-specific
   projections, risk-based rather than ceremonial review, intent as the
   optimization target (review interfaces harder than implementations), and a
   three-force ordering for component boundaries.
@@ -132,9 +133,9 @@ The seven playbooks:
 - [stage-calibration.md](work-os/references/stage-calibration.md)
   — "where are we?": infer or ask the project's lifecycle stage before
   choosing practices; the shaping → exploration → consolidation →
-  hardening → sharing ladder, stage windows for tests/linters/CI
-  (tests before the shape exists are tautological), premature vs
-  overdue rigor, and why verification anchors survive every stage.
+  hardening → sharing ladder, checks that detect independent risk, evidence
+  reuse, stage windows for tests/linters/CI, premature vs overdue rigor, and
+  why verification anchors survive every stage.
 
 ## Install
 

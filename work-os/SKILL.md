@@ -90,6 +90,14 @@ domain-modeling and research-artifacts). Read both; they are short.
 These hold in every scenario, and they are where the principles
 most often fail in practice:
 
+- **Use risk-proportional change and verification.** Every added mechanism and
+  check must address a current, named risk. Compatibility protects an accepted
+  contract, a verified active consumer, or an explicit migration; it is not a
+  precaution for obsolete or rejected designs. Before adding or repeating a
+  check, name the plausible failure it uniquely detects. Do not mirror a
+  declaration in a unit test, and reuse evidence when the relevant code,
+  inputs, tools, and environment have not changed. The detailed compatibility
+  and verification rules live in domain-modeling.md and stage-calibration.md.
 - **Anchor to a verification signal.** A trace, a doc, or a memory is
   not truth. Code with full architecture docs and passing tests can
   still be wrong by 20000x. Every important claim needs an external

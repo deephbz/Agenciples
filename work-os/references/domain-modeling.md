@@ -71,6 +71,20 @@ Two refinements from practice:
   boundaries. The invariant that survives is: how many concepts must a
   reader hold to use this correctly. Keep *that* minimal.
 
+## Compatibility follows contracts, not history
+
+Existing code does not create a compatibility requirement by itself. Preserve
+behavior only when it belongs to an accepted contract, has a verified active
+consumer, or needs an explicit migration.
+
+If none of these conditions applies, replace the old design directly. Remove
+obsolete paths instead of adding aliases, shims, fallbacks, dual reads or
+writes, legacy configuration, or migration machinery. Do not infer a consumer
+from the age or existence of code.
+
+Compatibility code must name the contract or consumer it protects. If that
+evidence is unavailable, treat compatibility as speculative complexity.
+
 ## Design interfaces for capable agents
 
 A capable agent does not need every collaboration convention encoded as a
