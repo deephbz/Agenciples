@@ -5,7 +5,7 @@ description: Personal Work OS methodology playbooks for research-heavy, agent-as
 
 # Work OS
 
-Five principles govern all work here. They exist because agents made
+Six principles govern all work here. They exist because agents made
 implementation cheap: the scarce resources now are concept clarity,
 investigability, and continuity. Everything below serves those three.
 
@@ -40,7 +40,15 @@ investigability, and continuity. Everything below serves those three.
    Keep the bridge bidirectional: typed APIs carry intent into code;
    actionable runtime outcomes carry stable identifiers and pointers
    back to authoritative guidance.
-5. **Stage-calibrated rigor ("where are we?")** — establish the
+5. **One truth, audience-fit projections** — keep one authoritative
+   semantic record, then derive separate views for each consumer.
+   Model-facing content is validated, decision-complete, and economical
+   with context. Machine and trace records preserve exact structured
+   state, provenance, versions, and receipts. Human interfaces use
+   hierarchy, progressive disclosure, comparison, visualization, and
+   sound when useful. A projection can change form, but it must not
+   invent domain state or become a competing authority.
+6. **Stage-calibrated rigor ("where are we?")** — establish the
    project's lifecycle stage before choosing practices: infer it, ask
    when ambiguous, declare it in the evergreen doc. Exploration wants
    glue scripts and fast insight to discover the right shape;
@@ -88,12 +96,12 @@ most often fail in practice:
   label their provenance, freshness, uncertainty, and derivation version.
   Never destroy evidence to save a summary, and never present an assessment
   as an observed fact.
-- **Separate projections by audience.** Agent-visible content spends context
-  on the meaning needed for reasoning. Machine-facing details preserve full
-  structured state, provenance, versions, and receipts. Human-facing views
-  use hierarchy, layout, comparison, visualization, and, when useful, sound.
-  Keep all three traceable to the same authoritative records rather than
-  letting a convenient projection become a competing source of truth.
+- **Keep projections audience-fit.** Model-facing content spends context on
+  the meaning needed for reasoning. Machine and trace records preserve exact
+  structured state, provenance, versions, and receipts. Human-facing views use
+  hierarchy, progressive disclosure, comparison, visualization, and, when
+  useful, sound. Keep all three traceable to the same authoritative records.
+  Test them independently, and never let a projection become competing truth.
 - **One home per fact.** When a spec lives in both a doc and code, one
   is already stale. After behavior stabilizes into types and public
   APIs, code is the source of truth; trim docs to intent, rationale,

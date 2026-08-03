@@ -98,23 +98,26 @@ context. If a proposed field neither prevents an invalid action nor enables a
 necessary machine query or transition, it is probably prose or a derived
 projection rather than core schema.
 
-## Separate projections by audience
+## One truth, audience-fit projections
 
-One authoritative record can support different interfaces without acquiring
-different meanings:
+One authoritative semantic record can support different interfaces without
+acquiring different meanings:
 
-- **Agent-visible content** is concise, semantically complete for the next
-  reasoning step, and deliberately economical with context.
-- **Machine-facing details** preserve complete structured state, identifiers,
+- **Model-facing content** uses a validated schema. It is decision-complete for
+  the next reasoning step and deliberately economical with context.
+- **Machine and trace records** preserve exact structured state, identifiers,
   versions, provenance, receipts, and other data needed for deterministic
-  composition and reconstruction.
+  composition, reconstruction, and QA.
 - **Human-facing views** exploit human perceptual strengths: hierarchy,
-  spatial layout, comparison, visualization, animation, and, where it adds
-  real signal, sound.
+  progressive disclosure, spatial layout, comparison, visualization,
+  animation, and, where it adds real signal, sound.
 
-These are projections, not independent authorities. A terse agent result or
-visual dashboard must link back to the machine-facing record and ultimately
-to its evidence; a renderer must not silently invent domain state.
+These are projections, not independent authorities. They can change shape on
+separate schedules without changing domain semantics. Test each projection
+independently so an omission, dense encoding, or renderer defect cannot hide a
+decisive fact. A terse model result or visual dashboard must link back to the
+machine record and ultimately to its evidence; a renderer must not silently
+invent domain state.
 
 ## Gates encode invariants, not ceremony
 

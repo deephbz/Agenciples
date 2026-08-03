@@ -17,7 +17,7 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-The agent-facing package encodes five principles targeting exactly those scarcities,
+The agent-facing package encodes six principles targeting exactly those scarcities,
 each with the failure modes that show up in practice (a trace is not a
 verification; summaries corrupt, keep raw; model-generated memory needs
 a human gate; a doc that duplicates stabilized code is already stale;
@@ -71,6 +71,10 @@ A human-facing projection should exploit human perception through hierarchy,
 layout, comparison, visualization, and, where it genuinely helps, sound. These
 are projections of shared authoritative records, not three competing sources
 of truth; each should remain traceable back to the same underlying evidence.
+A projection can change its shape without changing domain semantics, but test
+that projection independently so omission or rendering cannot hide a decisive
+fact. Source allocation decides where authority lives over time; audience-fit
+projection decides how one current authority serves different consumers.
 
 This README is the canonical human-facing explanation. Agents do not need it
 for ordinary work, but when explicitly designing or reviewing an agent
