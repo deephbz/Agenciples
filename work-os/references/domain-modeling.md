@@ -29,13 +29,17 @@ Working procedure:
    Once a distinction stabilizes into types and public surfaces, the
    code becomes the single source of truth for it — trim the doc to
    intent and pointers (source-allocation.md).
-3. **Trim to a minimal public surface.** Only stable, irreducible
-   concepts deserve to be public. Everything else stays internal where
-   it can churn freely. Deep modules: small interface, substantial
-   implementation behind it.
-4. **Implementation may be messy behind a clear contract.** Mess behind
-   a clean surface is debuggable and replaceable; a confused surface
-   makes the mess structural.
+3. **Stabilize the smallest safe contract as soon as the ontology
+   supports it.** Only stable, irreducible concepts deserve to be
+   public. Before callers depend on it, review the surface for intent,
+   compatibility, invariants, and externally observable guarantees; an
+   early contract is not an excuse to publish guesses.
+4. **Ship through the contract; improve behind it.** A deliberate
+   boundary lets urgent delivery and important hardening reinforce each
+   other: ship the smallest implementation that satisfies the contract,
+   then refactor, replace, or optimize internals without breaking
+   callers. Everything else stays internal where it can churn freely.
+   Deep modules: small interface, substantial implementation behind it.
 
 A cheap design-time test: sketch the concept graph with candidate type
 and API names as node labels — imagined names are fine before any code

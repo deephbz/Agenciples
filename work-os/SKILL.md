@@ -16,9 +16,10 @@ investigability, and continuity. Everything below serves those three.
    correctness.
 2. **Ontology-first design** — model the domain's irreducible nouns,
    verbs, and relations before designing APIs or generating code. Good
-   ontology yields a minimal public surface. Interfaces preserve human
-   intent; implementations are the agents' search space — so review
-   interfaces harder than implementations.
+   ontology yields the smallest safe, stable public contract: it preserves
+   caller intent, compatibility, and externally observable guarantees while
+   implementations evolve behind it. Review interfaces harder than
+   implementations.
 3. **Artifact-first, backend-first** — work starts from a durable
    written problem artifact and ends with a durable result artifact
    whose canonical form is machine-operable; visuals are renderings.

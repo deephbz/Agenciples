@@ -93,7 +93,8 @@ The six playbooks:
   anchor.
 - [domain-modeling.md](work-os/references/domain-modeling.md)
   — glossary-first ontology design, distinctions into types, minimal
-  cognitive surface, small interfaces for capable agents, audience-specific
+  cognitive surface, small safe contracts that let implementations evolve
+  without caller breakage, interfaces for capable agents, audience-specific
   projections, risk-based rather than ceremonial review, intent as the
   optimization target (review interfaces harder than implementations), and a
   three-force ordering for component boundaries.
