@@ -21,6 +21,43 @@ that now carry their specs; code (module docs, README headers) names
 the design docs and diagrams that motivate it. A reader — human or
 agent — landing on either side reaches the other in one hop.
 
+## Make the reverse bridge executable
+
+An API is the forward bridge: an agent turns natural-language intent
+into calls on typed code. The reverse bridge should not depend on the
+agent reading a traceback and guessing which document might matter. At
+each **actionable semantic boundary** — a branch that changes the next
+action, a recoverable failure, or a terminal outcome — the executable
+should surface a **semantic outcome** with a stable identifier and
+**guidance references** to the authoritative intent, rationale, or
+remediation.
+
+- **Route on meaning, not incidental control flow.** Do not annotate
+  every `if` or `switch`. Emit an outcome when the caller's next action
+  changes. Preserve the selected branch, exit code, signal, and
+  traceback as evidence, but do not make agents infer the semantic
+  outcome or relevant guidance from those low-level clues alone.
+- **Keep the bridge structured.** Put the outcome identifier, raw
+  evidence, and guidance references in a returned result or error,
+  event, or canonical run record; render a concise message as a
+  projection. Code owns the conditions and outcome identifiers. Docs
+  own only the intent, rationale, and judgment-heavy remediation that
+  have not hardened into code, and point back to the relevant outcome
+  type or API.
+- **Cover termination outside the process.** A process cannot emit a
+  hook after `SIGKILL`, a host loss, or some crashes. The surrounding
+  supervisor records timeouts, signals, and missing terminal events,
+  then attaches only the guidance justified by that evidence; unknown
+  causes stay unknown.
+- **Verify the route.** Exercise important outcomes, assert their stable
+  identifiers, and check that every guidance reference resolves within
+  the versioned source bundle. A pointer is routing metadata, not proof
+  that the linked guidance or underlying computation is correct.
+
+When remediation becomes frequent and deterministic, harden it into the
+executable and leave the document with rationale and a pointer. That is
+the hardening gradient applied to the bridge itself.
+
 ## Truth migrates as work matures
 
 Where the source of truth lives is a lifecycle property, not a fixed

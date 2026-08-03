@@ -33,6 +33,10 @@ Implementation notes:
   log line pattern): a single structured entry with inputs, config,
   environment, code version, timing, and outcome. One greppable place
   beats fragments scattered across log levels.
+- When an outcome changes the next action, include its stable semantic
+  identifier and guidance references in that record while preserving
+  raw branch, exit, signal, and traceback evidence separately. The
+  reverse-bridge contract lives in source-allocation.md.
 - Trace payloads can get big. Content-address them (hash-named files,
   git objects) instead of duplicating; store the reference in the
   canonical record.

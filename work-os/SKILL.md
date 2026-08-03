@@ -37,6 +37,9 @@ investigability, and continuity. Everything below serves those three.
    programming language read the same to agents but differ in
    verifiability and reliability — allocate deliberately and
    re-allocate as procedures harden (SOP doc → script → library).
+   Keep the bridge bidirectional: typed APIs carry intent into code;
+   actionable runtime outcomes carry stable identifiers and pointers
+   back to authoritative guidance.
 5. **Stage-calibrated rigor ("where are we?")** — establish the
    project's lifecycle stage before choosing practices: infer it, ask
    when ambiguous, declare it in the evergreen doc. Exploration wants

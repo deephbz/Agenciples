@@ -113,9 +113,10 @@ The six playbooks:
 - [source-allocation.md](work-os/references/source-allocation.md)
   — single source of truth with fluid representation: truth migrates
   from docs and diagrams into types and public APIs as work stabilizes
-  (docs trim to intent plus pointers), natural vs programming language
-  allocated by verifiability and reliability rather than habit, and
-  the SOP → script → library hardening gradient.
+  (docs trim to intent plus pointers), bidirectional bridges that route
+  semantic runtime outcomes back to authoritative guidance, natural vs
+  programming language allocated by verifiability and reliability
+  rather than habit, and the SOP → script → library hardening gradient.
 - [stage-calibration.md](work-os/references/stage-calibration.md)
   — "where are we?": infer or ask the project's lifecycle stage before
   choosing practices; the shaping → exploration → consolidation →
