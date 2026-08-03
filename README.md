@@ -17,18 +17,21 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-The agent-facing package encodes six principles targeting exactly those scarcities,
+The agent-facing package encodes seven principles targeting exactly those
+scarcities,
 each with the failure modes that show up in practice (a trace is not a
 verification; summaries corrupt, keep raw; model-generated memory needs
 a human gate; a doc that duplicates stabilized code is already stale;
 tests written before the shape exists are tautological).
 
-None of this is new — deliberately. The principles map onto
-long-established lineages: Parnas information hiding, Domain-Driven
-Design, Ousterhout's deep modules, Hunt & Thomas's DRY, Knuth's
-literate programming, Luhmann's Zettelkasten, Hamming, Basecamp's
-Shape Up, distributed tracing, W3C PROV, and the emerging
-context-engineering canon. The contribution is the packaging:
+None of this is new — deliberately. The first six principles map onto
+long-established lineages: Parnas
+information hiding, Domain-Driven Design, Ousterhout's deep modules,
+Hunt & Thomas's DRY, Knuth's literate programming, Luhmann's
+Zettelkasten, Hamming, Basecamp's Shape Up, distributed tracing, W3C
+PROV, and the emerging context-engineering canon. The seventh distills
+a current VCS workflow reflection; its external literature review is
+pending. The contribution is the packaging:
 methodology shaped for consumption by humans *and* agents sharing one
 harness, while keeping their different needs explicit.
 
@@ -88,7 +91,7 @@ harness they should read this rationale before selecting its abstractions.
 | 1 | [work-os/SKILL.md](work-os/SKILL.md) | When the skill triggers — scenario routing + cross-cutting invariants |
 | 2 | [work-os/references/](work-os/references/) | On demand — one playbook per scenario |
 
-The six playbooks:
+The seven playbooks:
 
 - [traceable-computation.md](work-os/references/traceable-computation.md)
   — dual-mode interfaces, canonical run records, raw-first provenance,
@@ -121,6 +124,11 @@ The six playbooks:
   semantic runtime outcomes back to authoritative guidance, natural vs
   programming language allocated by verifiability and reliability
   rather than habit, and the SOP → script → library hardening gradient.
+- [semantic-changes.md](work-os/references/semantic-changes.md)
+  — intent-preserving change composition: exact product bases, declared
+  dependency frontiers, overlap classification, amend vs split vs stack,
+  isolated and integrated review surfaces, evergreen descriptions, and
+  rewriteable implementation history.
 - [stage-calibration.md](work-os/references/stage-calibration.md)
   — "where are we?": infer or ask the project's lifecycle stage before
   choosing practices; the shaping → exploration → consolidation →

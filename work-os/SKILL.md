@@ -1,11 +1,11 @@
 ---
 name: work-os
-description: Personal Work OS methodology playbooks for research-heavy, agent-assisted engineering. Use this whenever starting or reviewing non-trivial work — designing a new module/API/system, naming domain concepts, drawing component boundaries, building or debugging data/ML pipelines, deciding what to version/cache/persist, deciding whether a spec or procedure should live in docs, types, or scripts, judging whether tests/linters/CI fit the project's current stage, reviewing an interface or a research conclusion, running experiments or analyses, producing research outputs (reports, notebooks, charts, dashboards), or setting up agent workflows/skills/memory — even if the user never says "work os". Especially load it before writing significant code from scratch or before answering "how should I structure this".
+description: Personal Work OS methodology playbooks for research-heavy, agent-assisted engineering. Use this whenever starting or reviewing non-trivial work — designing a new module/API/system, naming domain concepts, drawing component boundaries, starting or resuming implementation, identifying a base revision, deciding whether work should amend, split, or stack, reviewing base-relative changes, building or debugging data/ML pipelines, deciding what to version/cache/persist, deciding whether a spec or procedure should live in docs, types, or scripts, judging whether tests/linters/CI fit the project's current stage, reviewing an interface or a research conclusion, running experiments or analyses, producing research outputs (reports, notebooks, charts, dashboards), or setting up agent workflows/skills/memory — even if the user never says "work os". Especially load it before writing significant code from scratch or before answering "how should I structure this".
 ---
 
 # Work OS
 
-Six principles govern all work here. They exist because agents made
+Seven principles govern all work here. They exist because agents made
 implementation cheap: the scarce resources now are concept clarity,
 investigability, and continuity. Everything below serves those three.
 
@@ -56,6 +56,15 @@ investigability, and continuity. Everything below serves those three.
    linters, formatters, and CI/CD earn their keep once work is
    functional, performant, and heading for a PR. Stage lowers the
    formality of verification anchors, never their existence.
+7. **Intent-preserving change composition** — organize implementation
+   as explicit semantic changes with an exact base and declared
+   dependencies. Before editing, inspect pending work for overlap in
+   files, interfaces, and concepts. Amend refinements to the same
+   intent; create a separate change for distinct intent; stack it when
+   it requires pending work; escalate conflicting sibling designs.
+   Review the isolated contribution relative to its base and dependency
+   frontier, then verify it in the integration state. Rewrite each
+   change toward the final accepted design, not its editing history.
 
 ## Scenario routing
 
@@ -69,6 +78,7 @@ after. Load at most what the task needs.
 | Research work: framing a question, running experiments, analyzing data, writing up results, producing charts/notebooks/reports; deciding what to version vs persist vs discard; reviewing a research conclusion | [references/research-artifacts.md](references/research-artifacts.md) |
 | Agent workflow setup: writing skills, memory files, CLAUDE.md/AGENTS.md content, multi-session or multi-agent continuity | [references/agent-continuity.md](references/agent-continuity.md) |
 | Deciding where a spec or procedure lives (doc vs diagram vs types vs script); trimming docs after APIs stabilize; hardening an SOP/skill into scripts or libraries; docs↔code cross-pointers | [references/source-allocation.md](references/source-allocation.md) |
+| Starting or resuming implementation; identifying semantic overlap; deciding amend vs split vs stack; reviewing concurrent or base-relative work | [references/semantic-changes.md](references/semantic-changes.md) |
 | Kicking off or joining work: determining the project's lifecycle stage; deciding whether tests, linters, CI/CD, refactors, or abstraction are appropriate yet | [references/stage-calibration.md](references/stage-calibration.md) |
 | Explicitly designing or reviewing an agent harness | [the canonical human-facing harness rationale](../README.md#designing-the-harness-around-the-human), then the relevant references above |
 
@@ -116,9 +126,11 @@ most often fail in practice:
 
 Distilled from personal "Work OS" essays (core principles plus the
 artifact-layer continuation: source bundles, intent as optimization
-target, diagrammatic lineage),
-cross-checked against a methodology review of ~80 curated sources
-mapping each principle to established lineages: Parnas, Evans (DDD),
-Ousterhout, Brooks, Knuth, Luhmann, Hamming, Hunt & Thomas (DRY),
-Shape Up, Dapper/OpenTelemetry, W3C PROV, and the emerging
-context-engineering canon.
+target, diagrammatic lineage). The first six principles were cross-checked
+against a methodology review
+of ~80 curated sources mapping them to established lineages: Parnas,
+Evans (DDD), Ousterhout, Brooks, Knuth, Luhmann, Hamming, Hunt & Thomas
+(DRY), Shape Up, Dapper/OpenTelemetry, W3C PROV, and the emerging
+context-engineering canon. Intent-preserving change composition is a
+current synthesis from direct VCS workflow reflection; its external
+literature review is pending.
