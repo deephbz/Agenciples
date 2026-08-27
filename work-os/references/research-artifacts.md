@@ -64,6 +64,44 @@ Three lifecycles, three treatments:
   traceable-computation.md for the semantic-identity rules that make
   this safe).
 
+## Supersession-based retention
+
+Artifacts survive because they represent distinct information, not because an
+execution happened. Retries, failed preflights, smoke runs, and partially
+corrected candidates are normally successive attempts at producing one valid
+result; they are not automatically first-class history.
+
+Use **promotion plus garbage collection** as the default lifecycle:
+
+1. During iteration, replace obsolete retry outputs rather than accumulating
+   every attempt.
+2. While a serious candidate is still awaiting verification, it is reasonable
+   to keep the latest useful smoke/preflight predecessor beside the candidate.
+   This is a temporary two-generation transition state, not a permanent archive.
+3. Once the candidate is verified or ratified, promote it to canonical and
+   delete the superseded predecessor and earlier attempts.
+
+The compact rule is: **one canonical generation; temporarily one predecessor
+while promotion is unresolved.** Cleanup is part of successful execution, not
+an optional destructive afterthought.
+
+Do not apply supersession to intentionally distinct experimental conditions.
+Ablations, controls, parameter sweeps, alternative implementations, benchmark
+variants, and declared baselines are first-class artifacts because the
+comparison itself is the experiment. Name and retain them with their condition
+and provenance.
+
+Before retaining multiple outputs, classify them explicitly:
+
+- **Variant** — represents a distinct hypothesis, control, treatment,
+  parameterization, or implementation worth comparing. Retain it.
+- **Retry** — exists only because the previous attempt failed, was incomplete,
+  or was superseded while pursuing the same intended result. Replace it.
+
+Preserve failed attempts as historical evidence only when their failure is
+itself useful evidence, needed for audit, or expensive/impossible to
+reconstruct. Otherwise their durable residue makes later review harder.
+
 ## Diagrams first: idea DAG + data DAG
 
 The idea/data diagram is a first-class artifact, not documentation

@@ -10,6 +10,9 @@ tool activity for useful work.
 
 Agents made implementation cheap. What they did not make cheap:
 
+- **Human-governed intent** — purpose, scope, responsibility, invariants, and
+  non-goals still require judgment; without them agents optimize the wrong
+  thing quickly.
 - **Concept clarity** — vague ontologies turn into thousands of lines of
   confidently wrong code, fast.
 - **Investigability** — opaque stacks let agents run things they cannot
@@ -17,23 +20,23 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-The agent-facing package encodes seven principles targeting exactly those
-scarcities,
-each with the failure modes that show up in practice (a trace is not a
-verification; summaries corrupt, keep raw; model-generated memory needs
-a human gate; a doc that duplicates stabilized code is already stale;
-tests written before the shape exists are tautological).
+The agent-facing package encodes eight principles targeting exactly those
+scarcities, each with the failure modes that show up in practice (a trace is
+not a verification; summaries corrupt, keep raw; model-generated memory needs
+a human gate; a doc that duplicates stabilized code is already stale; tests
+written before the shape exists are tautological; rejected intermediate designs
+should not leak into current narratives; superseded retries should not become a
+permanent artifact graveyard; scope changes must be explicit).
 
 None of this is new — deliberately. The first six principles map onto
-long-established lineages: Parnas
-information hiding, Domain-Driven Design, Ousterhout's deep modules,
-Hunt & Thomas's DRY, Knuth's literate programming, Luhmann's
-Zettelkasten, Hamming, Basecamp's Shape Up, distributed tracing, W3C
-PROV, and the emerging context-engineering canon. The seventh distills
-a current VCS workflow reflection; its external literature review is
-pending. The contribution is the packaging:
-methodology shaped for consumption by humans *and* agents sharing one
-harness, while keeping their different needs explicit.
+long-established lineages: Parnas information hiding, Domain-Driven Design,
+Ousterhout's deep modules, Hunt & Thomas's DRY, Knuth's literate programming,
+Luhmann's Zettelkasten, Hamming, Basecamp's Shape Up, distributed tracing, W3C
+PROV, and the emerging context-engineering canon. The seventh and eighth
+distill current workflow reflections around semantic VCS changes and governing
+intent/scope; their external literature review is pending. The contribution is
+the packaging: methodology shaped for consumption by humans *and* agents
+sharing one harness, while keeping their different needs explicit.
 
 ## Designing the harness around the human
 
@@ -45,6 +48,17 @@ what action lets work continue? Only then choose capabilities, component
 responsibilities, tools, storage, or dashboards. This keeps the system aimed
 at attention quality, context recovery, and continuity of deep work rather
 than maximizing visible agent motion.
+
+Human attention becomes durable only when it is converted into governing
+material: the purpose, scope, responsibility, invariants, and non-goals that
+future agent turns should not have to rediscover. Put that judgment close to
+the artifact it governs — Markdown front matter or a short governing header,
+module or notebook docstrings, or an interface-level contract where a genuine
+responsibility boundary exists. This is not an API synopsis: agents can already
+read signatures and implementations. The valuable information is why the
+artifact exists and what it is allowed to become. Implementation may churn
+inside that envelope; changing the envelope itself should be surfaced for
+deliberate review.
 
 Keep semantic continuity separate from runtime continuity. Semantic work
 identity and context lineage may outlive any given model invocation, process,
@@ -79,6 +93,26 @@ that projection independently so omission or rendering cannot hide a decisive
 fact. Source allocation decides where authority lives over time; audience-fit
 projection decides how one current authority serves different consumers.
 
+Audience alone is not enough: every durable narrative also has a starting
+point. Agent turns are episodic, so the immediately previous attempt can
+accidentally become the implied baseline. Recover the audience's accepted
+starting state before writing. If the task was A, an agent temporarily produced
+A+B, and B was rejected, the current design normally describes A directly;
+prose about "avoiding B" is residue unless that alternative is genuinely part
+of the audience's history. Diffs are base-relative; narratives should be
+baseline-relative.
+
+Artifact hygiene follows the same distinction between semantic value and
+execution history. Intentional variants — controls, ablations, parameter
+sweeps, competing implementations — deserve durable identity. Ordinary retries
+do not. Keep one canonical generation, temporarily one useful predecessor while
+a candidate awaits ratification, and garbage-collect superseded runs after
+promotion. Every surviving artifact also gets one canonical placement:
+repositories for reusable/versioned source, a project-local workspace for
+one-off imperative scaffolding, or shared artifact storage for durable,
+presentation-ready, large, or distributed outputs. Scratch paths such as
+`/tmp` are execution surfaces, never authority.
+
 This README is the canonical human-facing explanation. Agents do not need it
 for ordinary work, but when explicitly designing or reviewing an agent
 harness they should read this rationale before selecting its abstractions.
@@ -91,7 +125,7 @@ harness they should read this rationale before selecting its abstractions.
 | 1 | [work-os/SKILL.md](work-os/SKILL.md) | When the skill triggers — scenario routing + cross-cutting invariants |
 | 2 | [work-os/references/](work-os/references/) | On demand — one playbook per scenario |
 
-The seven playbooks:
+The eight playbooks:
 
 - [traceable-computation.md](work-os/references/traceable-computation.md)
   — dual-mode interfaces, canonical run records, raw-first provenance,
@@ -102,34 +136,44 @@ The seven playbooks:
   — glossary-first ontology design, distinctions into types, minimal
   cognitive surface, compatibility only for accepted contracts or verified
   consumers, small safe contracts that let implementations evolve, interfaces
-  for capable agents, audience-specific
-  projections, risk-based rather than ceremonial review, intent as the
-  optimization target (review interfaces harder than implementations), and a
-  three-force ordering for component boundaries.
+  for capable agents, audience-specific projections, risk-based rather than
+  ceremonial review, intent as the optimization target (review interfaces
+  harder than implementations), and a three-force ordering for component
+  boundaries.
 - [research-artifacts.md](work-os/references/research-artifacts.md)
   — the problem → plan → result artifact chain, source-to-artifact
   discipline (version the bundle, persist the artifact, discard the
-  intermediates), diagram-first lineage (idea DAG + data DAG authored
-  before development, refreshed at milestones, reviewed as the
-  interface), the transformation test, backend-first dual-display
-  results, predict-before-run.
+  intermediates), supersession-based retention (variants survive; retries are
+  replaced; promotion garbage-collects predecessors), diagram-first lineage
+  (idea DAG + data DAG authored before development, refreshed at milestones,
+  reviewed as the interface), the transformation test, backend-first
+  dual-display results, predict-before-run.
 - [agent-continuity.md](work-os/references/agent-continuity.md)
   — start from artifacts and write back, separate historical evidence
-  from current working context and recomputable assessment, the
-  evergreen doc / journal split, human-gated persistence, re-anchoring
-  against decay, betting on durable primitives.
+  from current working context and recomputable assessment, recover the
+  audience and starting point instead of narrating from the previous agent
+  turn, the evergreen doc / journal split, human-gated persistence,
+  re-anchoring against decay, betting on durable primitives.
 - [source-allocation.md](work-os/references/source-allocation.md)
   — single source of truth with fluid representation: truth migrates
   from docs and diagrams into types and public APIs as work stabilizes
-  (docs trim to intent plus pointers), bidirectional bridges that route
-  semantic runtime outcomes back to authoritative guidance, natural vs
-  programming language allocated by verifiability and reliability
+  (docs trim to intent plus pointers), the three canonical artifact homes
+  (repository, project-local workspace, shared artifact storage), bidirectional
+  bridges that route semantic runtime outcomes back to authoritative guidance,
+  natural vs programming language allocated by verifiability and reliability
   rather than habit, and the SOP → script → library hardening gradient.
 - [semantic-changes.md](work-os/references/semantic-changes.md)
   — intent-preserving change composition: exact product bases, declared
   dependency frontiers, overlap classification, amend vs split vs stack,
-  isolated and integrated review surfaces, evergreen descriptions, and
+  isolated and integrated review surfaces, baseline- and audience-relative
+  narrative, the rejected-path residue test, evergreen descriptions, and
   rewriteable implementation history.
+- [governing-intent.md](work-os/references/governing-intent.md)
+  — lightweight governance envelopes for durable artifacts: purpose, scope,
+  responsibility, invariants and non-goals; local representation in front
+  matter/docstrings/notebook headers; the distinction between governance and
+  tautological API reference; and explicit escalation when a change moves the
+  envelope itself.
 - [stage-calibration.md](work-os/references/stage-calibration.md)
   — "where are we?": infer or ask the project's lifecycle stage before
   choosing practices; the shaping → exploration → consolidation →

@@ -63,6 +63,35 @@ or later agent to recover the evidence instead of trusting the label.
   contents, not an encyclopedia — keep them ~100 lines pointing into
   structured docs, or they dilute every future context window.
 
+## Recover the audience and starting point
+
+Agent turns are episodic. After several feedback cycles or a context
+compaction, the immediately preceding state can feel like the beginning of the
+story even when it was only a rejected intermediate attempt. Durable artifacts
+must not inherit that local perspective.
+
+Before producing or revising current-facing prose, identify:
+
+- **Audience** — who will read or operate from this artifact;
+- **Starting point** — the accepted state or mental model that audience begins
+  from;
+- **Current accepted state** — what is intended to remain true now.
+
+Then rewrite from those coordinates rather than patching the previous turn.
+For example, if the requested outcome was A, an agent temporarily implemented
+A+B, and the operator rejected B, the evergreen explanation normally describes
+A directly. It does not add prose about "avoiding B" unless B is an accepted
+historical alternative that the audience genuinely needs to understand.
+
+Use the counterfactual test from `semantic-changes.md`: if the rejected
+intermediate state had never existed, would this explanation, abstraction,
+compatibility path, or warning still be useful? If not, remove it from current
+working context. Preserve the attempt only in historical evidence when it is
+worth keeping.
+
+This is the continuity equivalent of a base-relative diff: **narratives are
+baseline-relative and audience-relative, not turn-relative.**
+
 ## What makes persisted context good
 
 Empirics from SkillsBench and production practice:
@@ -75,8 +104,11 @@ Empirics from SkillsBench and production practice:
 - **Concise beats comprehensive.** Skills land best around 800-1500
   tokens; 2-3 relevant skills beat a pile. Progressive disclosure
   (index → description → full content) instead of loading everything.
-- **Keep errors in context.** Failed attempts steer the model away from
-  repeats; scrubbing them wastes the information.
+- **Keep errors in context, not every residue.** Failed attempts can steer the
+  model away from repeats, so retain the useful failure evidence in the
+  journal or run record when it matters. This does not require preserving every
+  failed output file; superseded execution artifacts are garbage-collected per
+  `research-artifacts.md`.
 
 ## Continuity decays — re-anchor
 
