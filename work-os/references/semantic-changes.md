@@ -152,6 +152,41 @@ design A existed only as a discarded implementation attempt.
 This separation makes context recovery reliable: history explains what
 occurred, while the change description states what still matters.
 
+## Narrate relative to the baseline and audience
+
+Agent turns are episodic: each turn naturally overweights the immediately
+preceding state. That makes a common failure mode look locally reasonable:
+`A requested → A+B implemented → B rejected → B removed`, followed by a
+comment or design note explaining that the system "intentionally avoids B".
+From the actual product base, however, B may never have been part of the
+accepted design. The correct durable story is simply `base → A`.
+
+Before writing or revising a durable change description, comment, design note,
+or migration narrative, recover three coordinates:
+
+1. **Audience** — who will consume this artifact and what knowledge can be
+   assumed?
+2. **Starting point** — which accepted state, revision, or mental model is the
+   audience starting from?
+3. **Final accepted state** — what is true after this semantic change?
+
+Write from those coordinates, not from conversational chronology. The same
+final state may need different projections for a maintainer familiar with an
+older release and for a new reader encountering the system fresh, but neither
+projection should inherit accidental intermediate states from the agent loop.
+
+Use the **residue test** before keeping any explanation or mechanism introduced
+by a rejected path:
+
+> If the rejected intermediate state had never existed, would this comment,
+> abstraction, compatibility path, test, or explanation still be necessary?
+
+If not, remove it from the current semantic change. Keep the rejected path only
+where history itself is useful evidence.
+
+The operational shorthand is: **write as if the wrong turn never happened.**
+This is narrative hygiene, not history deletion.
+
 ## Rewrite and publication
 
 Before publication, semantic changes should remain easy to amend, squash,
@@ -195,6 +230,7 @@ a task or evergreen record only for context the VCS cannot express.
 - Leaving unrelated edits in a change and explaining them through narrative.
 - Recording a moving bookmark name without the exact base revision.
 - Preserving rejected designs as compatibility requirements or current prose.
+- Writing from the previous agent turn instead of the audience's actual baseline.
 - Rewriting published revisions without checking downstream dependencies.
 
 ## `jj` mapping
