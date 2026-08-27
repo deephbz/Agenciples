@@ -21,6 +21,44 @@ that now carry their specs; code (module docs, README headers) names
 the design docs and diagrams that motivate it. A reader — human or
 agent — landing on either side reaches the other in one hop.
 
+## Three canonical artifact homes
+
+Representation and physical placement are separate decisions. After deciding
+what an artifact *is*, put every non-ephemeral artifact in exactly one of three
+location classes:
+
+1. **Repository — reusable, maintained, versioned source.** Libraries,
+   reusable tooling, stable configuration, contracts, shared infrastructure,
+   and source intended to evolve as maintained software belong in an existing
+   repository or a deliberately created new repository.
+2. **Project-local workspace — task-specific imperative scaffolding.** Driver
+   scripts, orchestration glue, exploratory or literate notebooks, hardcoded
+   experiment shells, local run manifests, and other one-off machinery belong
+   under the project's agreed local directory. If the team intentionally
+   versions this scaffolding, its repository becomes the canonical project
+   home; otherwise do not leak it into unrelated repositories.
+3. **Shared artifact storage — durable or distributed outputs.** Final reports,
+   large datasets, model outputs, presentation-ready results, shared experiment
+   artifacts, and data that must be concurrently accessible by workers and head
+   nodes belong in the agreed object store, NFS, database, or artifact service.
+
+> **There is no fourth durable home.**
+
+`/tmp`, arbitrary home-directory folders, desktop paths, scratch mounts, and
+node-local ad-hoc storage are valid only as ephemeral execution surfaces. They
+must never become authoritative. If losing such a location would matter, the
+artifact is misclassified and must be promoted into one of the three canonical
+homes.
+
+Before writing a durable file, classify it with one question: **is this
+reusable source, project-specific working material, or a shared/durable
+output?** The answer determines the location. Do not invent a new placement
+convention because a new agent turn or experiment started.
+
+Canonical placement does not mean permanent retention. `research-artifacts.md`
+governs supersession: a correctly placed retry can still be garbage-collected
+once a newer candidate is ratified.
+
 ## Make the reverse bridge executable
 
 An API is the forward bridge: an agent turns natural-language intent
