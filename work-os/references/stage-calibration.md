@@ -43,30 +43,6 @@ Projects are not monotone: a new R&D kickoff drops one component back
 to exploration while the rest stays hardened. Stage is a property of a
 component, not of the repo.
 
-## Verification must detect independent risk
-
-A check earns its cost only when it can detect a plausible failure that a
-cheaper existing check cannot detect. Name that failure before adding or
-repeating the check.
-
-Do not write a unit test that copies a declaration from the implementation.
-Tests that restate a default value, constant, static mapping, field list, type
-declaration, or direct delegation are usually tautological. A source edit then
-requires two matching edits without adding independent evidence.
-
-Thin modules with no meaningful branch, transformation, state transition,
-invariant, or failure policy usually need no unit tests. Verify their
-composition at the caller-visible boundary. Unit-test deep behavior where
-inputs can produce non-obvious outputs or failures.
-
-A default value merits a contract test only when that value is itself an
-accepted external guarantee. Test its caller-visible effect rather than its
-source declaration.
-
-A passed check remains evidence while the relevant code, inputs, tool version,
-and environment remain unchanged. Rerun it only for a named delta, a freshness
-need, a prior failure, known nondeterminism, or a mandatory integration gate.
-
 ## Practices have stage windows
 
 - **Tests.** Extensive unit tests during shaping or exploration are
@@ -76,7 +52,8 @@ need, a prior failure, known nondeterminism, or a mandatory integration gate.
   interface means something. This never suspends the verification
   invariant: even a throwaway script needs its anchor — a spot-check
   against known-good output, a predicted-before-run number. Stage
-  lowers the *formality* of the anchor, never its existence.
+  lowers the *formality* of the anchor, never its existence
+  (verified-claims.md).
 - **Linters, formatters, CI/CD.** They earn their keep once the work
   has a good shape, is functional and performant, and is heading
   toward a PR. Before that they are friction spent polishing code

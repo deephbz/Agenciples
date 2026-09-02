@@ -1,7 +1,9 @@
 # Research Artifacts
 
 Applies when framing a research question, running experiments, analyzing
-data, or writing up results. Lineage: literate programming (Knuth),
+data, writing up results, deciding what to keep or delete, deciding where an
+artifact lives, or designing how one record serves agents, machines, and
+humans. Lineage: literate programming (Knuth),
 reproducible research (Claerbout/Donoho, nbdev/Quarto), Zettelkasten
 (Luhmann/Ahrens), evergreen notes (Matuschak), memex (Bush), design
 doc/RFC culture, Hamming "You and Your Research".
@@ -35,8 +37,8 @@ cosplay" — they feel like work and store nothing. When producing a
 result artifact, state at least: what was surprising, what this changes,
 what it contradicts.
 
-Decide once which of the three canonical homes in `source-allocation.md`
-each artifact type uses (e.g. a notes vault in shared storage for
+Decide once which of the three canonical homes (below) each artifact type
+uses (e.g. a notes vault in shared storage for
 distillation, the repo's `docs/` for artifacts coupled to code) and keep
 it consistent, so humans and agents both know where to look.
 
@@ -148,11 +150,11 @@ generated code. This is the cheapest interface review available; it is
 the design-time test that domain-modeling.md's ontology procedure relies
 on.
 
-**Density discipline.** The diagram is the highest-density artifact in
-the chain: critical concepts and relations only. The evergreen doc may
-carry slightly more (agent-continuity.md); journals carry everything.
-If a detail doesn't change how a reviewer judges the work, it doesn't
-belong in the diagram.
+**Density discipline.** The diagram carries the least detail per concept
+in the chain: critical concepts and relations only. The evergreen doc
+carries more, the journal everything (agent-continuity.md). If a detail
+doesn't change how a reviewer judges the work, it doesn't belong in the
+diagram.
 
 ## Backend-first, dual display
 
@@ -175,9 +177,56 @@ a rendering.
   dual display for free — the spec is agent-operable, the render is
   human-legible. Prefer them over imperative plotting when practical.
 
-## Verification in research specifically
+## One record, audience-fit views
 
-Predict before you run: write the expected result into the problem
-artifact before executing the experiment. It is the cheapest possible
-verification anchor, it converts every run into a calibration exercise,
-and it is the difference between research and rationalization.
+One authoritative record can serve three consumers without acquiring three
+meanings:
+
+- **Model-facing content** uses a validated schema. It is decision-complete
+  for the next reasoning step and deliberately economical with context.
+- **Machine and trace records** preserve exact structured state,
+  identifiers, versions, provenance, receipts, and whatever deterministic
+  composition, reconstruction, and QA need.
+- **Human-facing views** exploit human perception: hierarchy, progressive
+  disclosure, spatial layout, comparison, visualization, animation, and,
+  where it adds real signal, sound.
+
+These are views, not authorities. They can change shape on separate
+schedules without changing domain semantics. Test each view independently
+so an omission, a dense encoding, or a renderer defect cannot hide a
+decisive fact. A terse model result or a dashboard links back to the
+machine record and ultimately to its evidence; a renderer never invents
+domain state.
+
+The same split shapes systems: a backend owns the model-facing and
+machine-facing faces of a record, a frontend owns the human-facing one.
+
+## Three canonical artifact homes
+
+Representation and physical placement are separate decisions. After
+deciding what an artifact *is*, put every non-ephemeral artifact in exactly
+one of three location classes:
+
+1. **Repository — reusable, maintained, versioned source.** Libraries,
+   reusable tooling, stable configuration, contracts, shared infrastructure,
+   and source intended to evolve as maintained software.
+2. **Project-local workspace — task-specific imperative scaffolding.**
+   Driver scripts, orchestration glue, exploratory or literate notebooks,
+   hardcoded experiment shells, local run manifests. If the team versions
+   this scaffolding, its repository becomes the canonical project home;
+   otherwise do not leak it into unrelated repositories.
+3. **Shared artifact storage — durable or distributed outputs.** Final
+   reports, large datasets, model outputs, presentation-ready results, and
+   data that workers and head nodes must reach concurrently, in the agreed
+   object store, NFS, database, or artifact service.
+
+There is no fourth durable home. `/tmp`, arbitrary home-directory folders,
+desktop paths, scratch mounts, and node-local ad hoc storage are ephemeral
+execution surfaces. If losing such a location would matter, the artifact is
+misclassified and must be promoted into one of the three homes.
+
+Before writing a durable file, ask one question: is this reusable source,
+project-specific working material, or a shared durable output? Do not invent
+a new placement because a new agent turn or experiment started. Canonical
+placement does not mean permanent retention; supersession above still
+applies.

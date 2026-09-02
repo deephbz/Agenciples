@@ -1,7 +1,8 @@
 # Domain Modeling & Boundaries
 
 Applies when designing a new system or API, naming concepts, defining
-schemas, or deciding whether/where to split components. Lineage: Parnas
+schemas, designing agent-facing interfaces, deciding review or gate policy,
+or deciding whether/where to split components. Lineage: Parnas
 information hiding (1972), Evans *Domain-Driven Design* (ubiquitous
 language, bounded contexts), Ousterhout *A Philosophy of Software
 Design* (deep modules), Brooks conceptual integrity, Jackson *The
@@ -33,7 +34,8 @@ Working procedure:
    supports it.** Only stable, irreducible concepts deserve to be
    public. Before callers depend on it, review the surface for intent,
    compatibility, invariants, and externally observable guarantees; an
-   early contract is not an excuse to publish guesses.
+   early contract is not an excuse to publish guesses. Compatibility
+   thereafter follows the contract, not history (verified-claims.md).
 4. **Ship through the contract; improve behind it.** A deliberate
    boundary lets urgent delivery and important hardening reinforce each
    other: ship the smallest implementation that satisfies the contract,
@@ -69,20 +71,6 @@ Two refinements from practice:
   boundaries. The invariant that survives is: how many concepts must a
   reader hold to use this correctly. Keep *that* minimal.
 
-## Compatibility follows contracts, not history
-
-Existing code does not create a compatibility requirement by itself. Preserve
-behavior only when it belongs to an accepted contract, has a verified active
-consumer, or needs an explicit migration.
-
-If none of these conditions applies, replace the old design directly. Remove
-obsolete paths instead of adding aliases, shims, fallbacks, dual reads or
-writes, legacy configuration, or migration machinery. Do not infer a consumer
-from the age or existence of code.
-
-Compatibility code must name the contract or consumer it protects. If that
-evidence is unavailable, treat compatibility as speculative complexity.
-
 ## Design interfaces for capable agents
 
 A capable agent does not need every collaboration convention encoded as a
@@ -109,27 +97,6 @@ deterministic behavior, not every distinction an agent can understand from
 context. If a proposed field neither prevents an invalid action nor enables a
 necessary machine query or transition, it is probably prose or a derived
 projection rather than core schema.
-
-## One truth, audience-fit projections
-
-One authoritative semantic record can support different interfaces without
-acquiring different meanings:
-
-- **Model-facing content** uses a validated schema. It is decision-complete for
-  the next reasoning step and deliberately economical with context.
-- **Machine and trace records** preserve exact structured state, identifiers,
-  versions, provenance, receipts, and other data needed for deterministic
-  composition, reconstruction, and QA.
-- **Human-facing views** exploit human perceptual strengths: hierarchy,
-  progressive disclosure, spatial layout, comparison, visualization,
-  animation, and, where it adds real signal, sound.
-
-These are projections, not independent authorities. They can change shape on
-separate schedules without changing domain semantics. Test each projection
-independently so an omission, dense encoding, or renderer defect cannot hide a
-decisive fact. A terse model result or visual dashboard must link back to the
-machine record and ultimately to its evidence; a renderer must not silently
-invent domain state.
 
 ## Gates encode invariants, not ceremony
 

@@ -134,58 +134,19 @@ Review the actual net change, not the sequence of agent turns, intermediate
 attempts, or conversational explanations. If a modification does not belong
 to the stated intent, change the graph or the diff.
 
-## Narrate relative to the baseline and audience
-
-This section is the authority for the residue test and baseline-relative
-narrative; the skill principles and `agent-continuity.md` point here.
-
-Agent turns are episodic: each turn, and especially each turn after a context
-compaction, naturally overweights the immediately preceding state, so a
-rejected intermediate attempt can feel like the beginning of the story. That
-makes a common failure mode look locally reasonable:
-`A requested → A+B implemented → B rejected → B removed`, followed by a
-comment, design note, or evergreen-doc explanation that the system
-"intentionally avoids B". From the actual product base, however, B may never
-have been part of the accepted design. The correct durable story is simply
-`base → A`, unless B is an accepted historical alternative that the audience
-genuinely needs to understand.
+## Keep descriptions evergreen and evidence historical
 
 Rejected designs and failed attempts are historical evidence. Preserve them
 in VCS operation history, task history, or an append-only journal when they
-remain useful. Current descriptions are working context: remove stale
-terminology, transitional abstractions, accidental compatibility layers, and
-migration stories for designs that were never accepted. This separation makes
-context recovery reliable: history explains what occurred, while the
-description states what still matters (the three information classes in
-`agent-continuity.md`).
+remain useful. Do not keep them in the current change description as though
+they are part of the accepted system.
 
-Before writing or revising a durable change description, comment, design note,
-evergreen entry, or migration narrative, recover three coordinates:
-
-1. **Audience** — who will consume this artifact and what knowledge can be
-   assumed?
-2. **Starting point** — which accepted state, revision, or mental model is the
-   audience starting from?
-3. **Final accepted state** — what is true after this semantic change?
-
-Write from those coordinates, not from conversational chronology. The same
-final state may need different projections for a maintainer familiar with an
-older release and for a new reader encountering the system fresh, but neither
-projection should inherit accidental intermediate states from the agent loop.
-
-Use the **residue test** before keeping any explanation or mechanism introduced
-by a rejected path:
-
-> If the rejected intermediate state had never existed, would this comment,
-> abstraction, compatibility path, test, or explanation still be necessary?
-
-If not, remove it from the current semantic change. Keep the rejected path only
-where history itself is useful evidence.
-
-The operational shorthand is: **write as if the wrong turn never happened.**
-This is narrative hygiene, not history deletion. It is the continuity
-equivalent of a base-relative diff: narratives are baseline-relative and
-audience-relative, not turn-relative.
+The change description is working context. Write it from the audience's
+accepted baseline and the final accepted state, and apply the residue test
+to the change itself: a comment, abstraction, compatibility path, test, or
+explanation that exists only because of a rejected intermediate design is
+removed. The coordinates, the worked example, and the test itself live in
+source-allocation.md under "Write from the audience's baseline".
 
 ## Rewrite and publication
 

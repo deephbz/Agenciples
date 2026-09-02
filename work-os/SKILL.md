@@ -1,166 +1,195 @@
 ---
 name: work-os
-description: Work OS playbooks for research-heavy, agent-assisted engineering. Use for starting or reviewing non-trivial work — designing a module/API/system, naming domain concepts, drawing component boundaries, establishing an artifact's purpose/scope/invariants, starting or resuming implementation, identifying a base revision, deciding whether work should amend, split, or stack, reviewing base-relative changes, building or debugging data/ML pipelines, deciding what to version/cache/persist/delete or where artifacts should live, deciding whether a spec or procedure should live in docs, types, or scripts, judging whether tests/linters/CI fit the project's stage, reviewing an interface or a research conclusion, running experiments or analyses, producing research outputs (reports, notebooks, charts, dashboards), or setting up agent workflows/skills/memory — even if the user never says "work os". Load it before writing code from scratch or answering "how should I structure this".
+description: Decision guide for research-heavy, agent-assisted engineering. Use before designing a system, API, or pipeline; naming concepts; starting or resuming implementation; deciding amend vs sibling vs stack; reviewing an interface, a change, or a research conclusion; running experiments or analyses; producing reports, notebooks, charts, or dashboards; deciding what to version, persist, or delete and where it lives; deciding whether a spec lives in docs, types, or scripts; judging whether tests, linters, or CI fit the stage; or setting up agent workflows, skills, or memory. Routes each task to its smallest applicable playbook.
 ---
 
 # Work OS
 
-Eight principles govern all work here. They exist because agents made
-implementation cheap: the scarce resources now are human-governed intent,
-concept clarity, investigability, and continuity. Everything below serves
-those four.
+Agents made implementation cheap. The scarce resources are now
+human-governed intent, concept clarity, investigability, and continuity.
+Eight principles serve those four, and one meta-principle sets how strictly
+each applies. The references are the authority; the statements below are
+their shortest complete form.
 
-The references are the authoritative statement of each principle. The
-summaries below and the always-on snippet are compressed projections of them:
-when a summary and a reference disagree, the reference wins, and a rule stated
-in a reference is not repeated here unless it is a cross-cutting invariant.
+## Principles
 
-1. **Full-stack traceability** — abstractions must be investigable.
-   Clean default output, plus a trace mode exposing intermediate state
-   and provenance. Keep raw records and anchor important claims to an
-   external verification signal; a trace or document is not proof of
-   correctness.
-2. **Ontology-first design** — model the domain's irreducible nouns,
-   verbs, and relations before designing APIs or generating code. Good
-   ontology yields the smallest safe, stable public contract: it preserves
-   caller intent, compatibility, and externally observable guarantees while
-   implementations evolve behind it. Review interfaces harder than
-   implementations.
-3. **Artifact-first, backend-first** — work starts from a durable
-   written problem artifact and ends with a durable result artifact
-   whose canonical form is machine-operable; visuals are renderings.
-   Version-control the full source bundle (code, configs, prompts,
-   plans, evaluators), persist final artifacts, and treat intermediate
-   retries/materializations as disposable unless they carry distinct
-   experimental or audit value. Keep one canonical generation; while a
-   candidate awaits ratification, at most keep the latest useful predecessor,
-   then garbage-collect superseded runs. Expose reasoning/data lineage as
-   reviewable graphs. Idea/data diagrams and the evergreen doc are first-class
-   authored artifacts: diagrams agreed before development starts and refreshed
-   at milestones, not drawn after the software exists.
-4. **Single source of truth, fluid representation** — every fact,
-   spec, or procedure has one authoritative home, and that home
-   migrates as work matures: shaping-stage truth lives in docs and
-   diagrams; once interfaces stabilize it moves into types and public
-   APIs, and docs trim to intent plus pointers. When the same spec lives
-   in both a doc and code, one is already stale. Natural and
-   programming language read the same to agents but differ in
-   verifiability and reliability — allocate deliberately and
-   re-allocate as procedures harden (SOP doc → script → library).
-   Keep the bridge bidirectional: typed APIs carry intent into code;
-   actionable runtime outcomes carry stable identifiers and pointers
-   back to authoritative guidance. Physical placement also has one of three
-   canonical homes: repository for reusable/versioned source, project-local
-   workspace for task-specific scaffolding, shared artifact storage for durable
-   or distributed outputs; scratch locations are ephemeral only.
-5. **One truth, baseline- and audience-fit projections** — keep one
-   authoritative semantic record, then derive separate views for each consumer
-   and starting point. Agent turns are episodic, so before writing durable
-   prose recover the audience, its accepted baseline, and the final accepted
-   state, and write from those rather than from the sequence of agent turns.
-   Residue test: if a rejected intermediate state had never existed, would
-   this explanation still be needed? If not, it belongs in historical
-   evidence at most, never in current prose. Model-facing content is
-   validated, decision-complete, and economical with context. Machine and
-   trace records preserve exact structured state, provenance, versions, and
-   receipts. Human interfaces use hierarchy, progressive disclosure,
-   comparison, visualization, and sound when useful. Test each projection
-   independently. A projection can change form, but it must not invent domain
-   state or become a competing authority.
-6. **Stage-calibrated rigor ("where are we?")** — establish the
-   project's lifecycle stage before choosing practices: infer it, ask
-   when ambiguous, declare it in the evergreen doc. Exploration wants
-   glue scripts and fast insight to discover the right shape;
-   extensive unit tests before the shape exists are tautological;
-   linters, formatters, and CI/CD earn their keep once work is
-   functional, performant, and heading for a PR. Stage lowers the
-   formality of verification anchors, never their existence.
-7. **Intent-preserving change composition** — organize implementation
-   as explicit semantic changes with an exact base and declared
-   dependencies. Before editing, inspect pending work for overlap in
-   files, interfaces, and concepts. Amend refinements to the same
-   intent; create a separate change for distinct intent; stack it when
-   it requires pending work; escalate conflicting sibling designs.
-   Review the isolated contribution relative to its base and dependency
-   frontier, then verify it in the integration state. Rewrite each
-   change toward the final accepted design, not its editing history,
-   applying the residue test from principle 5 to the change itself: a
-   comment, compatibility path, test, or explanation that exists only because
-   of a rejected intermediate design is removed from the current change.
-8. **Governing intent and scope** — every durable artifact carries a
-   lightweight governance envelope expressing why it exists, what
-   responsibility it owns, and the boundaries, invariants, or non-goals future
-   work must respect. This material preserves human judgment that cannot be
-   reconstructed from implementation; it does not restate signatures or API
-   reference. Agents may freely optimize implementation inside the envelope,
-   but materially broadening, repurposing, or moving the envelope is an
-   escalation event for deliberate review. Governance evolves, but never
-   silently.
+**Stage calibration (meta).** Before choosing practices, infer or ask the
+project's lifecycle stage (shaping, exploration, consolidation, hardening,
+sharing), declare it in the evergreen doc, and re-evaluate at milestones,
+per component rather than per repository. Every practice has a stage
+window: tests and abstraction at consolidation, linters and CI at sharing,
+glue code correct at exploration and debt afterwards. Stage lowers the
+formality of every other principle's demands, never their existence.
+
+### Human-governed intent
+
+1. **Ontology-first design.**
+   - Write the glossary of the domain's irreducible nouns, verbs, and
+     relations before designing APIs or generating code. Encode
+     behavior-affecting distinctions in types, not prose. Let the smallest
+     safe, stable public contract emerge from that ontology, then ship
+     through it and improve behind it.
+   - Interfaces carry human intent and implementations are the agents'
+     search space. Review interfaces harder than implementations. Tests and
+     evaluation criteria are part of the source: an agent loop without an
+     evaluator optimizes an unstated objective.
+   - Design agent-facing interfaces for capable reasoning, not as workflow
+     forms: few semantically stable verbs, schema only for the coordinates
+     safe composition needs, goals and constraints in prose, locking and
+     retries hidden behind the contract. Review is a risk-based choice the
+     assigner makes; a harness blocks execution mechanically only where a
+     demonstrated invariant requires it.
+   - Draw component boundaries by semantic cohesion first, change velocity
+     second, non-functional constraints third, except that an irreversible
+     constraint is co-equal with cohesion.
+2. **Governing intent and scope.** Attach a small governance envelope
+   (purpose, scope and responsibility, invariants, non-goals, status) at the
+   artifact's local boundary in its native representation, stating only what
+   implementation cannot express. Broadening, repurposing, or moving the
+   envelope is an escalation for human review; implementation inside it is
+   free.
+
+### Concept clarity
+
+3. **Single source of truth, literate expression.**
+   - Every fact, spec, or procedure has exactly one authoritative home with
+     pointers in both directions; if a doc and code both hold it, one is
+     already stale. That home migrates as work matures: from docs and
+     diagrams into types and public APIs as interfaces stabilize, and from
+     SOP to script to library as procedures harden, because code is
+     executable and testable where prose is only reviewable.
+   - Natural and programming language are one medium to an agent. Choose
+     per statement: code where a compiler, type checker, or test verifies it
+     cheaply; prose where it says the same thing shorter or judgment is
+     required.
+   - Durable language is judged by description length: the same information
+     in the fewest, plainest words or constructs. Short sentences, one
+     meaning per term, Simplified Technical English as the prose register,
+     names held to the same standard.
+   - Interleave prose with code. Maintainer material that is short and
+     code-adjacent lives in the source; a separate maintainer document
+     exists only when it is long or cross-cutting. User-facing documents
+     state what, why, and how.
+   - Write from the audience's accepted baseline and the final accepted
+     state, never from the sequence of agent turns. Residue test: if a
+     rejected intermediate state had never existed, would this sentence,
+     comment, test, or compatibility path still be needed? If not, it goes
+     to historical evidence at most.
+
+### Investigability
+
+4. **Traceable computation.**
+   - Scope: computations whose correctness depends on the meaning of the
+     data and of each step. Semantic ETL and analysis pipelines where joins,
+     filters, and aggregations rely on column semantics, and deep multi-step
+     derivations behind a simple output. Operating the pipeline (running a
+     script, editing code, an ad hoc analysis run) is out of scope.
+   - In-scope computations expose a clean default output and an opt-in trace
+     that lets a reader descend into any step: inputs, semantic assumptions,
+     treatments, intermediate state, config, code version, like inspecting a
+     Dask or PyTorch graph node by node. Recurring ad hoc inspection of the
+     same state is a missing trace API.
+   - A pipeline node's identity is semantic (input versions, parameters,
+     code, environment). A persisted intermediate is a materialized view;
+     "the file exists" is not "the result is valid". Raw records are
+     authoritative, summaries are derived.
+   - Provenance rides on persisted results, not on operations. A result
+     that outlives the session carries its data or pointer, config, code
+     version, environment, and the anchor checked. Hashes, revisions,
+     receipts, and catalogues are administrative bookkeeping: produce them
+     only when part of the product or when asked, and never redo semantic
+     work because bookkeeping is stale.
+5. **Verified claims.**
+   - A trace, a document, a memory, or a test that restates a declaration is
+     not proof. Every important claim has an external anchor: a prediction
+     written before the run, a spot-check, a golden output, a benchmark, a
+     property check, an independent reimplementation, or explicit human
+     review. Where none is feasible yet, the artifact says so and the claim
+     is provisional. Formality scales with stage; existence does not.
+   - Every check and every compatibility path must name the plausible
+     failure it uniquely detects. Do not test defaults, constants, mappings,
+     types, or delegation. Compatibility protects an accepted contract, a
+     verified consumer, or an explicit migration, nothing else.
+   - Evidence from unchanged code, inputs, tools, and environment stays
+     valid. Rerun only for a named delta, a freshness need, a prior failure,
+     known nondeterminism, or a mandatory integration gate.
+
+### Continuity
+
+6. **Artifact-first, backend-first.**
+   - Work starts from a written problem artifact, passes through a reviewed
+     plan whose idea and data diagrams are authored before development and
+     refreshed at milestones, and ends with a result artifact. Chat is
+     transport. An artifact counts as thinking only if it adds connections,
+     tensions, or claims not already in its sources.
+   - The canonical form of a result is machine-operable: data or a pointer
+     to it, config, code version, interpretation. Visuals are renderings; a
+     chart whose dataframe is gone is a screenshot.
+   - One authoritative record serves three consumers through derived views.
+     Model-facing content is validated, decision-complete, and economical
+     with context. Machine-facing records keep exact state, provenance,
+     versions, and receipts. Human-facing views exploit perception:
+     hierarchy, disclosure, comparison, visualization, sound. Views are
+     tested independently and never become a competing authority. Backends
+     own the first two faces, frontends the third.
+   - Version the full source bundle, including the natural-language
+     instructions needed to reproduce. Persist final artifacts in one
+     canonical home. Treat intermediates and retries as disposable.
+7. **Intent-preserving change composition.** Before editing, resolve the
+   exact base revision and inspect pending changes for conceptual overlap;
+   amend for the same intent, create a sibling for independent intent, stack
+   for dependent intent, escalate for competing intent. Review the isolated
+   contribution against its base and dependency frontier and the integrated
+   result separately, and rewrite each change toward its final accepted
+   design, applying the residue test to code, tests, and compatibility
+   paths.
+8. **Agent continuity.**
+   - Begin from durable artifacts and end by writing back. Keep a stable
+     task doc, an append-only journal (historical evidence), and a curated
+     evergreen doc (working context: declared stage, decisions in force,
+     status, blockers, next steps). A solved problem still in the evergreen
+     doc is a bug.
+   - Keep three information classes apart. Historical evidence records what
+     a source said and may be wrong. Working context records what still
+     matters and is corrected in place. Assessments are recomputable
+     inferences carrying provenance, freshness, and uncertainty. Never
+     destroy evidence to save a summary; never present an assessment as an
+     observation.
+   - Anything that persists as context (skills, memories, ontologies,
+     governance) is proposed by agents and ratified by a human. Continuity
+     decays: impose iteration budgets, re-anchor against the problem
+     artifact, prune on contradiction, prefer boring primitives (filesystem,
+     git, markdown, SQLite) to bespoke scaffolds.
+   - Semantic continuity is not runtime continuity. Work identity and
+     context lineage outlive any model invocation, process, host, or
+     conversation; a restart or model change does not create a work
+     boundary.
 
 ## Scenario routing
 
-Read the reference for the scenario at hand before doing the work, not
-after. Load at most what the task needs.
+Read the reference for the scenario at hand before doing the work. Load at
+most what the task needs. Tasks often span two scenarios; read both.
 
 | Scenario | Read |
 |---|---|
-| Designing/refactoring a module or pipeline; debugging "why is this number wrong"; adding observability; cache/materialization semantics | [references/traceable-computation.md](references/traceable-computation.md) |
-| New system or API design; naming concepts; schema design; deciding component boundaries or whether to split; reviewing an interface | [references/domain-modeling.md](references/domain-modeling.md) |
-| Research work: framing a question, running experiments, analyzing data, writing up results, producing charts/notebooks/reports; deciding what to version vs persist vs discard; distinguishing variants from retries; reviewing a research conclusion | [references/research-artifacts.md](references/research-artifacts.md) |
-| Agent workflow setup: writing skills, memory files, CLAUDE.md/AGENTS.md content, multi-session or multi-agent continuity; recovering audience/baseline after episodic turns | [references/agent-continuity.md](references/agent-continuity.md) |
-| Deciding where a spec or procedure lives (doc vs diagram vs types vs script); deciding repository vs project-local vs shared artifact storage; trimming docs after APIs stabilize; hardening an SOP/skill into scripts or libraries; docs↔code cross-pointers | [references/source-allocation.md](references/source-allocation.md) |
-| Starting or resuming implementation; identifying semantic overlap; deciding amend vs split vs stack; reviewing concurrent or base-relative work; rewriting a change without residue from rejected intermediate designs | [references/semantic-changes.md](references/semantic-changes.md) |
-| Creating or materially editing a durable document/module/script/notebook/interface; defining purpose, scope, responsibility, invariants, non-goals, or deciding whether a requested change moves a responsibility boundary | [references/governing-intent.md](references/governing-intent.md) |
-| Kicking off or joining work: determining the project's lifecycle stage; deciding whether tests, linters, CI/CD, refactors, or abstraction are appropriate yet | [references/stage-calibration.md](references/stage-calibration.md) |
-| Explicitly designing or reviewing an agent harness | [the canonical human-facing harness rationale](../README.md#designing-the-harness-around-the-human), then the relevant references above |
-
-Tasks often span two scenarios (e.g. a new experiment pipeline is both
-domain-modeling and research-artifacts). Read both; they are short.
-
-## Cross-cutting invariants
-
-These hold in every scenario and are not owned by any single principle
-above:
-
-- **Use risk-proportional change and verification.** Every added mechanism and
-  check must address a current, named risk. Compatibility protects an accepted
-  contract, a verified active consumer, or an explicit migration; it is not a
-  precaution for obsolete or rejected designs. Before adding or repeating a
-  check, name the plausible failure it uniquely detects. Do not mirror a
-  declaration in a unit test, and reuse evidence when the relevant code,
-  inputs, tools, and environment have not changed. The detailed compatibility
-  and verification rules live in domain-modeling.md and stage-calibration.md.
-- **Anchor to a verification signal.** A trace, a doc, or a memory is
-  not truth. Code with full architecture docs and passing tests can
-  still be wrong by orders of magnitude (traceable-computation.md). Every
-  important claim needs an external
-  anchor: a benchmark, a spec check, a test against known-good output,
-  or explicit human review. If no anchor exists, say so in the artifact.
-  The anchor's formality scales with stage — a spot-check in
-  exploration, a test suite at hardening — but its existence does not
-  (stage-calibration.md).
-- **Separate evidence, working context, and assessment.** Historical
-  evidence preserves source records and observations, which may be
-  incomplete or wrong. Current working context records what still matters
-  and is corrected or superseded as understanding changes. Assessments and
-  projections record what is currently inferred; keep them recomputable and
-  label their provenance, freshness, uncertainty, and derivation version.
-  Never destroy evidence to save a summary, and never present an assessment
-  as an observed fact (agent-continuity.md).
-- **Human quality gate on anything that persists.** Model-generated
-  skills, memories, ontologies, and governance changes are net-negative without
-  human curation. Propose; let the human ratify before they become durable
-  context.
+| Kicking off or joining work; deciding whether tests, linters, CI, refactors, or abstraction are appropriate yet | [references/stage-calibration.md](references/stage-calibration.md) |
+| New system or API design; naming concepts; schema design; component boundaries; agent-facing interfaces; review and gate policy; reviewing an interface | [references/domain-modeling.md](references/domain-modeling.md) |
+| Creating or materially editing a durable document, module, script, notebook, or interface; defining purpose, scope, invariants, non-goals; deciding whether a change moves a responsibility boundary | [references/governing-intent.md](references/governing-intent.md) |
+| Deciding where a spec or procedure lives (doc, diagram, type, script); trimming docs after APIs stabilize; hardening an SOP into scripts; writing docstrings, comments, design notes, or change descriptions; user-facing vs maintainer-facing docs | [references/source-allocation.md](references/source-allocation.md) |
+| Designing or refactoring a data or computation pipeline; debugging "why is this number wrong"; cache and materialization semantics; deciding what to log or persist; deciding whether bookkeeping is warranted | [references/traceable-computation.md](references/traceable-computation.md) |
+| Deciding what counts as proof; whether a test, check, or compatibility path is worth its cost; whether to rerun evidence; reviewing a research conclusion | [references/verified-claims.md](references/verified-claims.md) |
+| Research work: framing a question, running experiments, analyzing data, writing up results, producing charts, notebooks, reports, dashboards; deciding what to version, persist, or discard and where; variants vs retries | [references/research-artifacts.md](references/research-artifacts.md) |
+| Starting or resuming implementation; identifying semantic overlap; amend vs sibling vs stack; reviewing concurrent or base-relative work | [references/semantic-changes.md](references/semantic-changes.md) |
+| Agent workflow setup: skills, memory files, CLAUDE.md or AGENTS.md content; multi-session or multi-agent continuity; work identity across restarts | [references/agent-continuity.md](references/agent-continuity.md) |
 
 ## Provenance
 
-Distilled from personal "Work OS" essays (core principles plus the
-artifact-layer continuation: source bundles, intent as optimization
-target, diagrammatic lineage, semantic-change discipline, narrative and
-artifact hygiene, and governing scope). The first six principles were
-cross-checked against a methodology review of ~80 curated sources mapping them
+Distilled from personal "Work OS" essays. The ontology, artifact,
+source-of-truth, traceability, stage, and continuity principles were
+cross-checked against a methodology review of about 80 sources mapping them
 to established lineages: Parnas, Evans (DDD), Ousterhout, Brooks, Knuth,
-Luhmann, Hamming, Hunt & Thomas (DRY), Shape Up, Dapper/OpenTelemetry, W3C PROV,
-and the emerging context-engineering canon. Intent-preserving change
-composition and governing intent/scope are current syntheses from direct
-agentic workflow reflection; their external literature review is pending.
+Luhmann, Hamming, Hunt & Thomas (DRY), Shape Up, Dapper/OpenTelemetry, W3C
+PROV, and the emerging context-engineering canon. Change composition,
+governing intent, literate expression, and the traceability scope rule are
+syntheses from direct agentic workflow reflection, the last one informed by
+forward-implementation-first; their external literature review is pending.

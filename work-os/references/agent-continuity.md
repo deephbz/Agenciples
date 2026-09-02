@@ -48,12 +48,14 @@ or later agent to recover the evidence instead of trusting the label.
   superseded blockers — historical evidence, never rewritten) and a
   curated **evergreen doc** (the declared lifecycle stage, decisions
   still in force, latest status, pending problems, current blockers,
-  next steps — working context, ruthlessly pruned). This is the evidence / working-context
+  next steps — working context, ruthlessly pruned). The idea DAG's
+  rejected paths (research-artifacts.md) are historical evidence too;
+  keeping them there and out of current descriptions is not a conflict. This is the evidence / working-context
   separation above, made concrete as files. When a problem is solved,
   its story stays in the journal and it leaves the evergreen doc; a
   solved problem or dead blocker still sitting there is a bug. The
   next session boots from the evergreen doc and consults the journal
-  only when it needs to know *why*. Density runs diagram < evergreen
+  only when it needs to know *why*. Detail runs diagram < evergreen
   doc < journal: the diagram holds only critical concepts
   (research-artifacts.md), the evergreen doc slightly more, the
   journal everything.
@@ -66,12 +68,22 @@ or later agent to recover the evidence instead of trusting the label.
 ## Recover the audience and starting point
 
 Durable artifacts must not inherit the local perspective of the agent turn
-that wrote them. Before producing or revising the evergreen doc, memory files,
-or any other current-facing prose, recover the audience, its accepted starting
-point, and the current accepted state, and apply the residue test. The
-procedure and the worked example live in `semantic-changes.md` under "Narrate
-relative to the baseline and audience"; the outcome here is that a rejected
-attempt leaves the evergreen doc and survives, if at all, only in the journal.
+that wrote them. Before revising the evergreen doc, memory files, or any
+other current-facing prose, recover the audience, its accepted starting
+point, and the current accepted state, and apply the residue test
+(source-allocation.md, "Write from the audience's baseline"). The outcome
+here: a rejected attempt leaves the evergreen doc and survives, if at all,
+only in the journal.
+
+## Semantic continuity is not runtime continuity
+
+Work identity and context lineage may outlive any model invocation, process,
+terminal, host, or conversation. A crash, restart, relocation, or model
+change does not by itself create a new semantic boundary, and one durable
+project may intentionally span many conversations and executions. Model work
+identity, context lineage, reasoning execution, runtime process, location,
+and external aliases as distinct concepts whenever their lifecycles differ.
+Otherwise operational accidents become false boundaries in the work.
 
 ## What makes persisted context good
 

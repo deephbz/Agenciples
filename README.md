@@ -2,9 +2,9 @@
 
 **Principles for agents and for the humans who design their harnesses.**
 Agenciples has two audiences: agent-facing instructions, progressively
-disclosed as an always-on snippet, a routing skill, and scenario playbooks;
-and human-facing guidance for shaping agentic work systems without mistaking
-tool activity for useful work.
+disclosed as an always-on trigger map, a routing skill, and scenario
+playbooks; and human-facing guidance for shaping agentic work systems
+without mistaking tool activity for useful work.
 
 ## Why
 
@@ -20,22 +20,26 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-The agent-facing package encodes eight principles targeting exactly those
-scarcities, each with the failure modes that show up in practice (a trace is
-not a verification; summaries corrupt, keep raw; model-generated memory needs
-a human gate; a doc that duplicates stabilized code is already stale; tests
-written before the shape exists are tautological; rejected intermediate designs
-should not leak into current narratives; superseded retries should not become a
-permanent artifact graveyard; scope changes must be explicit).
+The agent-facing package encodes eight principles grouped under those four
+scarcities, plus a meta-principle (stage calibration) that sets how strictly
+each applies. Each carries the failure modes that show up in practice: a
+trace is not a verification; tracing the operation instead of the
+computation; summaries corrupt, keep raw; model-generated memory needs a
+human gate; a doc that duplicates stabilized code is already stale; tests
+written before the shape exists are tautological; rejected intermediate
+designs leak into current narratives; superseded retries become a permanent
+artifact graveyard; scope changes happen silently.
 
-None of this is new — deliberately. The first six principles map onto
-long-established lineages: Parnas information hiding, Domain-Driven Design,
-Ousterhout's deep modules, Hunt & Thomas's DRY, Knuth's literate programming,
-Luhmann's Zettelkasten, Hamming, Basecamp's Shape Up, distributed tracing, W3C
-PROV, and the emerging context-engineering canon. The seventh and eighth
-distill current workflow reflections around semantic VCS changes and governing
-intent/scope; their external literature review is pending. The contribution is
-the packaging: methodology shaped for consumption by humans *and* agents
+None of this is new, deliberately. Ontology-first design, artifact-first
+work, single source of truth, traceable computation, stage calibration, and
+agent continuity map onto long-established lineages: Parnas information
+hiding, Domain-Driven Design, Ousterhout's deep modules, Hunt & Thomas's DRY,
+Knuth's literate programming, Luhmann's Zettelkasten, Hamming, Basecamp's
+Shape Up, distributed tracing, W3C PROV, and the emerging context-engineering
+canon. Governing intent, intent-preserving change composition, literate
+expression, and the traceability scope rule distill current workflow
+reflection; their external literature review is pending. The contribution
+is the packaging: methodology shaped for consumption by humans *and* agents
 sharing one harness, while keeping their different needs explicit.
 
 ## Designing the harness around the human
@@ -49,137 +53,103 @@ responsibilities, tools, storage, or dashboards. This keeps the system aimed
 at attention quality, context recovery, and continuity of deep work rather
 than maximizing visible agent motion.
 
-Human attention becomes durable only when it is converted into governing
-material: the purpose, scope, responsibility, invariants, and non-goals that
-future agent turns should not have to rediscover. Put that judgment close to
-the artifact it governs — Markdown front matter or a short governing header,
-module or notebook docstrings, or an interface-level contract where a genuine
-responsibility boundary exists. This is not an API synopsis: agents can already
-read signatures and implementations. The valuable information is why the
-artifact exists and what it is allowed to become. Implementation may churn
-inside that envelope; changing the envelope itself should be surfaced for
-deliberate review.
-
-Keep semantic continuity separate from runtime continuity. Semantic work
-identity and context lineage may outlive any given model invocation, process,
-terminal, host, or other replaceable carrier. A crash, restart, relocation,
-or model change must not by itself create a new semantic boundary, while one
-durable project may intentionally span many conversations and executions.
-Model work identity, context lineage, reasoning execution, runtime process,
-location, and external aliases as distinct concepts whenever their lifecycles
-differ. Otherwise operational accidents become false boundaries in the work.
-
-Design agent-facing interfaces for capable reasoning, not as workflow forms
-that attempt to anticipate every future case. Expose a small set of
-semantically stable verbs; give their schemas only the structured coordinates
-needed for safe, unambiguous composition; and carry rich task intent,
-constraints, and criteria in prose the agent can interpret. Locking, retries,
-graph validation, history, and receipts belong behind that small contract.
-Likewise, review is a risk-based collaboration choice rather than a universal
-stage: the assigner asks for it on complex or high-risk work, while simple work
-proceeds directly. A harness should mechanically block execution only when a
-demonstrated invariant requires enforcement.
-
-Do not make one representation serve agents, machines, and humans equally
-badly. An agent-visible projection should preserve the meaning needed for
-reasoning while spending context deliberately. A machine-facing projection
-should retain complete structured state, provenance, versions, and receipts.
-A human-facing projection should exploit human perception through hierarchy,
-layout, comparison, visualization, and, where it genuinely helps, sound. These
-are projections of shared authoritative records, not three competing sources
-of truth; each should remain traceable back to the same underlying evidence.
-A projection can change its shape without changing domain semantics, but test
-that projection independently so omission or rendering cannot hide a decisive
-fact. Source allocation decides where authority lives over time; audience-fit
-projection decides how one current authority serves different consumers.
-
-Audience alone is not enough: every durable narrative also has a starting
-point. Agent turns are episodic, so the immediately previous attempt can
-accidentally become the implied baseline. Recover the audience's accepted
-starting state before writing. If the task was A, an agent temporarily produced
-A+B, and B was rejected, the current design normally describes A directly;
-prose about "avoiding B" is residue unless that alternative is genuinely part
-of the audience's history. Diffs are base-relative; narratives should be
-baseline-relative.
-
-Artifact hygiene follows the same distinction between semantic value and
-execution history. Intentional variants — controls, ablations, parameter
-sweeps, competing implementations — deserve durable identity. Ordinary retries
-do not. Keep one canonical generation, temporarily one useful predecessor while
-a candidate awaits ratification, and garbage-collect superseded runs after
-promotion. Every surviving artifact also gets one canonical placement:
-repositories for reusable/versioned source, a project-local workspace for
-one-off imperative scaffolding, or shared artifact storage for durable,
-presentation-ready, large, or distributed outputs. Scratch paths such as
-`/tmp` are execution surfaces, never authority.
-
-This README is the canonical human-facing explanation. Agents do not need it
-for ordinary work, but when explicitly designing or reviewing an agent
-harness they should read this rationale before selecting its abstractions.
+The rules that follow from that stance live in the playbooks, where agents
+can load them: governance envelopes close to the artifact
+([governing-intent.md](work-os/references/governing-intent.md)); agent-facing
+interfaces with few verbs, schema for coordinates, prose for meaning, and
+review as a risk-based policy rather than a universal gate
+([domain-modeling.md](work-os/references/domain-modeling.md)); one
+authoritative record with model-, machine-, and human-facing views, and one
+canonical home per artifact
+([research-artifacts.md](work-os/references/research-artifacts.md));
+baseline-relative narrative and the residue test
+([source-allocation.md](work-os/references/source-allocation.md)); and the
+separation of semantic continuity from runtime continuity
+([agent-continuity.md](work-os/references/agent-continuity.md)). A human
+designing a harness should read those five before selecting abstractions.
 
 ## Agent-facing structure (progressive disclosure)
 
 | Level | File | When it's in context |
 |---|---|---|
-| 0 | [AGENTS-snippet.md](AGENTS-snippet.md) | Always — one paragraph for your global instructions file |
-| 1 | [work-os/SKILL.md](work-os/SKILL.md) | When the skill triggers — scenario routing + cross-cutting invariants |
-| 2 | [work-os/references/](work-os/references/) | On demand — one playbook per scenario |
+| 0 | [AGENTS-snippet.md](AGENTS-snippet.md) | Always — a trigger map for your global instructions file |
+| 1 | [work-os/SKILL.md](work-os/SKILL.md) | When the skill triggers — the principles at their shortest complete form, plus scenario routing |
+| 2 | [work-os/references/](work-os/references/) | On demand — one playbook per scenario, the authority for procedure |
 
-The eight playbooks:
+The nine playbooks, one per router row:
 
+- [stage-calibration.md](work-os/references/stage-calibration.md) — "where
+  are we?": the shaping → exploration → consolidation → hardening → sharing
+  ladder, stage windows for tests, linters, CI, and abstraction, premature
+  vs overdue rigor.
+- [domain-modeling.md](work-os/references/domain-modeling.md) —
+  glossary-first ontology design, distinctions into types, the smallest safe
+  contract, interfaces for capable agents, gates that encode invariants
+  rather than ceremony, intent as the optimization target, the three-force
+  ordering for component boundaries.
+- [governing-intent.md](work-os/references/governing-intent.md) —
+  governance envelopes: purpose, scope, invariants, non-goals; local
+  placement; not API reference; scope change as an escalation event; review
+  order envelope, surface, implementation.
+- [source-allocation.md](work-os/references/source-allocation.md) — one
+  home per fact, truth migrating from docs into types, natural vs
+  programming language as one medium chosen by verifiability, minimal
+  description length and Simplified Technical English, interleaved
+  maintainer notes, user-facing vs maintainer-facing documents, writing
+  from the audience's baseline, the residue test, the hardening gradient.
 - [traceable-computation.md](work-os/references/traceable-computation.md)
-  — dual-mode interfaces, canonical run records, raw-first provenance,
-  semantic DAGs with materialization transparency (a cache is a view,
-  not a result), and why traceability still needs a verification
-  anchor.
-- [domain-modeling.md](work-os/references/domain-modeling.md)
-  — glossary-first ontology design, distinctions into types, minimal
-  cognitive surface, compatibility only for accepted contracts or verified
-  consumers, small safe contracts that let implementations evolve, interfaces
-  for capable agents, audience-specific projections, risk-based rather than
-  ceremonial review, intent as the optimization target (review interfaces
-  harder than implementations), and a three-force ordering for component
-  boundaries.
-- [research-artifacts.md](work-os/references/research-artifacts.md)
-  — the problem → plan → result artifact chain, source-to-artifact
-  discipline (version the bundle, persist the artifact, discard the
-  intermediates), supersession-based retention (variants survive; retries are
-  replaced; promotion garbage-collects predecessors), diagram-first lineage
-  (idea DAG + data DAG authored before development, refreshed at milestones,
-  reviewed as the interface), the transformation test, backend-first
-  dual-display results, predict-before-run.
-- [agent-continuity.md](work-os/references/agent-continuity.md)
-  — start from artifacts and write back, separate historical evidence
-  from current working context and recomputable assessment, recover the
-  audience and starting point instead of narrating from the previous agent
-  turn, the evergreen doc / journal split, human-gated persistence,
-  re-anchoring against decay, betting on durable primitives.
-- [source-allocation.md](work-os/references/source-allocation.md)
-  — single source of truth with fluid representation: truth migrates
-  from docs and diagrams into types and public APIs as work stabilizes
-  (docs trim to intent plus pointers), the three canonical artifact homes
-  (repository, project-local workspace, shared artifact storage), bidirectional
-  bridges that route semantic runtime outcomes back to authoritative guidance,
-  natural vs programming language allocated by verifiability and reliability
-  rather than habit, and the SOP → script → library hardening gradient.
-- [semantic-changes.md](work-os/references/semantic-changes.md)
-  — intent-preserving change composition: exact product bases, declared
-  dependency frontiers, overlap classification, amend vs split vs stack,
-  isolated and integrated review surfaces, baseline- and audience-relative
-  narrative, the rejected-path residue test, evergreen descriptions, and
-  rewriteable implementation history.
-- [governing-intent.md](work-os/references/governing-intent.md)
-  — lightweight governance envelopes for durable artifacts: purpose, scope,
-  responsibility, invariants and non-goals; local representation in front
-  matter/docstrings/notebook headers; the distinction between governance and
-  tautological API reference; and explicit escalation when a change moves the
-  envelope itself.
-- [stage-calibration.md](work-os/references/stage-calibration.md)
-  — "where are we?": infer or ask the project's lifecycle stage before
-  choosing practices; the shaping → exploration → consolidation →
-  hardening → sharing ladder, checks that detect independent risk, evidence
-  reuse, stage windows for tests/linters/CI, premature vs overdue rigor, and
-  why verification anchors survive every stage.
+  — scope (the computation, not the operation), the semantic /
+  validation / bookkeeping split, dual-mode interfaces, semantic DAGs and
+  materialization transparency, provenance on persisted results, the
+  reverse bridge from runtime outcomes to guidance.
+- [verified-claims.md](work-os/references/verified-claims.md) — a trace is
+  not a verification, the anchor menu, predict before run, checks that
+  detect independent risk, compatibility follows contracts, evidence reuse.
+- [research-artifacts.md](work-os/references/research-artifacts.md) — the
+  problem → plan → result chain, the transformation test, source bundle vs
+  final artifact vs intermediates, supersession-based retention, diagrams
+  first, backend-first dual display, audience-fit views, the three canonical
+  artifact homes.
+- [semantic-changes.md](work-os/references/semantic-changes.md) — exact
+  product bases, dependency frontiers, amend vs sibling vs stack, isolated
+  and integrated review surfaces, evergreen descriptions, rewriteable
+  history, `jj` mapping.
+- [agent-continuity.md](work-os/references/agent-continuity.md) — three
+  information classes, start from artifacts and write back, evergreen doc
+  and journal, semantic vs runtime continuity, human-gated persistence,
+  re-anchoring against decay, durable primitives.
+
+## Composition contract (maintainers)
+
+- Level 0 is a trigger map and two invariants. It never restates a principle.
+- `work-os/SKILL.md` is the only router. Each principle appears there once,
+  at its shortest complete form. The references are the authority for
+  procedure; when a summary and a reference disagree, fix the summary.
+- Each reference owns one scenario and may point to others, but does not
+  restate their rules.
+- Add a router row and a playbook bullet here before adding a reference.
+- This README explains rationale to humans and points into the playbooks.
+  It does not carry rules the playbooks lack.
+
+### Maintenance method
+
+Use two tests before adding, merging, or rewriting a principle.
+
+- **Compression ladder.** Write the principle at five rungs: one line, two
+  sentences, three to five bullets, the current summary, the reference.
+  Label each rung's delta as stance (a commitment a reader could not
+  derive), procedure (how to carry a stance out), or padding. The natural
+  altitude is the last rung whose delta is stance. State the principle in
+  SKILL.md at that rung and nothing longer. A principle whose bullet rung
+  still adds stance is carrying more than one principle; split it. A stance
+  found only in a reference has no principle home; give it one.
+- **Mutation test.** Copy the corpus, delete one section or flip one rule,
+  and have a reader with no other context answer a probe question from the
+  copy alone. A deletion that leaves the probe answerable from the summaries
+  means the summaries carry procedure that belongs in the reference. A flip
+  that no other passage contradicts means the rule has one home, which is
+  correct. A flip that several passages contradict means the rule is
+  duplicated. Run an unmutated control to find existing conflicts.
 
 ## Install
 
@@ -187,18 +157,25 @@ For Claude Code (or any harness supporting
 [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview)):
 
 ```bash
-# 1. Add the always-on paragraph to your global instructions
-#    (append the "Work OS Principles" section from AGENTS-snippet.md
+# 1. Add the trigger map to your global instructions
+#    (append the "Work OS" section from AGENTS-snippet.md
 #     to ~/.claude/CLAUDE.md or your AGENTS.md)
 
 # 2. Install the skill
 cp -r work-os ~/.claude/skills/work-os
 ```
 
+The snippet and the skill are written for every user, so they do not know
+what your other instruction files already say. Before adopting them, read
+your `CLAUDE.md`, `AGENTS.md`, hooks, and other skills, and remove or
+reconcile any rule that duplicates or conflicts with the snippet (the
+writing register and the two invariants are the usual overlaps). Each rule
+should keep one home after integration.
+
 Adapt freely — this is a starting point meant to be edited into *your*
 working principles, not adopted verbatim. The one structural idea worth
 keeping: match the durability of an instruction to the frequency you
-need it (always-on paragraph ≪ triggered skill ≪ on-demand reference).
+need it (always-on trigger map ≪ triggered skill ≪ on-demand reference).
 
 ## License
 
