@@ -65,32 +65,13 @@ or later agent to recover the evidence instead of trusting the label.
 
 ## Recover the audience and starting point
 
-Agent turns are episodic. After several feedback cycles or a context
-compaction, the immediately preceding state can feel like the beginning of the
-story even when it was only a rejected intermediate attempt. Durable artifacts
-must not inherit that local perspective.
-
-Before producing or revising current-facing prose, identify:
-
-- **Audience** — who will read or operate from this artifact;
-- **Starting point** — the accepted state or mental model that audience begins
-  from;
-- **Current accepted state** — what is intended to remain true now.
-
-Then rewrite from those coordinates rather than patching the previous turn.
-For example, if the requested outcome was A, an agent temporarily implemented
-A+B, and the operator rejected B, the evergreen explanation normally describes
-A directly. It does not add prose about "avoiding B" unless B is an accepted
-historical alternative that the audience genuinely needs to understand.
-
-Use the counterfactual test from `semantic-changes.md`: if the rejected
-intermediate state had never existed, would this explanation, abstraction,
-compatibility path, or warning still be useful? If not, remove it from current
-working context. Preserve the attempt only in historical evidence when it is
-worth keeping.
-
-This is the continuity equivalent of a base-relative diff: **narratives are
-baseline-relative and audience-relative, not turn-relative.**
+Durable artifacts must not inherit the local perspective of the agent turn
+that wrote them. Before producing or revising the evergreen doc, memory files,
+or any other current-facing prose, recover the audience, its accepted starting
+point, and the current accepted state, and apply the residue test. The
+procedure and the worked example live in `semantic-changes.md` under "Narrate
+relative to the baseline and audience"; the outcome here is that a rejected
+attempt leaves the evergreen doc and survives, if at all, only in the journal.
 
 ## What makes persisted context good
 

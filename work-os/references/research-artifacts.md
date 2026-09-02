@@ -35,7 +35,8 @@ cosplay" — they feel like work and store nothing. When producing a
 result artifact, state at least: what was surprising, what this changes,
 what it contradicts.
 
-Decide once where each artifact type lives (e.g. a notes vault for
+Decide once which of the three canonical homes in `source-allocation.md`
+each artifact type uses (e.g. a notes vault in shared storage for
 distillation, the repo's `docs/` for artifacts coupled to code) and keep
 it consistent, so humans and agents both know where to look.
 
@@ -141,8 +142,11 @@ or, before implementation exists, imagined — type and API names when
 apt. Programming language is still language: a design that reads well
 as diagram phrases tends to yield good types, and distilling existing
 code into diagram phrases exposes its weaknesses immediately — a node
-that can't be named cleanly is a boundary drawn wrong. This is the
-cheapest interface review available (domain-modeling.md).
+that can't be named cleanly is a boundary drawn wrong, and an ontology
+flaw that does not read cleanly here will be inherited and hidden by
+generated code. This is the cheapest interface review available; it is
+the design-time test that domain-modeling.md's ontology procedure relies
+on.
 
 **Density discipline.** The diagram is the highest-density artifact in
 the chain: critical concepts and relations only. The evergreen doc may

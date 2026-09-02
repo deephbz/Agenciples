@@ -41,12 +41,10 @@ Working procedure:
    callers. Everything else stays internal where it can churn freely.
    Deep modules: small interface, substantial implementation behind it.
 
-A cheap design-time test: sketch the concept graph with candidate type
-and API names as node labels — imagined names are fine before any code
-exists. Programming language is still language; if the design does not
-read cleanly as diagram phrases, the ontology has a flaw that generated
-code will inherit and hide (see research-artifacts.md on diagrams
-first).
+A cheap design-time test: sketch the concept graph with candidate (or,
+before code exists, imagined) type and API names as node labels and check
+that it reads cleanly as diagram phrases. The rule and its rationale are
+"Diagram language is design language" in research-artifacts.md.
 
 Why this got more important, not less: agents generate thousands of
 lines frictionlessly, so implementation is no longer scarce — coherent

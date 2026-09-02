@@ -4,9 +4,6 @@ Applies when starting or resuming implementation, identifying the base
 revision, deciding whether work should amend, split, or stack, reviewing
 concurrent work, or recovering intent after a handoff or context loss.
 
-This playbook is the procedural authority. The global snippet and skill
-principle are compressed projections of it.
-
 ## Core invariant
 
 Treat the semantic change, not the workspace or editing history, as the unit
@@ -137,32 +134,33 @@ Review the actual net change, not the sequence of agent turns, intermediate
 attempts, or conversational explanations. If a modification does not belong
 to the stated intent, change the graph or the diff.
 
-## Keep descriptions evergreen and evidence historical
+## Narrate relative to the baseline and audience
+
+This section is the authority for the residue test and baseline-relative
+narrative; the skill principles and `agent-continuity.md` point here.
+
+Agent turns are episodic: each turn, and especially each turn after a context
+compaction, naturally overweights the immediately preceding state, so a
+rejected intermediate attempt can feel like the beginning of the story. That
+makes a common failure mode look locally reasonable:
+`A requested → A+B implemented → B rejected → B removed`, followed by a
+comment, design note, or evergreen-doc explanation that the system
+"intentionally avoids B". From the actual product base, however, B may never
+have been part of the accepted design. The correct durable story is simply
+`base → A`, unless B is an accepted historical alternative that the audience
+genuinely needs to understand.
 
 Rejected designs and failed attempts are historical evidence. Preserve them
 in VCS operation history, task history, or an append-only journal when they
-remain useful. Do not keep them in the current change description as though
-they are part of the accepted system.
-
-Current descriptions are working context. Remove stale terminology,
-transitional abstractions, accidental compatibility layers, and migration
-stories for designs that were never accepted. Describe design B directly if
-design A existed only as a discarded implementation attempt.
-
-This separation makes context recovery reliable: history explains what
-occurred, while the change description states what still matters.
-
-## Narrate relative to the baseline and audience
-
-Agent turns are episodic: each turn naturally overweights the immediately
-preceding state. That makes a common failure mode look locally reasonable:
-`A requested → A+B implemented → B rejected → B removed`, followed by a
-comment or design note explaining that the system "intentionally avoids B".
-From the actual product base, however, B may never have been part of the
-accepted design. The correct durable story is simply `base → A`.
+remain useful. Current descriptions are working context: remove stale
+terminology, transitional abstractions, accidental compatibility layers, and
+migration stories for designs that were never accepted. This separation makes
+context recovery reliable: history explains what occurred, while the
+description states what still matters (the three information classes in
+`agent-continuity.md`).
 
 Before writing or revising a durable change description, comment, design note,
-or migration narrative, recover three coordinates:
+evergreen entry, or migration narrative, recover three coordinates:
 
 1. **Audience** — who will consume this artifact and what knowledge can be
    assumed?
@@ -185,7 +183,9 @@ If not, remove it from the current semantic change. Keep the rejected path only
 where history itself is useful evidence.
 
 The operational shorthand is: **write as if the wrong turn never happened.**
-This is narrative hygiene, not history deletion.
+This is narrative hygiene, not history deletion. It is the continuity
+equivalent of a base-relative diff: narratives are baseline-relative and
+audience-relative, not turn-relative.
 
 ## Rewrite and publication
 

@@ -10,6 +10,11 @@ implementation cheap: the scarce resources now are human-governed intent,
 concept clarity, investigability, and continuity. Everything below serves
 those four.
 
+The references are the authoritative statement of each principle. The
+summaries below and the always-on snippet are compressed projections of them:
+when a summary and a reference disagree, the reference wins, and a rule stated
+in a reference is not repeated here unless it is a cross-cutting invariant.
+
 1. **Full-stack traceability** — abstractions must be investigable.
    Clean default output, plus a trace mode exposing intermediate state
    and provenance. Keep raw records and anchor important claims to an
@@ -37,7 +42,8 @@ those four.
    spec, or procedure has one authoritative home, and that home
    migrates as work matures: shaping-stage truth lives in docs and
    diagrams; once interfaces stabilize it moves into types and public
-   APIs, and docs trim to intent plus pointers. Natural and
+   APIs, and docs trim to intent plus pointers. When the same spec lives
+   in both a doc and code, one is already stale. Natural and
    programming language read the same to agents but differ in
    verifiability and reliability — allocate deliberately and
    re-allocate as procedures harden (SOP doc → script → library).
@@ -49,15 +55,18 @@ those four.
    or distributed outputs; scratch locations are ephemeral only.
 5. **One truth, baseline- and audience-fit projections** — keep one
    authoritative semantic record, then derive separate views for each consumer
-   and starting point. Recover the audience's accepted baseline before
-   narrating a change; do not write from the sequence of agent turns. Rejected
-   intermediate states leave no semantic residue unless their history is
-   itself relevant evidence. Model-facing content is validated,
-   decision-complete, and economical with context. Machine and trace records
-   preserve exact structured state, provenance, versions, and receipts. Human
-   interfaces use hierarchy, progressive disclosure, comparison,
-   visualization, and sound when useful. A projection can change form, but it
-   must not invent domain state or become a competing authority.
+   and starting point. Agent turns are episodic, so before writing durable
+   prose recover the audience, its accepted baseline, and the final accepted
+   state, and write from those rather than from the sequence of agent turns.
+   Residue test: if a rejected intermediate state had never existed, would
+   this explanation still be needed? If not, it belongs in historical
+   evidence at most, never in current prose. Model-facing content is
+   validated, decision-complete, and economical with context. Machine and
+   trace records preserve exact structured state, provenance, versions, and
+   receipts. Human interfaces use hierarchy, progressive disclosure,
+   comparison, visualization, and sound when useful. Test each projection
+   independently. A projection can change form, but it must not invent domain
+   state or become a competing authority.
 6. **Stage-calibrated rigor ("where are we?")** — establish the
    project's lifecycle stage before choosing practices: infer it, ask
    when ambiguous, declare it in the evergreen doc. Exploration wants
@@ -74,10 +83,10 @@ those four.
    it requires pending work; escalate conflicting sibling designs.
    Review the isolated contribution relative to its base and dependency
    frontier, then verify it in the integration state. Rewrite each
-   change toward the final accepted design, not its editing history.
-   If a rejected intermediate design had never existed, any comment,
-   compatibility path, test, or explanation that only refers to it is residue
-   and should be removed from the current change.
+   change toward the final accepted design, not its editing history,
+   applying the residue test from principle 5 to the change itself: a
+   comment, compatibility path, test, or explanation that exists only because
+   of a rejected intermediate design is removed from the current change.
 8. **Governing intent and scope** — every durable artifact carries a
    lightweight governance envelope expressing why it exists, what
    responsibility it owns, and the boundaries, invariants, or non-goals future
@@ -86,8 +95,7 @@ those four.
    reference. Agents may freely optimize implementation inside the envelope,
    but materially broadening, repurposing, or moving the envelope is an
    escalation event for deliberate review. Governance evolves, but never
-   silently: optimize freely inside the envelope; never silently move the
-   boundary.
+   silently.
 
 ## Scenario routing
 
@@ -111,8 +119,8 @@ domain-modeling and research-artifacts). Read both; they are short.
 
 ## Cross-cutting invariants
 
-These hold in every scenario, and they are where the principles
-most often fail in practice:
+These hold in every scenario and are not owned by any single principle
+above:
 
 - **Use risk-proportional change and verification.** Every added mechanism and
   check must address a current, named risk. Compatibility protects an accepted
@@ -124,7 +132,8 @@ most often fail in practice:
   and verification rules live in domain-modeling.md and stage-calibration.md.
 - **Anchor to a verification signal.** A trace, a doc, or a memory is
   not truth. Code with full architecture docs and passing tests can
-  still be wrong by 20000x. Every important claim needs an external
+  still be wrong by orders of magnitude (traceable-computation.md). Every
+  important claim needs an external
   anchor: a benchmark, a spec check, a test against known-good output,
   or explicit human review. If no anchor exists, say so in the artifact.
   The anchor's formality scales with stage — a spot-check in
@@ -137,38 +146,7 @@ most often fail in practice:
   projections record what is currently inferred; keep them recomputable and
   label their provenance, freshness, uncertainty, and derivation version.
   Never destroy evidence to save a summary, and never present an assessment
-  as an observed fact.
-- **Write from the audience's baseline, not the previous turn.** Agent turns are
-  episodic. Before durable prose, recover the audience, its accepted starting
-  state, and the final accepted state. A rejected intermediate design belongs
-  in historical evidence when useful, not in current comments, compatibility
-  code, or narrative merely because the agent once produced it. If the wrong
-  turn had never happened, current artifacts should normally read the same.
-- **Keep projections audience-fit.** Model-facing content spends context on
-  the meaning needed for reasoning. Machine and trace records preserve exact
-  structured state, provenance, versions, and receipts. Human-facing views use
-  hierarchy, progressive disclosure, comparison, visualization, and, when
-  useful, sound. Keep all three traceable to the same authoritative records.
-  Test them independently, and never let a projection become competing truth.
-- **One home per fact and one canonical place per artifact.** When a spec lives
-  in both a doc and code, one is already stale. After behavior stabilizes into
-  types and public APIs, code is the source of truth; trim docs to intent,
-  rationale, and pointers, and keep docs and code pointing at each other in
-  both directions. Reusable source belongs in a repository, task-specific
-  scaffolding in the agreed project-local workspace, and durable/distributed
-  outputs in shared artifact storage. `/tmp` and ad-hoc node-local paths are
-  scratch, never authority.
-- **Garbage-collect superseded execution residue.** Retain multiple artifacts
-  when they represent distinct experimental variants, controls, or audit
-  evidence. Ordinary retries do not gain semantic value from existing. During
-  candidate promotion, keep at most the latest useful predecessor; after
-  ratification, remove superseded runs.
-- **Govern scope explicitly.** Durable artifacts carry a local statement of
-  purpose and responsibility where implementation alone cannot preserve it.
-  Do not use governance text as a duplicate API reference. Implementation may
-  churn inside the envelope; materially moving the responsibility, invariant,
-  audience, or non-goal boundary must be surfaced for deliberate review
-  (governing-intent.md).
+  as an observed fact (agent-continuity.md).
 - **Human quality gate on anything that persists.** Model-generated
   skills, memories, ontologies, and governance changes are net-negative without
   human curation. Propose; let the human ratify before they become durable
