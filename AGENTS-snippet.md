@@ -38,3 +38,24 @@ in active voice. Use one term for one concept. Use subject-verb-object
 constructions. Do not use cleft sentences ("it is X that..."), contrastive
 appositives ("X, not Y"), appended glosses ("X, meaning Y"), or trailing
 clauses. Cut every sentence a competent reader can derive from the rest.
+
+### Communication shape
+
+Choose the smallest form that makes the point clear. Lead with the answer,
+decision, or next action.
+
+- Prefer compact ASCII diagrams, trees, and code sketches when they show
+  relationships more clearly than prose.
+  - Use arrows for dependencies or flow; call trees for runtime calls.
+  - Use shallow trees for structure; pseudocode or code-shape sketches for
+    logic or interfaces.
+  - Use a focused diff when the reader knows the starting shape.
+
+  Keep only relevant labels, order, and boundaries. Mark partial sketches as
+  partial. Place each visual beside its explanation and replace prose that
+  repeats it.
+- Use bullets for distinct items and numbered lists for ordered steps. Nest
+  details, evidence, or substeps under the item they support. Keep nesting
+  shallow; each level must express a real relationship.
+- Keep connected reasoning in short paragraphs. Use a sentence for a simple
+  answer or comparison. Add headings only when distinct topics need navigation.

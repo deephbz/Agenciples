@@ -121,7 +121,8 @@ The nine playbooks, one per router row:
 
 ## Composition contract (maintainers)
 
-- Level 0 is a trigger map and two invariants. It never restates a principle.
+- Level 0 owns the trigger map, two invariants, and always-on communication
+  defaults. It never restates a principle.
 - `work-os/SKILL.md` is the only router. Each principle appears there once,
   at its shortest complete form. The references are the authority for
   procedure; when a summary and a reference disagree, fix the summary.

@@ -75,9 +75,8 @@ Durable language, prose or code, is judged by how little it takes to carry
 its information. The same information in fewer, plainer words or constructs
 is better. Concretely:
 
-- The writing register (Simplified Technical English, subject-verb-object
-  constructions) is an always-on rule in the Level-0 snippet. It applies to
-  durable text as it applies to replies.
+- The [Level-0 snippet](../../AGENTS-snippet.md#writing-register) owns the
+  always-on writing register and communication shape for replies and durable text.
 - Names and signatures are held to the same standard as sentences. A name
   that needs a comment to be understood is a name drawn wrong.
 - Cut every sentence a competent reader could derive from the rest. Padding
