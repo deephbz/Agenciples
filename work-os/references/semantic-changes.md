@@ -178,7 +178,7 @@ A later agent must be able to recover:
 
 Use the VCS graph and change description as the source when they already carry
 these coordinates. Do not create a second manifest that duplicates them. Add
-a task or evergreen record only for context the VCS cannot express.
+only context the VCS cannot express to the evergreen doc.
 
 ## Failure modes
 

@@ -13,8 +13,8 @@ contracts, traces, and artifacts that make the next problem cheaper.
 
 ## Preserve three information classes
 
-Do not collapse durable evidence, maintained context, and current judgment
-into one note or status:
+Distinguish durable evidence, maintained context, and current judgment
+with clear labels within content, not separate files:
 
 - **Historical evidence** preserves source records and observations:
   transcripts, commits, task history, experiment records, and runtime
@@ -38,20 +38,23 @@ or later agent to recover the evidence instead of trusting the label.
 
 ## Start from artifacts, end by writing back
 
-- Begin sessions from durable artifacts (problem docs, design docs,
-  memory files, repo docs), never from "as we discussed". If required
-  context lives only in a previous chat, first extract it into a file.
+Problem, plan, result, glossary, and diagram describe content, not required
+separate documents.
+
+- Begin sessions from durable artifacts (evergreen doc, journal,
+  repo sources), never from "as we discussed". If required context lives
+  only in a previous chat, recover it into the evergreen doc or journal.
 - End nontrivial work by writing back: what changed, what was learned,
-  what remains. Keep a stable *task doc* (goal, constraints — rarely
-  edited) plus two files with opposite mutation semantics: an
-  append-only **journal** (attempts, back-and-forth, solved problems,
-  superseded blockers — historical evidence, never rewritten) and a
-  curated **evergreen doc** (the declared lifecycle stage, decisions
-  still in force, latest status, pending problems, current blockers,
+  what remains. Keep only two continuity files with opposite mutation
+  semantics: an append-only **journal** (`journal.md`: dated evidence,
+  assessments, attempts, back-and-forth, solved problems, superseded
+  blockers — historical records, never rewritten) and a curated
+  **evergreen doc** (`context.md`: goals, constraints, declared lifecycle
+  stage, decisions still in force, latest status, pending problems, blockers,
   next steps — working context, ruthlessly pruned). The idea DAG's
   rejected paths (research-artifacts.md) are historical evidence too;
-  keeping them there and out of current descriptions is not a conflict. This is the evidence / working-context
-  separation above, made concrete as files. When a problem is solved,
+  keeping them there and out of current descriptions is not a conflict.
+  When a problem is solved,
   its story stays in the journal and it leaves the evergreen doc; a
   solved problem or dead blocker still sitting there is a bug. The
   next session boots from the evergreen doc and consults the journal

@@ -144,12 +144,12 @@ formality of every other principle's demands, never their existence.
    design, applying the residue test to code, tests, and compatibility
    paths.
 8. **Agent continuity.**
-   - Begin from durable artifacts and end by writing back. Keep a stable
-     task doc, an append-only journal (historical evidence), and a curated
-     evergreen doc (working context: declared stage, decisions in force,
-     status, blockers, next steps). A solved problem still in the evergreen
-     doc is a bug.
-   - Keep three information classes apart. Historical evidence records what
+   - Begin from durable artifacts and end by writing back. Keep an
+     append-only journal (dated evidence and assessments) and a curated
+     evergreen doc (working context: goals, constraints, declared stage,
+     decisions in force, status, blockers, next steps). A solved problem
+     still in the evergreen doc is a bug.
+   - Label the three information classes. Historical evidence records what
      a source said and may be wrong. Working context records what still
      matters and is corrected in place. Assessments are recomputable
      inferences carrying provenance, freshness, and uncertainty. Never

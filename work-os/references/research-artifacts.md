@@ -10,8 +10,9 @@ doc/RFC culture, Hamming "You and Your Research".
 
 ## The three-artifact chain
 
-Research work produces three durable artifacts, in order. Chat messages
-are transport, not storage; anything that matters graduates to a file.
+Research work records durable problem, plan, and result content, in order.
+These roles do not require separate files (agent-continuity.md). Chat messages
+are transport, not storage.
 
 1. **Problem artifact** (before any work): question, context,
    motivation, desired behavior, known constraints, prior attempts,
@@ -23,7 +24,7 @@ are transport, not storage; anything that matters graduates to a file.
    the approach, the tradeoffs considered. This is the human review
    checkpoint — reviewing a plan is cheap, reviewing 3000 lines of
    generated code is not. Practitioners converge on this independently:
-   have the agent produce a reviewable design doc, not an ephemeral PR.
+   have the agent produce a reviewable design, not an ephemeral PR.
    The authored idea/data diagram belongs here (see below): agreed
    before development starts, refreshed at each milestone.
 3. **Result artifact** (after): findings, interpretation, and the full
