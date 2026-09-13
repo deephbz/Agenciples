@@ -1,6 +1,6 @@
 ---
 name: work-os
-description: Decision guide for research-heavy, agent-assisted engineering. Use before designing a system, API, or pipeline; naming concepts; starting or resuming implementation; deciding amend vs sibling vs stack; reviewing an interface, a change, or a research conclusion; running experiments or analyses; producing reports, notebooks, charts, or dashboards; deciding what to version, persist, or delete and where it lives; deciding whether a spec lives in docs, types, or scripts; judging whether tests, linters, or CI fit the stage; or setting up agent workflows, skills, or memory. Routes each task to its smallest applicable playbook.
+description: Work OS principles and scenario playbooks. Load before non-trivial design, implementation, debugging, research, change review, or agent-workflow work. Use its router to select the needed references.
 ---
 
 # Work OS
