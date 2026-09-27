@@ -11,9 +11,9 @@ hold the procedures.
 ## Work OS
 
 Agents made implementation cheap; human-governed intent, concept clarity,
-investigability, and continuity are the scarce resources. Eight principles
-and one meta-principle in the `work-os` skill serve them. Load the skill, then only the reference
-it routes to, before any of the following:
+investigability, and continuity are the scarce resources. The `work-os`
+skill contains nine principles and one meta-principle. Load the skill, then
+only the reference it routes to, before any of the following:
 
 - **Stage calibration** — starting or joining work; deciding whether tests, linters, CI, or abstraction fit yet.
 - **Ontology-first design** — designing a system, API, schema, or agent-facing interface; naming concepts; drawing boundaries; deciding review or gate policy.
@@ -24,6 +24,7 @@ it routes to, before any of the following:
 - **Artifact-first, backend-first** — research work: experiments, analyses, reports, notebooks, charts, dashboards; what to version, persist, or delete and where.
 - **Intent-preserving change composition** — starting or resuming implementation; amend vs sibling vs stack; reviewing base-relative work.
 - **Agent continuity** — writing skills, memory, or instruction files; multi-session or multi-agent work.
+- **Early start** — dividing work, scheduling dependencies, or deciding what can start before other work finishes.
 
 Two invariants hold without loading anything: every important claim has an
 external verification anchor or is marked provisional, and anything that

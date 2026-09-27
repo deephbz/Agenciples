@@ -1,15 +1,16 @@
 ---
 name: work-os
-description: Decision guide for research-heavy, agent-assisted engineering. Use before designing a system, API, or pipeline; naming concepts; starting or resuming implementation; deciding amend vs sibling vs stack; reviewing an interface, a change, or a research conclusion; running experiments or analyses; producing reports, notebooks, charts, or dashboards; deciding what to version, persist, or delete and where it lives; deciding whether a spec lives in docs, types, or scripts; judging whether tests, linters, or CI fit the stage; or setting up agent workflows, skills, or memory. Routes each task to its smallest applicable playbook.
+description: Decision guide for research-heavy, agent-assisted engineering. Use before designing a system, API, or pipeline; naming concepts; dividing work or scheduling dependencies; starting or resuming implementation; deciding amend vs sibling vs stack; reviewing an interface, a change, or a research conclusion; running experiments or analyses; producing reports, notebooks, charts, or dashboards; deciding what to version, persist, or delete and where it lives; deciding whether a spec lives in docs, types, or scripts; judging whether tests, linters, or CI fit the stage; or setting up agent workflows, skills, or memory. Routes each task to its smallest applicable playbook.
 ---
 
 # Work OS
 
 Agents made implementation cheap. The scarce resources are now
 human-governed intent, concept clarity, investigability, and continuity.
-Eight principles serve those four, and one meta-principle sets how strictly
-each applies. The references are the authority; the statements below are
-their shortest complete form.
+Eight principles protect those four. A ninth reduces elapsed time within
+those constraints. One meta-principle sets how strictly each applies. The
+references are the authority; the statements below are their shortest
+complete form.
 
 ## Principles
 
@@ -118,9 +119,10 @@ formality of every other principle's demands, never their existence.
 
 6. **Artifact-first, backend-first.**
    - Work starts from a written problem artifact, passes through a reviewed
-     plan whose idea and data diagrams are authored before development and
-     refreshed at milestones, and ends with a result artifact. Chat is
-     transport. An artifact counts as thinking only if it adds connections,
+     plan, and ends with a result artifact. Author the plan's idea and data
+     diagrams before the work they guide. Refresh them as evidence arrives
+     and at milestones. Chat is transport. An artifact counts as thinking
+     only if it adds connections,
      tensions, or claims not already in its sources.
    - The canonical form of a result is machine-operable: data or a pointer
      to it, config, code version, interpretation. Visuals are renderings; a
@@ -165,6 +167,15 @@ formality of every other principle's demands, never their existence.
      conversation; a restart or model change does not create a work
      boundary.
 
+### Progress
+
+9. **Early start.** Reduce elapsed time to accepted results and useful
+   learning. Start independent work together. Start dependent work early
+   when explicit assumptions permit useful, reversible progress. Share
+   partial results, revise plans as information changes, and check assumptions
+   before accepting dependent results. Include coordination, human review,
+   rework, and resource limits in the elapsed-time cost.
+
 ## Scenario routing
 
 Read the reference for the scenario at hand before doing the work. Load at
@@ -181,6 +192,7 @@ most what the task needs. Tasks often span two scenarios; read both.
 | Research work: framing a question, running experiments, analyzing data, writing up results, producing charts, notebooks, reports, dashboards; deciding what to version, persist, or discard and where; variants vs retries | [references/research-artifacts.md](references/research-artifacts.md) |
 | Starting or resuming implementation; identifying semantic overlap; amend vs sibling vs stack; reviewing concurrent or base-relative work | [references/semantic-changes.md](references/semantic-changes.md) |
 | Agent workflow setup: skills, memory files, CLAUDE.md or AGENTS.md content; multi-session or multi-agent continuity; work identity across restarts | [references/agent-continuity.md](references/agent-continuity.md) |
+| Dividing work, scheduling dependencies, or deciding what can start before other work finishes | [references/early-start.md](references/early-start.md) |
 
 ## Provenance
 
@@ -193,3 +205,5 @@ PROV, and the emerging context-engineering canon. Change composition,
 governing intent, literate expression, and the traceability scope rule are
 syntheses from direct agentic workflow reflection, the last one informed by
 forward-implementation-first; their external literature review is pending.
+Early start draws on concurrent engineering, iterative overlapping, and
+speculative parallelism; its reference links the primary sources.

@@ -20,10 +20,10 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-The agent-facing package encodes eight principles grouped under those four
-scarcities, plus a meta-principle (stage calibration) that sets how strictly
-each applies. Each carries the failure modes that show up in practice: a
-trace is not a verification; tracing the operation instead of the
+Eight principles protect those four scarcities. A ninth, early start,
+reduces elapsed time within those constraints. A meta-principle (stage
+calibration) sets how strictly each applies. Each carries the failure modes
+that show up in practice: a trace is not a verification; tracing the operation instead of the
 computation; summaries corrupt, keep raw; model-generated memory needs a
 human gate; a doc that duplicates stabilized code is already stale; tests
 written before the shape exists are tautological; rejected intermediate
@@ -68,6 +68,14 @@ separation of semantic continuity from runtime continuity
 ([agent-continuity.md](work-os/references/agent-continuity.md)). A human
 designing a harness should read those five before selecting abstractions.
 
+## More progress within the same time
+
+Waiting for a whole task can delay work that needs only one of its outputs.
+[Early start](work-os/references/early-start.md) addresses this cost across
+development, testing, exploration, research, and experiments. The aim is more
+accepted results and useful learning within the same elapsed time. More
+simultaneous activity alone does not establish a benefit.
+
 ## Agent-facing structure (progressive disclosure)
 
 | Level | File | When it's in context |
@@ -76,7 +84,7 @@ designing a harness should read those five before selecting abstractions.
 | 1 | [work-os/SKILL.md](work-os/SKILL.md) | When the skill triggers — the principles at their shortest complete form, plus scenario routing |
 | 2 | [work-os/references/](work-os/references/) | On demand — one playbook per scenario, the authority for procedure |
 
-The nine playbooks, one per router row:
+The ten playbooks, one per router row:
 
 - [stage-calibration.md](work-os/references/stage-calibration.md) — "where
   are we?": the shaping → exploration → consolidation → hardening → sharing
@@ -118,6 +126,9 @@ The nine playbooks, one per router row:
   information classes, start from artifacts and write back, evergreen doc
   and journal, semantic vs runtime continuity, human-gated persistence,
   re-anchoring against decay, durable primitives.
+- [early-start.md](work-os/references/early-start.md) — independent and
+  dependent work, preliminary inputs, early feedback, selective rework, and
+  elapsed-time trade-offs.
 
 ## Composition contract (maintainers)
 

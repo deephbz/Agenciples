@@ -20,13 +20,16 @@ are transport, not storage.
    to force the thinking (writing *is* the thinking) and to give agents
    a bootstrappable context. If the problem can't be written down, it
    hasn't formed yet — writing it is the first experiment.
-2. **Plan/design artifact** (before implementation): the decomposition,
+2. **Plan/design artifact** (before the work it guides): the decomposition,
    the approach, the tradeoffs considered. This is the human review
    checkpoint — reviewing a plan is cheap, reviewing 3000 lines of
    generated code is not. Practitioners converge on this independently:
    have the agent produce a reviewable design, not an ephemeral PR.
    The authored idea/data diagram belongs here (see below): agreed
-   before development starts, refreshed at each milestone.
+   before the work it guides starts. Scope the plan to work that can proceed;
+   unresolved branches can remain provisional. Apply the existing review
+   policy to new branches. Update the plan as evidence arrives and at milestones.
+   [Early start](early-start.md) owns the scheduling procedure.
 3. **Result artifact** (after): findings, interpretation, and the full
    provenance bundle (see below). The next round of work starts from
    this artifact, not from memory or chat scrollback.
@@ -110,10 +113,10 @@ reconstruct. Otherwise their durable residue makes later review harder.
 
 The idea/data diagram is a first-class artifact, not documentation
 rendered after the software exists. It is authored, reviewed, and
-agreed before development starts — it aligns the human (does the plan
+agreed before the work it guides starts — it aligns the human (does the plan
 cohere?), the team (are we building the same thing?), and the agents
 (a graph is bootstrappable context that prose smooths over) — and it
-is refreshed at every milestone and every new R&D kickoff. A
+is refreshed when new evidence changes the plan and at each milestone. A
 conclusion like "A beats B because it is faster" hides the path that
 produced it; prose is fragile (agents omit, smooth over, hallucinate
 connections) and code hides structure. The review target is the
