@@ -36,13 +36,16 @@ boundary again.
 
 ## Put governance at the local boundary
 
-Use the representation native to the artifact:
+Governance is metadata. Its readers are maintainers and agents, so put it
+where they look and the artifact's audience does not. Use the representation
+native to the artifact:
 
-- **Markdown** — one to three front-matter properties or a short governing
-  header. A useful default is `purpose`, `scope`, and optionally `status`.
+- **Markdown** — one to three front-matter properties. A useful default is
+  `purpose`, `scope`, and optionally `status`.
 - **Python/modules/scripts** — module-level docstring or governing comment.
-- **Notebooks** — the first explanatory cell, including audience, execution
-  model, section independence, and shared prerequisites when relevant.
+- **Notebooks and reports** — notebook metadata, which renders nowhere,
+  including audience, execution model, section independence, and shared
+  prerequisites when relevant.
 - **Classes, functions, interfaces** — a docstring only when there is a real
   local responsibility, invariant, or non-obvious contract to preserve.
 
@@ -58,6 +61,11 @@ status: active
 
 The field names are a convention, not an ontology. Use project-native names
 when they are already established.
+
+When the audience needs part of the envelope, such as a report's scope,
+rewrite that part for them in the document's own voice, as
+[writing-for-readers](writing-for-readers.md) describes. Do not show the
+envelope itself.
 
 ## Governance is not API reference
 

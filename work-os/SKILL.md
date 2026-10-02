@@ -44,11 +44,11 @@ formality of every other principle's demands, never their existence.
      second, non-functional constraints third, except that an irreversible
      constraint is co-equal with cohesion.
 2. **Governing intent and scope.** Attach a small governance envelope
-   (purpose, scope and responsibility, invariants, non-goals, status) at the
-   artifact's local boundary in its native representation, stating only what
-   implementation cannot express. Broadening, repurposing, or moving the
-   envelope is an escalation for human review; implementation inside it is
-   free.
+   (purpose, scope, invariants and status; one sentence when that is enough)
+   at the artifact's local boundary as metadata in its native representation,
+   out of the audience's view, stating only what implementation cannot
+   express. Broadening, repurposing, or moving the envelope is an escalation
+   for human review; implementation inside it is free.
 
 ### Concept clarity
 
