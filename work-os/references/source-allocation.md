@@ -1,12 +1,11 @@
-# Source Allocation and Literate Expression
+# Source Allocation
 
 Applies when deciding where a fact, spec, or procedure should live (doc,
-diagram, type, public API, skill, script, library), when to move it, and how
-to write it so that humans and agents read it cheaply. Lineage: DRY / single
-point of truth (Hunt & Thomas), literate programming (Knuth), executable
-specification, Unix prototyping culture (prototype in shell, rewrite in C),
-gradual typing, minimum description length, ASD-STE100 Simplified Technical
-English.
+diagram, type, public API, skill, script, library) and when to move it. How to
+write the text itself is [writing-for-readers.md](writing-for-readers.md).
+Lineage: DRY / single point of truth (Hunt & Thomas), literate programming
+(Knuth), executable specification, Unix prototyping culture (prototype in
+shell, rewrite in C), gradual typing.
 
 ## One authoritative home per fact
 
@@ -69,22 +68,6 @@ agent-continuity.md).
 Separation rules that apply to code apply to prose: separate by ontology
 (one concept per unit) and by change velocity (stable core, fast periphery).
 
-## Write for minimal description length
-
-Durable language, prose or code, is judged by how little it takes to carry
-its information. The same information in fewer, plainer words or constructs
-is better. Concretely:
-
-- The [Level-0 snippet](../../AGENTS-snippet.md#writing-register) owns the
-  always-on writing register and communication shape for replies and durable text.
-- Names and signatures are held to the same standard as sentences. A name
-  that needs a comment to be understood is a name drawn wrong.
-- Cut every sentence a competent reader could derive from the rest. Padding
-  is a cost paid on every read.
-- Do not restate what a signature, type, or implementation already says.
-  Governance prose (governing-intent.md) says why and what is out of scope;
-  it never paraphrases the code beside it.
-
 ## Interleave prose and code
 
 Literate programming had the right instinct: put the explanation next to
@@ -101,8 +84,8 @@ below as a target shape, not a hard invariant.
 - **Maintainer-facing material** states what users do not see but
   extenders must know: architecture, invisible constraints, non-functional
   requirements, the reason a design was chosen. When it is short and
-  code-adjacent, it lives in the source: module header, class or function
-  docstring where a real contract exists, the first cell of a notebook. A
+  code-adjacent, it lives in the source, in the artifact's native metadata;
+  [governing-intent.md](governing-intent.md) lists the representations. A
   separate maintainer document exists only when the material is long or
   cross-cutting. It is read whenever someone extends the module, changes its
   implementation, or recomposes it.
@@ -111,46 +94,6 @@ The governance envelope of governing-intent.md is the minimal maintainer
 note. Notebooks and literate reports are the same pattern applied to
 research: prose and executable cells interleaved so that the narrative and
 its evidence stay together.
-
-## Write from the audience's baseline
-
-Agent turns are episodic. Each turn, and especially each turn after a
-context compaction, overweights the immediately preceding state, so a
-rejected intermediate attempt can feel like the beginning of the story. That
-makes a common failure mode look locally reasonable:
-`A requested → A+B implemented → B rejected → B removed`, followed by a
-comment, design note, or evergreen entry explaining that the system
-"intentionally avoids B". From the accepted baseline, B was never part of
-the design. The correct durable story is `base → A`, unless B is an accepted
-historical alternative the audience genuinely needs to understand.
-
-Before writing or revising any durable text (change description, comment,
-docstring, design note, evergreen entry, migration narrative), recover three
-coordinates:
-
-1. **Audience** — who will consume this and what can be assumed?
-2. **Starting point** — which accepted state, revision, or mental model does
-   the audience begin from?
-3. **Final accepted state** — what is true after this work?
-
-Write from those coordinates, not from conversational chronology. A durable
-document never refers to a conversation, thread, or turn the reader has not
-seen; "as discussed" and "per the earlier message" are residue. The same
-final state may need different projections for a maintainer familiar with an
-older release and for a new reader, but neither inherits accidental
-intermediate states from the agent loop.
-
-Apply the **residue test** to anything a rejected path introduced:
-
-> If the rejected intermediate state had never existed, would this comment,
-> abstraction, compatibility path, test, or explanation still be necessary?
-
-If not, remove it from current text and code. Keep the rejected path only
-where history itself is useful evidence, in the journal, VCS history, or
-the idea DAG (agent-continuity.md, historical evidence). The operational
-shorthand: **write as if the wrong turn never happened.** This is narrative
-hygiene, not history deletion. Narratives are baseline-relative and
-audience-relative, not turn-relative.
 
 ## The hardening gradient
 
@@ -164,9 +107,6 @@ doubles as the cheapest path to anchored procedures (verified-claims.md).
 ## Failure modes
 
 - A spec maintained in both a doc and a type.
-- A docstring that restates the signature and omits the reason.
-- A README that explains what a rejected design would have done.
 - A daily procedure that is still a prose SOP after its tenth run.
 - A maintainer note split into a separate document when three lines in
   the module header would do.
-- Long sentences, passive voice, two names for one concept.

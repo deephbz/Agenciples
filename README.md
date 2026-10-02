@@ -20,7 +20,7 @@ Agents made implementation cheap. What they did not make cheap:
 - **Continuity** — transient chat answers make agentic work fast but
   forgetful; the organization accumulates nothing.
 
-Eight principles protect those four scarcities. A ninth, early start,
+Nine principles protect those four scarcities. A tenth, early start,
 reduces elapsed time within those constraints. A meta-principle (stage
 calibration) sets how strictly each applies. Each carries the failure modes
 that show up in practice: a trace is not a verification; tracing the operation instead of the
@@ -63,7 +63,7 @@ authoritative record with model-, machine-, and human-facing views, and one
 canonical home per artifact
 ([research-artifacts.md](work-os/references/research-artifacts.md));
 baseline-relative narrative and the residue test
-([source-allocation.md](work-os/references/source-allocation.md)); and the
+([writing-for-readers.md](work-os/references/writing-for-readers.md)); and the
 separation of semantic continuity from runtime continuity
 ([agent-continuity.md](work-os/references/agent-continuity.md)). A human
 designing a harness should read those five before selecting abstractions.
@@ -84,7 +84,7 @@ simultaneous activity alone does not establish a benefit.
 | 1 | [work-os/SKILL.md](work-os/SKILL.md) | When the skill triggers — the principles at their shortest complete form, plus scenario routing |
 | 2 | [work-os/references/](work-os/references/) | On demand — one playbook per scenario, the authority for procedure |
 
-The ten playbooks, one per router row:
+The eleven playbooks, one per router row:
 
 - [stage-calibration.md](work-os/references/stage-calibration.md) — "where
   are we?": the shaping → exploration → consolidation → hardening → sharing
@@ -101,10 +101,14 @@ The ten playbooks, one per router row:
   order envelope, surface, implementation.
 - [source-allocation.md](work-os/references/source-allocation.md) — one
   home per fact, truth migrating from docs into types, natural vs
-  programming language as one medium chosen by verifiability, minimal
-  description length and Simplified Technical English, interleaved
-  maintainer notes, user-facing vs maintainer-facing documents, writing
-  from the audience's baseline, the residue test, the hardening gradient.
+  programming language as one medium chosen by verifiability, interleaved
+  maintainer notes, user-facing vs maintainer-facing documents, the
+  hardening gradient.
+- [writing-for-readers.md](work-os/references/writing-for-readers.md) —
+  know the reader and where they start, a reason to care before the answer,
+  the reader's words instead of the producer's, numbers with meaning,
+  minimal description length and Simplified Technical English, brevity that
+  keeps reasoning, the residue test, bookkeeping kept out of the reader's view.
 - [traceable-computation.md](work-os/references/traceable-computation.md)
   — scope (the computation, not the operation), the semantic /
   validation / bookkeeping split, dual-mode interfaces, semantic DAGs and

@@ -80,7 +80,7 @@ the age or existence of code.
 
 Compatibility code names the contract or consumer it protects. Without that
 evidence it is speculative complexity, and the residue test in
-source-allocation.md applies.
+writing-for-readers.md applies.
 
 ## Evidence stays valid until something changes
 

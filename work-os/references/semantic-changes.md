@@ -143,10 +143,8 @@ they are part of the accepted system.
 
 The change description is working context. Write it from the audience's
 accepted baseline and the final accepted state, and apply the residue test
-to the change itself: a comment, abstraction, compatibility path, test, or
-explanation that exists only because of a rejected intermediate design is
-removed. The coordinates, the worked example, and the test itself live in
-source-allocation.md under "Write from the audience's baseline".
+to the change itself. The coordinates, the worked example, and the test live
+in writing-for-readers.md under "Write from the accepted baseline".
 
 ## Rewrite and publication
 

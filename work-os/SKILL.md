@@ -1,13 +1,13 @@
 ---
 name: work-os
-description: Decision guide for research-heavy, agent-assisted engineering. Use before designing a system, API, or pipeline; naming concepts; dividing work or scheduling dependencies; starting or resuming implementation; deciding amend vs sibling vs stack; reviewing an interface, a change, or a research conclusion; running experiments or analyses; producing reports, notebooks, charts, or dashboards; deciding what to version, persist, or delete and where it lives; deciding whether a spec lives in docs, types, or scripts; judging whether tests, linters, or CI fit the stage; or setting up agent workflows, skills, or memory. Routes each task to its smallest applicable playbook.
+description: Decision guide for research-heavy, agent-assisted engineering. Use before designing a system, API, or pipeline; naming concepts; writing or reviewing a report, README, commit message, or other text another person reads; dividing work or scheduling dependencies; starting or resuming implementation; deciding amend vs sibling vs stack; reviewing an interface, a change, or a research conclusion; running experiments or analyses; producing reports, notebooks, charts, or dashboards; deciding what to version, persist, or delete and where it lives; deciding whether a spec lives in docs, types, or scripts; judging whether tests, linters, or CI fit the stage; or setting up agent workflows, skills, or memory. Routes each task to its smallest applicable playbook.
 ---
 
 # Work OS
 
 Agents made implementation cheap. The scarce resources are now
 human-governed intent, concept clarity, investigability, and continuity.
-Eight principles protect those four. A ninth reduces elapsed time within
+Nine principles protect those four. A tenth reduces elapsed time within
 those constraints. One meta-principle sets how strictly each applies. The
 references are the authority; the statements below are their shortest
 complete form.
@@ -52,7 +52,7 @@ formality of every other principle's demands, never their existence.
 
 ### Concept clarity
 
-3. **Single source of truth, literate expression.**
+3. **Single source of truth.**
    - Every fact, spec, or procedure has exactly one authoritative home with
      pointers in both directions; if a doc and code both hold it, one is
      already stale. That home migrates as work matures: from docs and
@@ -63,23 +63,31 @@ formality of every other principle's demands, never their existence.
      per statement: code where a compiler, type checker, or test verifies it
      cheaply; prose where it says the same thing shorter or judgment is
      required.
-   - Durable language is judged by description length: the same information
-     in the fewest, plainest words or constructs. Short sentences, one
-     meaning per term, Simplified Technical English as the prose register,
-     names held to the same standard.
    - Interleave prose with code. Maintainer material that is short and
      code-adjacent lives in the source; a separate maintainer document
      exists only when it is long or cross-cutting. User-facing documents
      state what, why, and how.
-   - Write from the audience's accepted baseline and the final accepted
-     state, never from the sequence of agent turns. Residue test: if a
-     rejected intermediate state had never existed, would this sentence,
-     comment, test, or compatibility path still be needed? If not, it goes
-     to historical evidence at most.
+4. **Write for the reader.**
+   - Name the reader, what they already know, and the accepted state they
+     start from. Open with why it matters to them, then the answer,
+     including any finding that would change their decision, then the
+     support.
+   - Use the reader's words. Write about the subject, not the text, its
+     files, or the process that made it. Give each number a unit, a
+     direction, and a comparison that sizes it.
+   - Durable language is judged by description length: the same information
+     in the fewest, plainest words or constructs. Short sentences, one
+     meaning per term, Simplified Technical English as the sentence
+     register, names held to the same standard. Brevity removes words, not
+     the reasoning that connects them.
+   - Write from the accepted baseline and the final accepted state, never
+     from the sequence of agent turns. Anything that exists only because of
+     a rejected path is residue: remove it, and keep the path in historical
+     evidence at most.
 
 ### Investigability
 
-4. **Traceable computation.**
+5. **Traceable computation.**
    - Scope: computations whose correctness depends on the meaning of the
      data and of each step. Semantic ETL and analysis pipelines where joins,
      filters, and aggregations rely on column semantics, and deep multi-step
@@ -100,7 +108,7 @@ formality of every other principle's demands, never their existence.
      receipts, and catalogues are administrative bookkeeping: produce them
      only when part of the product or when asked, and never redo semantic
      work because bookkeeping is stale.
-5. **Verified claims.**
+6. **Verified claims.**
    - A trace, a document, a memory, or a test that restates a declaration is
      not proof. Every important claim has an external anchor: a prediction
      written before the run, a spot-check, a golden output, a benchmark, a
@@ -117,7 +125,7 @@ formality of every other principle's demands, never their existence.
 
 ### Continuity
 
-6. **Artifact-first, backend-first.**
+7. **Artifact-first, backend-first.**
    - Work starts from a written problem artifact, passes through a reviewed
      plan, and ends with a result artifact. Author the plan's idea and data
      diagrams before the work they guide. Refresh them as evidence arrives
@@ -137,7 +145,7 @@ formality of every other principle's demands, never their existence.
    - Version the full source bundle, including the natural-language
      instructions needed to reproduce. Persist final artifacts in one
      canonical home. Treat intermediates and retries as disposable.
-7. **Intent-preserving change composition.** Before editing, resolve the
+8. **Intent-preserving change composition.** Before editing, resolve the
    exact base revision and inspect pending changes for conceptual overlap;
    amend for the same intent, create a sibling for independent intent, stack
    for dependent intent, escalate for competing intent. Review the isolated
@@ -145,7 +153,7 @@ formality of every other principle's demands, never their existence.
    result separately, and rewrite each change toward its final accepted
    design, applying the residue test to code, tests, and compatibility
    paths.
-8. **Agent continuity.**
+9. **Agent continuity.**
    - Begin from durable artifacts and end by writing back. Keep an
      append-only journal (dated evidence and assessments) and a curated
      evergreen doc (working context: goals, constraints, declared stage,
@@ -169,7 +177,7 @@ formality of every other principle's demands, never their existence.
 
 ### Progress
 
-9. **Early start.** Reduce elapsed time to accepted results and useful
+10. **Early start.** Reduce elapsed time to accepted results and useful
    learning. Start independent work together. Start dependent work early
    when explicit assumptions permit useful, reversible progress. Share
    partial results, revise plans as information changes, and check assumptions
@@ -186,7 +194,8 @@ most what the task needs. Tasks often span two scenarios; read both.
 | Kicking off or joining work; deciding whether tests, linters, CI, refactors, or abstraction are appropriate yet | [references/stage-calibration.md](references/stage-calibration.md) |
 | New system or API design; naming concepts; schema design; component boundaries; agent-facing interfaces; review and gate policy; reviewing an interface | [references/domain-modeling.md](references/domain-modeling.md) |
 | Creating or materially editing a durable document, module, script, notebook, or interface; defining purpose, scope, invariants, non-goals; deciding whether a change moves a responsibility boundary | [references/governing-intent.md](references/governing-intent.md) |
-| Deciding where a spec or procedure lives (doc, diagram, type, script); trimming docs after APIs stabilize; hardening an SOP into scripts; writing docstrings, comments, design notes, or change descriptions; user-facing vs maintainer-facing docs | [references/source-allocation.md](references/source-allocation.md) |
+| Deciding where a spec or procedure lives (doc, diagram, type, script); trimming docs after APIs stabilize; hardening an SOP into scripts; where docstrings, comments, and maintainer notes go; user-facing vs maintainer-facing docs | [references/source-allocation.md](references/source-allocation.md) |
+| Writing or reviewing any text another person or agent reads: replies, reports, READMEs, docstrings, comments, design notes, change descriptions, commit messages, messages | [references/writing-for-readers.md](references/writing-for-readers.md) |
 | Designing or refactoring a data or computation pipeline; debugging "why is this number wrong"; cache and materialization semantics; deciding what to log or persist; deciding whether bookkeeping is warranted | [references/traceable-computation.md](references/traceable-computation.md) |
 | Deciding what counts as proof; whether a test, check, or compatibility path is worth its cost; whether to rerun evidence; reviewing a research conclusion | [references/verified-claims.md](references/verified-claims.md) |
 | Research work: framing a question, running experiments, analyzing data, writing up results, producing charts, notebooks, reports, dashboards; deciding what to version, persist, or discard and where; variants vs retries | [references/research-artifacts.md](references/research-artifacts.md) |

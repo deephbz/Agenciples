@@ -74,7 +74,7 @@ Durable artifacts must not inherit the local perspective of the agent turn
 that wrote them. Before revising the evergreen doc, memory files, or any
 other current-facing prose, recover the audience, its accepted starting
 point, and the current accepted state, and apply the residue test
-(source-allocation.md, "Write from the audience's baseline"). The outcome
+(writing-for-readers.md, "Write from the accepted baseline"). The outcome
 here: a rejected attempt leaves the evergreen doc and survives, if at all,
 only in the journal.
 
