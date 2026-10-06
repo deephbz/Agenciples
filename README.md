@@ -134,6 +134,16 @@ The eleven playbooks, one per router row:
   dependent work, preliminary inputs, early feedback, selective rework, and
   elapsed-time trade-offs.
 
+## User-invoked skills
+
+These skills run only when the operator types their name. They hold
+procedure and load `work-os` for the principles.
+
+- [ship-a-bit](ship-a-bit/SKILL.md): cut one small, mature bit out of
+  exploratory work to solve one stated problem, bring it to the repository's
+  quality bar, and deliver it as a clean, verified lineage on the product
+  base. Works with Git, jj, or both.
+
 ## Composition contract (maintainers)
 
 - Level 0 owns the trigger map, two invariants, and always-on communication
@@ -179,6 +189,9 @@ For Claude Code (or any harness supporting
 
 # 2. Install the skill
 cp -r work-os ~/.claude/skills/work-os
+
+# 3. Optional: install user-invoked skills
+cp -r ship-a-bit ~/.claude/skills/ship-a-bit
 ```
 
 The snippet and the skill are written for every user, so they do not know
