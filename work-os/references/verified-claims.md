@@ -29,7 +29,7 @@ Every important claim has an anchor. The anchor menu, from cheapest up:
 Where no anchor is feasible yet, the artifact says so and the claim is
 marked provisional. The run record names which anchor was checked.
 
-The anchor's formality scales with stage (stage-calibration.md): a spot-check
+The anchor's formality scales with stage (rigor-and-evidence.md): a spot-check
 in exploration, a test suite at hardening. Its existence does not scale.
 
 ## Predict before you run

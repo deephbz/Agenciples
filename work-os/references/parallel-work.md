@@ -27,7 +27,7 @@ Wait where missing information prevents useful progress or safe correction.
 1. Define the goal, shared contracts, and enough of the plan to start useful
    work. Keep unresolved branches provisional. Before an irreversible action,
    resolve the assumptions it depends on and obtain required approvals.
-   [Governing intent](governing-intent.md) owns scope and approval boundaries.
+   [Governing intent](intent-and-interfaces.md) owns scope and approval boundaries.
 2. For each early start, state the preliminary input or assumption and the
    check needed before accepting its dependent result. Keep these with the
    work. Match the detail to the risk and stage.

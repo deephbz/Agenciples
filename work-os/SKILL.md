@@ -191,17 +191,17 @@ most what the task needs. Tasks often span two scenarios; read both.
 
 | Scenario | Read |
 |---|---|
-| Kicking off or joining work; deciding whether tests, linters, CI, refactors, or abstraction are appropriate yet | [references/stage-calibration.md](references/stage-calibration.md) |
+| Kicking off or joining work; deciding whether tests, linters, CI, refactors, or abstraction are appropriate yet | [references/rigor-and-evidence.md](references/rigor-and-evidence.md) |
 | New system or API design; naming concepts; schema design; component boundaries; agent-facing interfaces; review and gate policy; reviewing an interface | [references/domain-modeling.md](references/domain-modeling.md) |
-| Creating or materially editing a durable document, module, script, notebook, or interface; defining purpose, scope, invariants, non-goals; deciding whether a change moves a responsibility boundary | [references/governing-intent.md](references/governing-intent.md) |
+| Creating or materially editing a durable document, module, script, notebook, or interface; defining purpose, scope, invariants, non-goals; deciding whether a change moves a responsibility boundary | [references/intent-and-interfaces.md](references/intent-and-interfaces.md) |
 | Deciding where a spec or procedure lives (doc, diagram, type, script); trimming docs after APIs stabilize; hardening an SOP into scripts; where docstrings, comments, and maintainer notes go; user-facing vs maintainer-facing docs | [references/source-allocation.md](references/source-allocation.md) |
 | Writing or reviewing any text another person or agent reads: replies, reports, READMEs, docstrings, comments, design notes, change descriptions, commit messages, messages | [references/writing-for-readers.md](references/writing-for-readers.md) |
 | Designing or refactoring a data or computation pipeline; debugging "why is this number wrong"; cache and materialization semantics; deciding what to log or persist; deciding whether bookkeeping is warranted | [references/traceable-computation.md](references/traceable-computation.md) |
 | Deciding what counts as proof; whether a test, check, or compatibility path is worth its cost; whether to rerun evidence; reviewing a research conclusion | [references/verified-claims.md](references/verified-claims.md) |
 | Research work: framing a question, running experiments, analyzing data, writing up results, producing charts, notebooks, reports, dashboards; deciding what to version, persist, or discard and where; variants vs retries | [references/research-artifacts.md](references/research-artifacts.md) |
-| Starting or resuming implementation; identifying semantic overlap; amend vs sibling vs stack; reviewing concurrent or base-relative work | [references/semantic-changes.md](references/semantic-changes.md) |
-| Agent workflow setup: skills, memory files, CLAUDE.md or AGENTS.md content; multi-session or multi-agent continuity; work identity across restarts | [references/agent-continuity.md](references/agent-continuity.md) |
-| Dividing work, scheduling dependencies, or deciding what can start before other work finishes | [references/early-start.md](references/early-start.md) |
+| Starting or resuming implementation; identifying semantic overlap; amend vs sibling vs stack; reviewing concurrent or base-relative work | [references/change-composition.md](references/change-composition.md) |
+| Agent workflow setup: skills, memory files, CLAUDE.md or AGENTS.md content; multi-session or multi-agent continuity; work identity across restarts | [references/runtime-and-continuity.md](references/runtime-and-continuity.md) |
+| Dividing work, scheduling dependencies, or deciding what can start before other work finishes | [references/parallel-work.md](references/parallel-work.md) |
 
 ## Provenance
 

@@ -55,7 +55,7 @@ than maximizing visible agent motion.
 
 The rules that follow from that stance live in the playbooks, where agents
 can load them: governance envelopes close to the artifact
-([governing-intent.md](work-os/references/governing-intent.md)); agent-facing
+([intent-and-interfaces.md](work-os/references/intent-and-interfaces.md)); agent-facing
 interfaces with few verbs, schema for coordinates, prose for meaning, and
 review as a risk-based policy rather than a universal gate
 ([domain-modeling.md](work-os/references/domain-modeling.md)); one
@@ -65,13 +65,13 @@ canonical home per artifact
 baseline-relative narrative and the residue test
 ([writing-for-readers.md](work-os/references/writing-for-readers.md)); and the
 separation of semantic continuity from runtime continuity
-([agent-continuity.md](work-os/references/agent-continuity.md)). A human
+([runtime-and-continuity.md](work-os/references/runtime-and-continuity.md)). A human
 designing a harness should read those five before selecting abstractions.
 
 ## More progress within the same time
 
 Waiting for a whole task can delay work that needs only one of its outputs.
-[Early start](work-os/references/early-start.md) addresses this cost across
+[Early start](work-os/references/parallel-work.md) addresses this cost across
 development, testing, exploration, research, and experiments. The aim is more
 accepted results and useful learning within the same elapsed time. More
 simultaneous activity alone does not establish a benefit.
@@ -86,7 +86,7 @@ simultaneous activity alone does not establish a benefit.
 
 The eleven playbooks, one per router row:
 
-- [stage-calibration.md](work-os/references/stage-calibration.md) — "where
+- [rigor-and-evidence.md](work-os/references/rigor-and-evidence.md) — "where
   are we?": the shaping → exploration → consolidation → hardening → sharing
   ladder, stage windows for tests, linters, CI, and abstraction, premature
   vs overdue rigor.
@@ -95,7 +95,7 @@ The eleven playbooks, one per router row:
   contract, interfaces for capable agents, gates that encode invariants
   rather than ceremony, intent as the optimization target, the three-force
   ordering for component boundaries.
-- [governing-intent.md](work-os/references/governing-intent.md) —
+- [intent-and-interfaces.md](work-os/references/intent-and-interfaces.md) —
   governance envelopes: purpose, scope, invariants, non-goals; local
   placement; not API reference; scope change as an escalation event; review
   order envelope, surface, implementation.
@@ -122,15 +122,15 @@ The eleven playbooks, one per router row:
   final artifact vs intermediates, supersession-based retention, diagrams
   first, backend-first dual display, audience-fit views, the three canonical
   artifact homes.
-- [semantic-changes.md](work-os/references/semantic-changes.md) — exact
+- [change-composition.md](work-os/references/change-composition.md) — exact
   product bases, dependency frontiers, amend vs sibling vs stack, isolated
   and integrated review surfaces, evergreen descriptions, rewriteable
   history, `jj` mapping.
-- [agent-continuity.md](work-os/references/agent-continuity.md) — three
+- [runtime-and-continuity.md](work-os/references/runtime-and-continuity.md) — three
   information classes, start from artifacts and write back, evergreen doc
   and journal, semantic vs runtime continuity, human-gated persistence,
   re-anchoring against decay, durable primitives.
-- [early-start.md](work-os/references/early-start.md) — independent and
+- [parallel-work.md](work-os/references/parallel-work.md) — independent and
   dependent work, preliminary inputs, early feedback, selective rework, and
   elapsed-time trade-offs.
 

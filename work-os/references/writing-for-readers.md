@@ -83,7 +83,7 @@ is better.
   itself. State a claim before its limits, and what something is before what
   it is not.
 - Do not restate what a signature, type, or implementation already says.
-  Governance prose (governing-intent.md) says why and what is out of scope;
+  Governance prose (intent-and-interfaces.md) says why and what is out of scope;
   it never paraphrases the code beside it.
 
 Brevity removes words, not reasoning. A list of disconnected facts is short
@@ -117,14 +117,14 @@ Apply the **residue test** to anything a rejected path introduced:
 
 If not, remove it from current text and code. Keep the rejected path only
 where history itself is useful evidence, in the journal, VCS history, or
-the idea DAG (agent-continuity.md, historical evidence). The operational
+the idea DAG (runtime-and-continuity.md, historical evidence). The operational
 shorthand: **write as if the wrong turn never happened.** This is narrative
 hygiene, not history deletion. Narratives are baseline-relative and
 audience-relative, not turn-relative.
 
 ## Keep bookkeeping where its readers look
 
-Governance envelopes belong in metadata, as governing-intent.md places them.
+Governance envelopes belong in metadata, as intent-and-interfaces.md places them.
 Provenance, verification against earlier runs, machine records, file
 ownership, and open process questions serve maintainers and agents. They
 belong in an appendix, a README, a journal, or module documentation. When the reader needs what a machine record shows, say
