@@ -12,7 +12,7 @@ semantic changes that solves one stated problem, consolidated, verified, and
 placed directly on the product base. The rest stays exploratory and keeps
 its place in the graph.
 
-Load the `work-os` skill and read `references/semantic-changes.md` in its
+Load the `work-os` skill and read `references/change-composition.md` in its
 directory before step 1. Every `references/` path in this skill is in the
 `work-os` directory. Its terms (product base, semantic change, dependency frontier,
 isolated contribution, integrated result) are the vocabulary of this skill.
@@ -168,7 +168,7 @@ Rewrite each message, name, docstring, and comment that refers to a change
 that is no longer an ancestor. Write each message from the product base and
 the problem statement, never from the exploration path.
 
-Then check both surfaces from `semantic-changes.md`:
+Then check both surfaces from `change-composition.md`:
 
 - **Isolated contribution.** The bit, on the product base alone, passes every
   check. A bit stacked on another unpublished bit is checked on that bit,

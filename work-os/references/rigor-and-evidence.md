@@ -18,7 +18,7 @@ work — and when the signals conflict or the stakes are high, ask.
 State the inferred stage out loud ("this reads as exploration, so I'm
 optimizing for insight speed and skipping test scaffolding") so a
 wrong inference is cheap to correct. Record the declared stage in the
-evergreen doc (agent-continuity.md) and re-evaluate it at each
+evergreen doc (runtime-and-continuity.md) and re-evaluate it at each
 milestone and each new R&D kickoff.
 
 ## A working ladder

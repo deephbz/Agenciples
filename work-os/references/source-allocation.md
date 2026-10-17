@@ -40,7 +40,7 @@ Where the source of truth lives is a lifecycle property, not a fixed choice:
 
 Milestones and new R&D kickoffs are the checkpoints for re-allocation, the
 same moments the diagrams get refreshed (research-artifacts.md). This is the
-source-of-truth view of the ladder in stage-calibration.md.
+source-of-truth view of the ladder in rigor-and-evidence.md.
 
 ## One medium, different properties
 
@@ -63,7 +63,7 @@ agent applies with judgment; a procedure that must run identically every day
 should not remain prose. The source bundle is a fluid composition of natural
 and programming language, and the agent is expected to notice when the
 current allocation is wrong and propose the move (human ratifies, per
-agent-continuity.md).
+runtime-and-continuity.md).
 
 Separation rules that apply to code apply to prose: separate by ontology
 (one concept per unit) and by change velocity (stable core, fast periphery).
@@ -85,12 +85,12 @@ below as a target shape, not a hard invariant.
   extenders must know: architecture, invisible constraints, non-functional
   requirements, the reason a design was chosen. When it is short and
   code-adjacent, it lives in the source, in the artifact's native metadata;
-  [governing-intent.md](governing-intent.md) lists the representations. A
+  [intent-and-interfaces.md](intent-and-interfaces.md) lists the representations. A
   separate maintainer document exists only when the material is long or
   cross-cutting. It is read whenever someone extends the module, changes its
   implementation, or recomposes it.
 
-The governance envelope of governing-intent.md is the minimal maintainer
+The governance envelope of intent-and-interfaces.md is the minimal maintainer
 note. Notebooks and literate reports are the same pattern applied to
 research: prose and executable cells interleaved so that the narrative and
 its evidence stay together.

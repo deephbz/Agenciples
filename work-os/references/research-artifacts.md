@@ -11,7 +11,7 @@ doc/RFC culture, Hamming "You and Your Research".
 ## The three-artifact chain
 
 Research work records durable problem, plan, and result content, in order.
-These roles do not require separate files (agent-continuity.md). Chat messages
+These roles do not require separate files (runtime-and-continuity.md). Chat messages
 are transport, not storage.
 
 1. **Problem artifact** (before any work): question, context,
@@ -29,7 +29,7 @@ are transport, not storage.
    before the work it guides starts. Scope the plan to work that can proceed;
    unresolved branches can remain provisional. Apply the existing review
    policy to new branches. Update the plan as evidence arrives and at milestones.
-   [Early start](early-start.md) owns the scheduling procedure.
+   [Early start](parallel-work.md) owns the scheduling procedure.
 3. **Result artifact** (after): findings, interpretation, and the full
    provenance bundle (see below). The next round of work starts from
    this artifact, not from memory or chat scrollback.
@@ -156,7 +156,7 @@ on.
 
 **Density discipline.** The diagram carries the least detail per concept
 in the chain: critical concepts and relations only. The evergreen doc
-carries more, the journal everything (agent-continuity.md). If a detail
+carries more, the journal everything (runtime-and-continuity.md). If a detail
 doesn't change how a reviewer judges the work, it doesn't belong in the
 diagram.
 
