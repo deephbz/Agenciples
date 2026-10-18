@@ -2,19 +2,23 @@
 name: ship-a-bit
 description: Cut one small, mature bit out of exploratory work, solve one stated problem with it, and deliver it as a clean, verified lineage on the product base.
 disable-model-invocation: true
+metadata:
+  purpose: Ship one small, mature bit of exploratory work as a clean, verified lineage on the product base.
+  scope: Problem statement, choice of bit, cleanup, quality bar, graph shape, verification.
+  out-of-scope: Principles (work-os); publication without the human's go.
 ---
 
 # Ship a bit
 
 Exploration leaves a sprawl: open lineages, WIP revisions, uncommitted
 edits, artifacts. This skill ships one **bit** of it: a small set of mature
-semantic changes that solves one stated problem, consolidated, verified, and
+changes that solves one stated problem, consolidated, verified, and
 placed directly on the product base. The rest stays exploratory and keeps
 its place in the graph.
 
 Load the `work-os` skill and read `references/change-composition.md` in its
 directory before step 1. Every `references/` path in this skill is in the
-`work-os` directory. Its terms (product base, semantic change, dependency frontier,
+`work-os` directory. Its terms (product base, change, dependency frontier,
 isolated contribution, integrated result) are the vocabulary of this skill.
 
 ## Operating rules
@@ -27,14 +31,14 @@ isolated contribution, integrated result) are the vocabulary of this skill.
   that only adds refs records the source revisions. Report it.
 - **Follow repo conventions.** Branch names, message format, check commands,
   verification procedures, and review shape come from the repository and its
-  records. Where none exists, ask the user once and record the answer in
+  records. Where none exists, ask the human once and record the answer in
   `context.md`.
 - **One quality bar.** The audience of the bit does not lower or raise the
   checks.
 - **The problem statement governs.** Every later decision serves the problem
   statement from step 1: scope, fixes, names, messages, audience framing,
   and follow-ups.
-- **Publication needs a go.** Push, open a review, or merge only when the user
+- **Publication needs a go.** Push, open a review, or merge only when the human
   says so.
 - **Verification has no outward effects.** Checks and probes write only to
   scratch locations. Tell probe agents not to write to external tools.
@@ -53,14 +57,14 @@ use. Ship a bit only when it solves a concrete problem.
      change after shipping.
 2. Make the statement hard to vary: one problem, every part of the bit
    serves it, and a change that serves no part of it belongs outside the
-   bit. When the user explicitly requests several change groups in one bit,
+   bit. When the human explicitly requests several change groups in one bit,
    write one statement per group and name the owner they share. When the
-   user chose the revisions in advance, check that they share one problem.
+   human chose the revisions in advance, check that they share one problem.
    If they share only a theme, list each revision's problem and let the
-   user choose.
-3. Wait for the user to confirm or rewrite the statement.
+   human choose.
+3. Wait for the human to confirm or rewrite the statement.
 
-Done when the user confirms a statement that names the problem, its owner,
+Done when the human confirms a statement that names the problem, its owner,
 the value, and an observable result. If no concrete problem exists, stop:
 the work stays exploratory.
 
@@ -73,10 +77,10 @@ This step is read-only.
 2. Read the graph from the product base to every pending tip, the
    working-copy status, and the recent messages. Find the conventions that
    mark a revision as ready or as exploratory.
-3. Propose the bit: the semantic changes that serve the problem statement,
-   plus their declared dependencies. Default to one semantic change. A bit
+3. Propose the bit: the changes that serve the problem statement,
+   plus their declared dependencies. Default to one change. A bit
    with several change groups, for example across modules, needs an explicit
-   request from the user.
+   request from the human.
 4. Plan the lineage. For each revision in the bit, list what it relies on
    from revisions that will stay outside the bit:
    - **Code**: APIs, features, fixes, or data introduced outside the bit.
@@ -94,10 +98,10 @@ This step is read-only.
    cuts, check that each revision still delivers its value; if not, drop it.
    A dependency that none of these resolves is a blocker; report it with the
    revisions involved.
-5. Wait for the user to confirm the scope and the lineage plan. Choose the
-   scope yourself only when the user explicitly delegated that choice.
+5. Wait for the human to confirm the scope and the lineage plan. Choose the
+   scope yourself only when the human explicitly delegated that choice.
 
-Done when the user confirms a scope whose every dependency is resolved or
+Done when the human confirms a scope whose every dependency is resolved or
 reported as a blocker.
 
 ## 3. Clean up what the bit needs
@@ -133,12 +137,12 @@ empty list is a valid result.
    `references/writing-for-readers.md`.
 2. Place every fix by the repository's review convention:
    - **fold** it into the revision that introduced the defect, so each
-     semantic change stays in one revision; or
+     change stays in one revision; or
    - **separate** it as its own revision, so review sees the fix alone.
 3. Place every edit outside the scope the same way: fold it into the revision
    that owns that module, or keep it as a separate revision outside the bit.
    An out-of-scope edit never enters a revision inside the bit. A scope
-   change goes back to the user.
+   change goes back to the human.
 
 Done when each revision in the bit states one intent and passes every check,
 so review and bisection work per revision, and every edit made in this step
@@ -146,7 +150,7 @@ belongs to exactly one revision.
 
 ## 5. Shape the final graph
 
-Pick the pattern by repository or user preference. Ask when neither exists.
+Pick the pattern by repository or human preference. Ask when neither exists.
 
 - **Reorder.** Rewrite the graph in place so the bit's revisions are the
   direct descendants of the product base and the exploratory work sits on
@@ -166,7 +170,7 @@ base─bit─wip     base─bit'              base─bit────┐
 After the move, re-read every revision in the bit against its new ancestors.
 Rewrite each message, name, docstring, and comment that refers to a change
 that is no longer an ancestor. Write each message from the product base and
-the problem statement, never from the exploration path.
+the problem statement (`references/writing-for-readers.md`).
 
 Then check both surfaces from `change-composition.md`:
 
@@ -174,7 +178,7 @@ Then check both surfaces from `change-composition.md`:
   check. A bit stacked on another unpublished bit is checked on that bit,
   its dependency frontier.
 - **Integrated result.** The exploratory tip's snapshot equals its snapshot
-  at the end of step 4, unless the user approved a difference.
+  at the end of step 4, unless the human approved a difference.
 
 Done when both checks pass on the final revisions and no text in the bit
 refers to a change outside its ancestry.
@@ -182,7 +186,7 @@ refers to a change outside its ancestry.
 ## 6. Verify the behavior
 
 A clean, mergeable graph does not show that the bit works. Find the
-verification procedures that apply: user instructions, project records
+verification procedures that apply: the human's instructions, project records
 (`context.md`, the journal), and repository guardrails (CI configuration,
 integration and end-to-end suites, verification skills or scripts).
 
@@ -191,12 +195,12 @@ integration and end-to-end suites, verification skills or scripts).
 2. Run every applicable procedure on the bit's tip. Rerun tasks or pipelines
    that the delta affects. When no procedure covers the delta, write a
    minimal one. Keep its script and results with the verification record,
-   outside the bit, unless the user asks to add it to the repository. When
+   outside the bit, unless the human asks to add it to the repository. When
    the bit changes agent guidance (skills, instructions), probe fresh agents
    on the bit and on a control without it, more than once.
 3. Compare the observed changes with the expected ones. Each observed change
    must serve the problem statement. An unexpected change is a defect until
-   the user accepts it. When the evidence shows the prediction misread code
+   the human accepts it. When the evidence shows the prediction misread code
    outside the delta, record a prediction error with that evidence and
    correct the prediction. A defect in your own verification script is not
    a defect in the bit; fix it and rerun.
@@ -204,7 +208,7 @@ integration and end-to-end suites, verification skills or scripts).
 Done when every applicable procedure has a recorded result, every observed
 change maps to an expected one, and the value from step 1 is observable or
 its observation is scheduled after publication. If the procedures show no
-difference from the control, report the value as not observed. The user
+difference from the control, report the value as not observed. The human
 decides to ship it with a provisional value or to drop it.
 
 ## Reply
@@ -218,6 +222,6 @@ decides to ship it with a provisional value or to drop it.
 - What stays exploratory, and anything parked on a temporary branch.
 
 Write back to `context.md`: the problem statement, the shipped bit, the
-product-base revision, and the conventions the user supplied. If the
-repository has no `context.md`, propose the entry to the user. Create a
-new tracked file only with the user's approval.
+product-base revision, and the conventions the human supplied. If the
+repository has no `context.md`, propose the entry to the human. Create a
+new tracked file only with the human's approval.
