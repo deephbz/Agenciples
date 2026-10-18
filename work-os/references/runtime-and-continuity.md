@@ -1,130 +1,114 @@
-# Agent Continuity
+---
+purpose: Keep work continuous across sessions, agents, models, and tools.
+scope: Harness design, runtime and applications, work identity, information classes, write-back, ratification, re-anchoring.
+out-of-scope: The format of context.md and the journal (conventions.md).
+---
 
-Applies when writing skills, memory files, CLAUDE.md/AGENTS.md content,
-or designing multi-session and multi-agent workflows. Lineage: context
-engineering (Anthropic, Manus), agent memory (MemGPT/Letta,
-filesystem-as-context), spec-driven development (spec-kit), Anthropic
-Skills + SkillsBench.
+# Runtime and continuity
 
-Continuity is the point of the whole Work OS: without it agent work is
-fast but forgetful — every task looks finished, but the organization
-accumulates nothing. With it, each solved problem leaves concepts,
-contracts, traces, and artifacts that make the next problem cheaper.
+Without continuity, agent work is fast and forgetful: every task looks
+finished, and the organization accumulates nothing. With continuity, each
+solved problem leaves concepts, contracts, traces, and artifacts that make
+the next problem cheaper.
 
-## Preserve three information classes
+## Design the harness around the human
 
-Distinguish durable evidence, maintained context, and current judgment
-with clear labels within content, not separate files:
+Start from the human's decision loop. When does the human return? What must
+they decide? What evidence and current context make that decision sound?
+What action lets the work continue? Choose tools, storage, and dashboards
+after these answers. Agent visibility, throughput, tool calls, and cost are
+signals. Attention quality, context recovery, and continuity of deep work
+are the objective.
 
-- **Historical evidence** preserves source records and observations:
-  transcripts, commits, task history, experiment records, and runtime
-  observations. It says what occurred *according to that source*, not that
-  the source is complete or correct. Preserve it and append corrections; do
-  not rewrite it to match the latest story.
-- **Current working context** records what still matters: active goals,
-  constraints, accepted decisions, unresolved questions, and takeaways.
-  Curate it deliberately. Mark corrections, retirement, and supersession so
-  stale context does not silently remain authoritative, while keeping links
-  back to the evidence that justified each change.
-- **Assessment or projection** records what is currently inferred: priority,
-  readiness, risk, need for human attention, or a synthesized status. Treat
-  it as recomputable output, not source truth. Record its evidence links,
-  freshness, uncertainty, and derivation/model version.
+## Thin runtime, replaceable applications
 
-This separation gives compression honest mutation semantics: evidence is
-preserved, working context evolves, and assessments can be discarded and
-recomputed. When presenting a judgment, expose enough provenance for a human
-or later agent to recover the evidence instead of trusting the label.
+The runtime is the small part that survives every change of model, tool, or
+host: the agent loop, plain files (markdown, SQLite), git, `context.md`,
+and the journal. Every other tool is an application: a tracker, a dashboard,
+a search index, a memory service, a CI system. The agent uses an application through a CLI, a
+skill, or an API, and keeps the state of the work in the runtime. So you can
+replace an application without losing work.
 
-## Start from artifacts, end by writing back
+- Add to the runtime only what every task needs and every tool can read.
+- Give each application a CLI or an API that agents can call, and a skill
+  that says when to call it.
+- Some scaffolds compensate for current model limits: skill graphs, bespoke
+  memory protocols. Better models may dissolve them. Keep continuity in
+  the runtime primitives, which survive. Boring formats with obvious
+  semantics transfer. Clever formats do not.
 
-Problem, plan, result, glossary, and diagram describe content, not required
-separate documents.
+## Work identity outlives the process
 
-- Begin sessions from durable artifacts (evergreen doc, journal,
-  repo sources), never from "as we discussed". If required context lives
-  only in a previous chat, recover it into the evergreen doc or journal.
-- End nontrivial work by writing back: what changed, what was learned,
-  what remains. Keep only two continuity files with opposite mutation
-  semantics: an append-only **journal** (`journal.md`: dated evidence,
-  assessments, attempts, back-and-forth, solved problems, superseded
-  blockers — historical records, never rewritten) and a curated
-  **evergreen doc** (`context.md`: goals, constraints, declared lifecycle
-  stage, decisions still in force, latest status, pending problems, blockers,
-  next steps — working context, ruthlessly pruned). The idea DAG's
-  rejected paths (research-artifacts.md) are historical evidence too;
-  keeping them there and out of current descriptions is not a conflict.
-  When a problem is solved,
-  its story stays in the journal and it leaves the evergreen doc; a
-  solved problem or dead blocker still sitting there is a bug. The
-  next session boots from the evergreen doc and consults the journal
-  only when it needs to know *why*. Detail runs diagram < evergreen
-  doc < journal: the diagram holds only critical concepts
-  (research-artifacts.md), the evergreen doc slightly more, the
-  journal everything.
-- "If agents can't see it, it doesn't exist." Tribal knowledge in
-  heads, Slack, or chat history is invisible; encode it as versioned
-  files. Entry-point files (CLAUDE.md/AGENTS.md) are a table of
-  contents, not an encyclopedia — keep them ~100 lines pointing into
-  structured docs, or they dilute every future context window.
+Work identity and context lineage outlive any model call, process, terminal,
+host, or conversation. A crash, a restart, a move, or a model change does
+not start new work. Model work identity, context lineage, execution,
+process, location, and aliases as separate concepts when their lifecycles
+differ. Otherwise operational accidents become false boundaries in the work.
 
-## Recover the audience and starting point
+## Three information classes
 
-Durable artifacts must not inherit the local perspective of the agent turn
-that wrote them. Before revising the evergreen doc, memory files, or any
-other current-facing prose, recover the audience, its accepted starting
-point, and the current accepted state, and apply the residue test
-(writing-for-readers.md, "Write from the accepted baseline"). The outcome
-here: a rejected attempt leaves the evergreen doc and survives, if at all,
-only in the journal.
+Label each item by class inside its content. Separate files are not
+required.
 
-## Semantic continuity is not runtime continuity
+- **Evidence** records what a source said or what was observed: transcripts,
+  commits, task history, experiment records, runtime observations. It says
+  what happened according to that source, and the source may be wrong.
+  Preserve it, and append corrections.
+- **Working context** records what still matters: goals, constraints,
+  decisions in force, open questions. Correct it in place. Mark what is
+  superseded, and link each change to the evidence behind it.
+- **Assessment** records a recomputable inference: priority, readiness,
+  risk, need for the human's attention, status. Record its evidence,
+  freshness, uncertainty, and derivation.
 
-Work identity and context lineage may outlive any model invocation, process,
-terminal, host, or conversation. A crash, restart, relocation, or model
-change does not by itself create a new semantic boundary, and one durable
-project may intentionally span many conversations and executions. Model work
-identity, context lineage, reasoning execution, runtime process, location,
-and external aliases as distinct concepts whenever their lifecycles differ.
-Otherwise operational accidents become false boundaries in the work.
+A summary is an assessment. Never destroy evidence to keep a summary:
+compressing and then discarding raw records is how systems corrupt quietly.
+Never present an assessment as an observation.
 
-## What makes persisted context good
+## Boot from files, write back
 
-Empirics from SkillsBench and production practice:
+Begin from durable files: `context.md`, the journal, and the sources. When
+needed context lives only in an old chat, recover it into a file. End
+nontrivial work by writing back what changed, what you learned, and what
+remains (conventions.md gives the files). If agents cannot see a fact, it
+does not exist for them. Encode knowledge from heads, chat, and messages as
+versioned files. Before you revise working context, recover its reader and
+the accepted state, and apply the residue test (writing-for-readers.md).
 
-- **Human-curated beats model-generated** (+16% vs net-negative).
-  Agents propose skill/memory updates; a human ratifies before they
-  become durable. Unsupervised self-accumulation compounds noise.
-- **Procedural beats declarative.** "Do X, then Y, check Z" outperforms
-  paragraphs of facts and philosophy.
-- **Concise beats comprehensive.** Skills land best around 800-1500
-  tokens; 2-3 relevant skills beat a pile. Progressive disclosure
-  (index → description → full content) instead of loading everything.
-- **Keep errors in context, not every residue.** Failed attempts can steer the
-  model away from repeats, so retain the useful failure evidence in the
-  journal or run record when it matters. This does not require preserving every
-  failed output file; superseded execution artifacts are garbage-collected per
-  `research-artifacts.md`.
+## Ratify durable guidance and changes of intent
 
-## Continuity decays — re-anchor
+Agents propose durable guidance: skills, memories, instruction files, and
+ontologies. The human ratifies it before it becomes governing context.
+Unsupervised self-accumulation compounds noise.
 
-Iteration does not monotonically improve things: unsupervised
-agent loops measurably degrade correctness and security after roughly
-4-7 rounds, and each compaction/summarization loses information
-(raw-first rule applies to transcripts too). So:
+Routine write-back needs no ratification: observations, status, and decisions
+inside the accepted envelope. New or changed goals, governing constraints,
+and standing instructions need human ratification wherever they are written,
+including `context.md` and the journal. Reversible implementation choices
+inside the envelope remain agent work. intent-and-interfaces.md defines
+governing constraints and gives the escalation procedure.
 
-- Re-anchor periodically against the spec/problem artifact: re-read it,
-  check the current state still serves it, prune drift.
-- Impose iteration budgets on autonomous loops; escalate to a human
-  instead of looping past them.
-- Treat "more artifacts" as a cost as well as an asset: stale memory is
-  worse than no memory. Prune on contradiction, date what decays.
+- A skill or instruction states intent, properties, and checks, written as
+  actions and checks an agent can carry out. Paragraphs of facts and
+  philosophy do not steer an agent. Add step-by-step procedure only where a
+  step must run the same way each time, and then prefer a script
+  (intent-and-interfaces.md).
+- Concise beats comprehensive. Load a few relevant skills through
+  progressive disclosure: index, description, full content.
+- An entry-point file (`CLAUDE.md`, `AGENTS.md`) is a short table of
+  contents into structured files. A long entry point dilutes every context
+  window.
+- Keep useful failure evidence in the journal, so agents do not repeat the
+  failure. Superseded output files still go (conventions.md).
 
-## Bet on durable primitives
+## Re-anchor against decay
 
-Today's elaborate scaffolds (skill graphs, bespoke memory protocols,
-task-bead formats) partly compensate for current model limits and may
-be dissolved by better models (Bitter Lesson). Invest continuity in
-primitives that survive regardless: the filesystem, git, plain
-markdown, SQLite. Prefer boring formats with obvious semantics over
-clever bespoke ones — the cleverness is exactly what won't transfer.
+Iteration does not improve work monotonically. Unsupervised loops degrade,
+and each compaction loses information.
+
+- Re-read the problem and the objective at intervals. Check that the current
+  state still serves them, and prune the drift.
+- Give each autonomous loop an iteration budget. Escalate to the human at
+  the limit.
+- Stale memory is worse than no memory. Prune on contradiction, and date what
+  decays.

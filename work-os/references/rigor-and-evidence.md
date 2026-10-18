@@ -32,7 +32,7 @@ milestone and each new R&D kickoff.
   disposable by design; speed of learning is the only metric.
 - **Consolidation.** The shape is found. The ontology settles into
   types, interfaces are drawn and reviewed, and the source of truth
-  migrates from docs into code (source-allocation.md).
+  migrates from docs into code (intent-and-interfaces.md).
 - **Hardening.** It works; now make it right and fast: tests that
   encode the now-stable contract, error handling, performance.
 - **Sharing.** Others will depend on it: linters, formatters, CI/CD,
@@ -64,7 +64,7 @@ component, not of the repo.
 - **Glue code.** Correct at exploration, a liability after
   consolidation — the stage transition converts yesterday's virtue
   into today's debt. That transition is exactly the hardening
-  gradient (source-allocation.md): schedule the rewrite deliberately
+  gradient (intent-and-interfaces.md): schedule the rewrite deliberately
   rather than letting it happen by accretion.
 
 ## Failure modes, both directions
