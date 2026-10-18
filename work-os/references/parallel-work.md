@@ -1,75 +1,101 @@
-# Early Start
+---
+purpose: Cut the elapsed time to accepted results with parallel work by default.
+scope: Batching, fan-out, competing attempts, parallel checks, workspaces, merging, early starts, serial reasons, cost.
+out-of-scope: Composing edits for review (change-composition.md); the evidence standard (rigor-and-evidence.md).
+---
 
-Purpose: Reduce elapsed time to accepted results and useful learning.
-Scope: Dividing, scheduling, and revising work in development, testing,
-exploration, research, experiments, and other goal-directed work.
+# Parallel work
 
-## Find two kinds of opportunity
+Parallel work is the default. Serial work needs a named reason. Progress is
+the elapsed time to an accepted result, or useful learning per unit of time.
+Activity and agent count do not measure progress.
 
-A part of the work can need a final input for acceptance while needing only
-preliminary information to start. Identify the inputs needed to start and
-those needed to accept the result.
+The evidence for this default is provisional. Concurrent engineering and
+speculative parallelism support the mechanism, but no comparison yet shows
+the elapsed-time gain for a particular agent workflow. Measure the gain
+before you claim it.
 
-- **Independent work.** Start parts together when their inputs are available.
-  A shared contract can remove a dependency on another implementation. An
-  agreed protocol can let backend and frontend development start together.
-- **Dependent work.** Start useful, reversible parts with preliminary inputs
-  or explicit assumptions. A data analysis can start while a literature review
-  refines the definitions. Test preparation can start before implementation;
-  checks of the implementation still need the implementation.
+## Batch independent calls
 
-Prefer work that remains useful across likely input changes. Split off a
-small shared decision or input when it can release several parts of the work.
-Wait where missing information prevents useful progress or safe correction.
+Send independent reads, searches, commands, and queries in one batch. Wait
+only for a result that a later call needs.
 
-## Plan and execute together
+## Fan out exploration
 
-1. Define the goal, shared contracts, and enough of the plan to start useful
-   work. Keep unresolved branches provisional. Before an irreversible action,
-   resolve the assumptions it depends on and obtain required approvals.
-   [Governing intent](intent-and-interfaces.md) owns scope and approval boundaries.
-2. For each early start, state the preliminary input or assumption and the
-   check needed before accepting its dependent result. Keep these with the
-   work. Match the detail to the risk and stage.
-3. Share useful partial results before all parts finish. Revise the
-   plan within the agreed scope when new information changes what can proceed.
-   Apply this to a project, an experiment, or a step within either.
+Explore several areas at once: regions of a codebase, papers, data sources,
+logs. Give each subagent one bounded question, the inputs it needs, the
+scope it may touch, and the shape of the answer. Ask for a compact finding
+with its evidence (paths, commands, numbers), so you can merge without
+rereading. A subagent that writes gets its own workspace.
+
+## Run competing attempts side by side
+
+When the right approach is unclear and attempts are cheap, run competing
+hypotheses or implementations in parallel. Fix the evaluator and its floor
+before the attempts start, so no attempt defines its own success. When the
+comparison is itself a result, the attempts are variants (conventions.md).
+Otherwise keep the winner, and record in the journal what the others showed.
+
+## Verify in parallel
+
+Run independent checks together: tests, a spot check, a reviewer agent with
+no shared context, an independent reimplementation. Independent verifiers
+fail in different ways, so together they cover more.
+
+## Give concurrent edits separate workspaces
+
+Two agents never write to one working copy. Give each a branch, a worktree,
+or a scratch directory. Compose their results when you review dependencies
+and compatibility (change-composition.md).
+
+## Merge fan-out results
+
+- Check each result against the objective and its anchor before you merge.
+- Remove duplicates. Resolve each contradiction with evidence, or report it.
+- Keep raw subagent output while a decision depends on it.
+- Write the merged result from the accepted state. The fan-out is no part of
+  the story (writing-for-readers.md).
+
+## Overlap dependent work on explicit assumptions
+
+A task can need a final input for acceptance and only a preliminary input to
+start. A shared protocol lets backend and frontend start together. A data
+analysis can start while a literature review refines the definitions. Test
+preparation can start before the implementation exists.
+
+1. For each early start, state the assumption or preliminary input it uses,
+   and the check that must pass before you accept its result. Match the
+   detail to the risk.
+2. Prefer work that stays useful when the input changes. Split off a small
+   shared decision (a contract, a protocol, a schema) when it releases
+   several parts.
+3. Share partial results early. Revise the plan inside the agreed scope when
+   new information changes what can proceed.
 4. When an input changes, find the affected work. Keep valid results, repair
-   invalid results, and stop work whose expected value has disappeared.
-5. Check the assumptions against the actual inputs before accepting dependent
-   results. [Rigor and evidence](rigor-and-evidence.md) owns the evidence standard.
+   invalid results, and stop work whose value has gone.
+5. Check each assumption against the actual input before you accept a
+   dependent result.
 
-Feedback can go both ways between parts of the work. A dependency DAG can
-represent successive versions: `question_v1 -> analysis_v1 -> question_v2`.
-A plan does not need to predict every later revision to support useful work now.
+Feedback can run both ways: `question_v1 -> analysis_v1 -> question_v2`. A
+plan need not predict later revisions to support useful work now.
 
-## Choose early starts for their elapsed-time benefit
+## What forces serial work
 
-Compare the expected time saved with coordination, human review, rework, and
-competition for limited resources. Spend scarce capacity on work that controls
-completion time or resolves important uncertainty. Some rework is worthwhile when the accepted
-result arrives sooner. Start fewer parts early when late changes repeatedly
-invalidate large amounts of work.
+- **An input not yet available** that prevents useful progress or safe
+  correction.
+- **Shared mutable state** that no separate workspace can isolate.
+- **An irreversible action.** Resolve its assumptions and get the approvals
+  it needs first.
+- **The human's review bandwidth.** The human reads one thing at a time.
+  Batch questions, and queue results for review in priority order.
+- **A resource limit**: rate limits, compute, one lock.
 
-When evaluating an early-start policy, compare elapsed time to the same accepted
-result, including preparation, waiting, human review, checks, and repair. For
-exploration, compare useful learning within the same time and resource budget. Worker count
-and activity alone do not measure progress. More work must stay within the
-agreed scope.
+## Count the elapsed-time cost
 
-## Lineage and limits
-
-- Krishnan, Eppinger, and Whitney, [Accelerating Product Development by the
-  Exchange of Preliminary Product Design Information](https://doi.org/10.1115/1.2826709)
-  (1995): iterative overlapping starts downstream work with unfinished inputs
-  and accommodates later changes.
-- The same authors, [A Model-Based Framework to Overlap Product Development
-  Activities](https://doi.org/10.1287/mnsc.43.4.437) (1997): overlap depends on
-  how upstream information evolves and how downstream work responds to change.
-- Prabhu, Ramalingam, and Vaswani, [Safe Programmable Speculative
-  Parallelism](https://www.microsoft.com/en-us/research/publication/safe-programmable-speculative-parallelism/)
-  (2010): predicted dependency values can expose parallel work.
-
-These sources support the mechanism and its trade-offs. They do not establish
-an elapsed-time gain for a particular agent workflow. That claim needs its own
-comparison.
+Compare the time saved with the cost of coordination, human review, rework,
+and competition for resources. Some rework is worth a sooner result. Start
+fewer parts early when late changes repeatedly invalidate large amounts of
+work. Spend scarce capacity on work that controls the completion time or
+resolves important uncertainty. Judge a parallel policy by the elapsed time
+to the same accepted result, including waiting, checks, and repair. More
+parallel work stays inside the agreed scope.
