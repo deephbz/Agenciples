@@ -1,218 +1,113 @@
 ---
 name: work-os
-description: Decision guide for research-heavy, agent-assisted engineering. Use before designing a system, API, or pipeline; naming concepts; writing or reviewing a report, README, commit message, or other text another person reads; dividing work or scheduling dependencies; starting or resuming implementation; deciding amend vs sibling vs stack; reviewing an interface, a change, or a research conclusion; running experiments or analyses; producing reports, notebooks, charts, or dashboards; deciding what to version, persist, or delete and where it lives; deciding whether a spec lives in docs, types, or scripts; judging whether tests, linters, or CI fit the stage; or setting up agent workflows, skills, or memory. Routes each task to its smallest applicable playbook.
+description: Work OS principles for one human working with many agents. Load before non-trivial design, implementation, debugging, research, parallel work, change review, writing for a reader, or agent-workflow work. Its router selects the one reference needed.
+metadata:
+  purpose: Complete the seven stances, and route each task to one reference.
+  scope: The stances at their shortest complete form; the router.
+  out-of-scope: Short stances and invariants (the snippet); procedure (the references).
 ---
 
-# Work OS
+# work-os
 
-Agents made implementation cheap. The scarce resources are now
-human-governed intent, concept clarity, investigability, and continuity.
-Nine principles protect those four. A tenth reduces elapsed time within
-those constraints. One meta-principle sets how strictly each applies. The
-references are the authority; the statements below are their shortest
-complete form.
+The always-on snippet states seven short stances and two invariants. This
+file completes each stance. Each reference owns the procedure. When this
+file and a reference disagree, fix this file.
 
-## Principles
+## 1. The human owns intent; agents own the search
 
-**Stage calibration (meta).** Before choosing practices, infer or ask the
-project's lifecycle stage (shaping, exploration, consolidation, hardening,
-sharing), declare it in the evergreen doc, and re-evaluate at milestones,
-per component rather than per repository. Every practice has a stage
-window: tests and abstraction at consolidation, linters and CI at sharing,
-glue code correct at exploration and debt afterwards. Stage lowers the
-formality of every other principle's demands, never their existence.
+- Intent is the problem, the contract, the invariants, the acceptable
+  trade-offs, and the definition of success. Envelopes and interfaces carry
+  it. Implementations are the search space of agents, so review an
+  interface harder than its implementation.
+- An agent loop needs an evaluator. Without one, it optimizes an unstated
+  objective.
+- Name the domain before the API: a glossary of irreducible nouns, verbs,
+  and relations. Encode behavior-affecting distinctions in types. Publish
+  the smallest safe contract, then improve behind it. Distilling
+  definitions stays human work; budget time for it.
+- A boundary moves when work broadens, narrows, or repurposes a
+  responsibility, changes a public invariant or a caller assumption, adds a
+  public concept or ownership boundary, moves a concern across modules,
+  repositories, or homes, or invalidates a non-goal (intent-and-interfaces.md).
+  Changes to goals, objectives, floors or ceilings, preference orders, or
+  governing constraints also escalate, wherever they are written. Competing
+  intents and an exhausted iteration budget also escalate. Review is optional
+  by default. A harness blocks only to enforce a demonstrated invariant.
 
-### Human-governed intent
+## 2. Durable properties, ephemeral plans
 
-1. **Ontology-first design.**
-   - Write the glossary of the domain's irreducible nouns, verbs, and
-     relations before designing APIs or generating code. Encode
-     behavior-affecting distinctions in types, not prose. Let the smallest
-     safe, stable public contract emerge from that ontology, then ship
-     through it and improve behind it.
-   - Interfaces carry human intent and implementations are the agents'
-     search space. Review interfaces harder than implementations. Tests and
-     evaluation criteria are part of the source: an agent loop without an
-     evaluator optimizes an unstated objective.
-   - Design agent-facing interfaces for capable reasoning, not as workflow
-     forms: few semantically stable verbs, schema only for the coordinates
-     safe composition needs, goals and constraints in prose, locking and
-     retries hidden behind the contract. Review is a risk-based choice the
-     assigner makes; a harness blocks execution mechanically only where a
-     demonstrated invariant requires it.
-   - Draw component boundaries by semantic cohesion first, change velocity
-     second, non-functional constraints third, except that an irreversible
-     constraint is co-equal with cohesion.
-2. **Governing intent and scope.** Attach a small governance envelope
-   (purpose, scope, invariants and status; one sentence when that is enough)
-   at the artifact's local boundary as metadata in its native representation,
-   out of the audience's view, stating only what implementation cannot
-   express. Broadening, repurposing, or moving the envelope is an escalation
-   for human review; implementation inside it is free.
+- An envelope holds the durable properties of an artifact: at least purpose
+  and scope, plus out-of-scope, objective, invariant, floor or ceiling,
+  preference order, non-goal, anchor, and status when they clearly help.
+  Each property names its anchor and becomes a check as it stabilizes.
+- The problem and the objective are durable. Refresh or discard plans and
+  diagrams as evidence arrives.
 
-### Concept clarity
+## 3. Rigor follows maturity
 
-3. **Single source of truth.**
-   - Every fact, spec, or procedure has exactly one authoritative home with
-     pointers in both directions; if a doc and code both hold it, one is
-     already stale. That home migrates as work matures: from docs and
-     diagrams into types and public APIs as interfaces stabilize, and from
-     SOP to script to library as procedures harden, because code is
-     executable and testable where prose is only reviewable.
-   - Natural and programming language are one medium to an agent. Choose
-     per statement: code where a compiler, type checker, or test verifies it
-     cheaply; prose where it says the same thing shorter or judgment is
-     required.
-   - Interleave prose with code. Maintainer material that is short and
-     code-adjacent lives in the source; a separate maintainer document
-     exists only when it is long or cross-cutting. User-facing documents
-     state what, why, and how.
-4. **Write for the reader.**
-   - Name the reader, what they already know, and the accepted state they
-     start from. Open with why it matters to them, then the answer,
-     including any finding that would change their decision, then the
-     support.
-   - Use the reader's words. Write about the subject, not the text, its
-     files, or the process that made it. Give each number a unit, a
-     direction, and a comparison that sizes it.
-   - Durable language is judged by description length: the same information
-     in the fewest, plainest words or constructs. Short sentences, one
-     meaning per term, Simplified Technical English as the sentence
-     register, names held to the same standard. Brevity removes words, not
-     the reasoning that connects them.
-   - Write from the accepted baseline and the final accepted state, never
-     from the sequence of agent turns. Anything that exists only because of
-     a rejected path is residue: remove it, and keep the path in historical
-     evidence at most.
+- Stages: shaping, exploration, consolidation, hardening, sharing, per
+  component. Tests and abstraction start at consolidation, linters and CI
+  at sharing. Stage lowers the formality of an anchor. No stage removes it.
+- Each check names the failure that it uniquely detects. Compatibility
+  protects an accepted contract, a verified consumer, or an explicit
+  migration. Evidence from unchanged inputs stays valid.
+- A computation whose correctness depends on data meaning gets a trace mode
+  once its shape settles.
 
-### Investigability
+## 4. Parallel by default
 
-5. **Traceable computation.**
-   - Scope: computations whose correctness depends on the meaning of the
-     data and of each step. Semantic ETL and analysis pipelines where joins,
-     filters, and aggregations rely on column semantics, and deep multi-step
-     derivations behind a simple output. Operating the pipeline (running a
-     script, editing code, an ad hoc analysis run) is out of scope.
-   - In-scope computations expose a clean default output and an opt-in trace
-     that lets a reader descend into any step: inputs, semantic assumptions,
-     treatments, intermediate state, config, code version, like inspecting a
-     Dask or PyTorch graph node by node. Recurring ad hoc inspection of the
-     same state is a missing trace API.
-   - A pipeline node's identity is semantic (input versions, parameters,
-     code, environment). A persisted intermediate is a materialized view;
-     "the file exists" is not "the result is valid". Raw records are
-     authoritative, summaries are derived.
-   - Provenance rides on persisted results, not on operations. A result
-     that outlives the session carries its data or pointer, config, code
-     version, environment, and the anchor checked. Hashes, revisions,
-     receipts, and catalogues are administrative bookkeeping: produce them
-     only when part of the product or when asked, and never redo semantic
-     work because bookkeeping is stale.
-6. **Verified claims.**
-   - A trace, a document, a memory, or a test that restates a declaration is
-     not proof. Every important claim has an external anchor: a prediction
-     written before the run, a spot-check, a golden output, a benchmark, a
-     property check, an independent reimplementation, or explicit human
-     review. Where none is feasible yet, the artifact says so and the claim
-     is provisional. Formality scales with stage; existence does not.
-   - Every check and every compatibility path must name the plausible
-     failure it uniquely detects. Do not test defaults, constants, mappings,
-     types, or delegation. Compatibility protects an accepted contract, a
-     verified consumer, or an explicit migration, nothing else.
-   - Evidence from unchanged code, inputs, tools, and environment stays
-     valid. Rerun only for a named delta, a freshness need, a prior failure,
-     known nondeterminism, or a mandatory integration gate.
+- Give each subagent one bounded question, and ask for a compact answer
+  with evidence. Fix the evaluator before competing attempts start.
+- Concurrent edits get separate workspaces. An early start states its
+  assumption and the check that accepts its result.
+- Progress is the elapsed time to an accepted result, including
+  coordination, review, and rework.
 
-### Continuity
+## 5. One home per fact; every artifact describes itself
 
-7. **Artifact-first, backend-first.**
-   - Work starts from a written problem artifact, passes through a reviewed
-     plan, and ends with a result artifact. Author the plan's idea and data
-     diagrams before the work they guide. Refresh them as evidence arrives
-     and at milestones. Chat is transport. An artifact counts as thinking
-     only if it adds connections,
-     tensions, or claims not already in its sources.
-   - The canonical form of a result is machine-operable: data or a pointer
-     to it, config, code version, interpretation. Visuals are renderings; a
-     chart whose dataframe is gone is a screenshot.
-   - One authoritative record serves three consumers through derived views.
-     Model-facing content is validated, decision-complete, and economical
-     with context. Machine-facing records keep exact state, provenance,
-     versions, and receipts. Human-facing views exploit perception:
-     hierarchy, disclosure, comparison, visualization, sound. Views are
-     tested independently and never become a competing authority. Backends
-     own the first two faces, frontends the third.
-   - Version the full source bundle, including the natural-language
-     instructions needed to reproduce. Persist final artifacts in one
-     canonical home. Treat intermediates and retries as disposable.
-8. **Intent-preserving change composition.** Before editing, resolve the
-   exact base revision and inspect pending changes for conceptual overlap;
-   amend for the same intent, create a sibling for independent intent, stack
-   for dependent intent, escalate for competing intent. Review the isolated
-   contribution against its base and dependency frontier and the integrated
-   result separately, and rewrite each change toward its final accepted
-   design, applying the residue test to code, tests, and compatibility
-   paths.
-9. **Agent continuity.**
-   - Begin from durable artifacts and end by writing back. Keep an
-     append-only journal (dated evidence and assessments) and a curated
-     evergreen doc (working context: goals, constraints, declared stage,
-     decisions in force, status, blockers, next steps). A solved problem
-     still in the evergreen doc is a bug.
-   - Label the three information classes. Historical evidence records what
-     a source said and may be wrong. Working context records what still
-     matters and is corrected in place. Assessments are recomputable
-     inferences carrying provenance, freshness, and uncertainty. Never
-     destroy evidence to save a summary; never present an assessment as an
-     observation.
-   - Anything that persists as context (skills, memories, ontologies,
-     governance) is proposed by agents and ratified by a human. Continuity
-     decays: impose iteration budgets, re-anchor against the problem
-     artifact, prune on contradiction, prefer boring primitives (filesystem,
-     git, markdown, SQLite) to bespoke scaffolds.
-   - Semantic continuity is not runtime continuity. Work identity and
-     context lineage outlive any model invocation, process, host, or
-     conversation; a restart or model change does not create a work
-     boundary.
+- Other mentions point to the home. When a document and code hold one fact,
+  one copy is stale. Truth migrates from prose into types and scripts as
+  work matures.
+- The envelope sits in the native metadata of the artifact. Each artifact
+  lives in one of three homes. Variants stay; retries are replaced.
+- A result is a machine-operable record with its provenance. Figures and
+  dashboards are views of it.
 
-### Progress
+## 6. Write from the accepted state, for the reader
 
-10. **Early start.** Reduce elapsed time to accepted results and useful
-   learning. Start independent work together. Start dependent work early
-   when explicit assumptions permit useful, reversible progress. Share
-   partial results, revise plans as information changes, and check assumptions
-   before accepting dependent results. Include coordination, human review,
-   rework, and resource limits in the elapsed-time cost.
+- Name the reader, their starting state, and the final accepted state. Open
+  with why it matters, then the answer, then the support.
+- Residue test: if a rejected intermediate state had never existed, would
+  this text, code, test, or compatibility path still be needed? If not,
+  remove it.
+- A change carries one intent. Amend for the same intent, add a sibling for
+  independent intent, stack for dependent intent, and escalate for
+  competing intent. Review the isolated contribution and the integrated
+  result separately.
 
-## Scenario routing
+## 7. Thin durable runtime, replaceable applications
 
-Read the reference for the scenario at hand before doing the work. Load at
-most what the task needs. Tasks often span two scenarios; read both.
+- Design the harness from the human's decision loop. Work identity outlives
+  any process, model, host, or conversation.
+- Label information as evidence, working context, or assessment. Never
+  destroy evidence to keep a summary.
+- Boot from `context.md` and the journal, and write back at the end.
+  Re-anchor against the objective. Give autonomous loops an iteration
+  budget.
 
-| Scenario | Read |
+## Router
+
+Read the reference for the task before the work. Load only what the task
+needs. A task that spans two rows reads both.
+
+| Task | Read |
 |---|---|
-| Kicking off or joining work; deciding whether tests, linters, CI, refactors, or abstraction are appropriate yet | [references/rigor-and-evidence.md](references/rigor-and-evidence.md) |
-| New system or API design; naming concepts; schema design; component boundaries; agent-facing interfaces; review and gate policy; reviewing an interface | [references/intent-and-interfaces.md](references/intent-and-interfaces.md) |
-| Creating or materially editing a durable document, module, script, notebook, or interface; defining purpose, scope, invariants, non-goals; deciding whether a change moves a responsibility boundary | [references/intent-and-interfaces.md](references/intent-and-interfaces.md) |
-| Deciding where a spec or procedure lives (doc, diagram, type, script); trimming docs after APIs stabilize; hardening an SOP into scripts; where docstrings, comments, and maintainer notes go; user-facing vs maintainer-facing docs | [references/intent-and-interfaces.md](references/intent-and-interfaces.md) |
-| Writing or reviewing any text another person or agent reads: replies, reports, READMEs, docstrings, comments, design notes, change descriptions, commit messages, messages | [references/writing-for-readers.md](references/writing-for-readers.md) |
-| Designing or refactoring a data or computation pipeline; debugging "why is this number wrong"; cache and materialization semantics; deciding what to log or persist; deciding whether bookkeeping is warranted | [references/traceable-computation.md](references/traceable-computation.md) |
-| Deciding what counts as proof; whether a test, check, or compatibility path is worth its cost; whether to rerun evidence; reviewing a research conclusion | [references/rigor-and-evidence.md](references/rigor-and-evidence.md) |
-| Research work: framing a question, running experiments, analyzing data, writing up results, producing charts, notebooks, reports, dashboards; deciding what to version, persist, or discard and where; variants vs retries | [references/research-artifacts.md](references/research-artifacts.md) |
-| Starting or resuming implementation; identifying semantic overlap; amend vs sibling vs stack; reviewing concurrent or base-relative work | [references/change-composition.md](references/change-composition.md) |
-| Agent workflow setup: skills, memory files, CLAUDE.md or AGENTS.md content; multi-session or multi-agent continuity; work identity across restarts | [references/runtime-and-continuity.md](references/runtime-and-continuity.md) |
-| Dividing work, scheduling dependencies, or deciding what can start before other work finishes | [references/parallel-work.md](references/parallel-work.md) |
-
-## Provenance
-
-Distilled from personal "Work OS" essays. The ontology, artifact,
-source-of-truth, traceability, stage, and continuity principles were
-cross-checked against a methodology review of about 80 sources mapping them
-to established lineages: Parnas, Evans (DDD), Ousterhout, Brooks, Knuth,
-Luhmann, Hamming, Hunt & Thomas (DRY), Shape Up, Dapper/OpenTelemetry, W3C
-PROV, and the emerging context-engineering canon. Change composition,
-governing intent, literate expression, and the traceability scope rule are
-syntheses from direct agentic workflow reflection, the last one informed by
-forward-implementation-first; their external literature review is pending.
-Early start draws on concurrent engineering, iterative overlapping, and
-speculative parallelism; its reference links the primary sources.
+| Starting or joining work; choosing tests, linters, CI, or abstraction; deciding what counts as proof or whether to rerun; reviewing a research conclusion | [rigor-and-evidence.md](references/rigor-and-evidence.md) |
+| Designing a system, API, schema, or agent interface; naming concepts; drawing boundaries; writing an envelope; changing scope; review policy; where a spec or procedure lives | [intent-and-interfaces.md](references/intent-and-interfaces.md) |
+| Dividing work; fanning out to subagents; running attempts or checks in parallel; deciding what can start early | [parallel-work.md](references/parallel-work.md) |
+| Writing or reviewing any text a person or an agent reads | [writing-for-readers.md](references/writing-for-readers.md) |
+| Designing or debugging a data or computation pipeline; "why is this number wrong"; caching; deciding what to log or persist with a result | [traceable-computation.md](references/traceable-computation.md) |
+| Framing a research question; running experiments; writing up results; charts, notebooks, reports | [research-artifacts.md](references/research-artifacts.md) |
+| Starting, resuming, or reviewing implementation headed for review; amend, sibling, or stack | [change-composition.md](references/change-composition.md) |
+| Setting up skills, memory, instruction files, or tools; multi-session or multi-agent continuity; work identity across restarts | [runtime-and-continuity.md](references/runtime-and-continuity.md) |
+| Creating a durable file; choosing where it lives; deciding what to keep or delete; `context.md` and the journal | [conventions.md](references/conventions.md) |

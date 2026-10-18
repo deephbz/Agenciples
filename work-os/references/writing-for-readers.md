@@ -1,147 +1,128 @@
-# Writing for Readers
+---
+purpose: Make every text usable by its reader, and own the writing register.
+scope: Reader coordinates, order, words, numbers, register, communication shape, accepted-state writing, residue test.
+out-of-scope: Where a fact lives (intent-and-interfaces.md); envelope placement (conventions.md).
+---
 
-Applies whenever a person or an agent other than the author reads the text:
-replies, reports, documents, READMEs, docstrings, comments, design notes,
-change descriptions, commit messages, and messages. Where the text lives is
-intent-and-interfaces.md's concern; this reference covers how to write it.
-Lineage: Strunk & White, ASD-STE100 Simplified Technical English, minimum
-description length, the pyramid principle (Minto), the abstract of a good
-research paper, and public speaking.
+# Writing for readers
 
-Simplified Technical English governs sentence form. It does not decide what a
-reader needs first, which words they know, or why they should care. A text can
-obey every sentence rule and still fail its reader:
+The register governs sentence form. It does not decide what the reader needs
+first, which words they know, or why they care. A text can obey every
+sentence rule and still fail:
 
 ```text
 This narrative report preserves the frozen one-day study. It consumes the
 immutable replay outputs in ignored data/. config.json owns the design.
 ```
 
-Each sentence is short and active. Together they tell the reader nothing they
-want: the text describes its own container and the process that made it.
+Each sentence is short and active. Together they describe the container of
+the text and the process that made it. The reader wanted neither.
 
 ## Know the reader and where they start
 
-Before writing or revising any text, recover four coordinates:
+Before you write, recover four coordinates:
 
-1. **Reader** — who reads this: a trader, a researcher, a maintainer, a
-   reviewer, an agent with no context?
-2. **Starting point** — which words, mental models, and accepted state or
-   revision do they begin from?
-3. **Final accepted state** — what is true after this work?
-4. **Outcome** — what should they know, believe, or do after reading?
+1. **Reader**: a trader, a researcher, a maintainer, a reviewer, an agent
+   with no context.
+2. **Starting point**: the words, models, and accepted state they start from.
+3. **Final accepted state**: what is true after this work.
+4. **Outcome**: what they should know, believe, or do after reading.
 
-The same facts need a different projection for each reader. A good speaker
-changes the talk for the room, but always says why the topic matters.
+The same facts need a different text for each reader.
 
 ## Give a reason to care, then the answer
 
-Readers decide in the first lines whether to keep reading. Open with what
-matters to them: the problem, its stakes, or the decision it informs. Then
-give the answer. Then give the support.
+Open with what matters to the reader: the problem, its stakes, or the
+decision it informs. Then give the answer. Then give the support.
 
 ```text
 context and stakes -> question -> answer -> why it holds -> limits -> how to check
 ```
 
 The answer includes every finding that would change the reader's decision,
-even one that weakens the headline. A caveat of that weight sits beside the
-answer, not only in the limits.
-
-Short forms keep the order. A reply leads with the answer. A commit message
-states what changed for its users and why. A README opens with the problem the
-project solves. A report opens like a paper's abstract.
+even one that weakens the headline. Put such a caveat beside the
+answer. Short forms keep the order. A reply leads with the answer. A commit
+message states what changed for its users and why. A README opens with the
+problem it solves. A report opens like the abstract of a paper.
 
 ## Use the reader's words
 
-- **Talk about the subject.** Write about the market, the model, the user, or
-  the bug. Do not write about the text ("this report", "this section
-  describes").
-- **Keep the producer's vocabulary out.** Internal form names, process states
-  (frozen, accepted, candidate, rewrite, clean run), file paths, file ownership,
-  tool names, and agent workflow mean nothing to the reader. Name them only when
-  the reader acts on them, as in reproduction steps.
-- **Define a term at first use** in one plain clause, or use a plainer word.
-  An undefined term stops the reader.
-- **Give each number its meaning.** State the unit and the direction. Compare
-  the number with something that sizes it: a cost, a baseline, or a threshold.
-  Add its uncertainty. "Net uplift is 0.50" is a value; "a coupon order
-  keeps $0.50, after giving away $3.60 of the $4.10 it adds" is a finding.
+- Write about the subject: the market, the model, the user, the bug. Do not
+  write about the text ("this section describes").
+- Keep the producer's vocabulary out: internal form names, process states
+  (frozen, candidate, clean run), file paths, tool names, agent workflow.
+  Name them only when the reader acts on them, as in reproduction steps.
+- Define a term at first use in one plain clause, or use a plainer word.
+- Give each number a unit, a direction, a comparison that sizes it, and its
+  uncertainty. "Net uplift is 0.50" is a value. "A coupon order keeps $0.50
+  after it gives away $3.60 of the $4.10 it adds" is a finding.
 
-## Write for minimal description length
+## The register
 
-Durable language, prose or code, is judged by how little it takes to carry
-its information. The same information in fewer, plainer words or constructs
-is better.
+These rules apply to every reply and every durable text. ASD-STE100
+Simplified Technical English is the default register. Durable language,
+prose or code, carries its information in the fewest, plainest words.
 
-- The [Level-0 snippet](../../AGENTS-snippet.md#writing-register) owns the
-  always-on writing register and communication shape for replies and durable text.
-- Names and signatures are held to the same standard as sentences. A name
-  that needs a comment to be understood is a name drawn wrong.
-- Cut every sentence a competent reader could derive from the rest. Padding
-  is a cost paid on every read. Cut sentences that hedge or describe the text
-  itself. State a claim before its limits, and what something is before what
-  it is not.
-- Do not restate what a signature, type, or implementation already says.
-  Governance prose (intent-and-interfaces.md) says why and what is out of scope;
-  it never paraphrases the code beside it.
+- Write short sentences in active voice, subject before verb before object.
+- Use one term for one concept. Names follow the same rule. A name that needs
+  a comment is a name drawn wrong.
+- Do not use cleft sentences ("it is X that"), contrastive appositives ("X,
+  not Y"), appended glosses ("X, meaning Y"), or trailing clauses. A heading
+  may use "X, not Y" when the contrast is its point.
+- State a claim before its limits, and what a thing is before what it is not.
+- Cut every sentence that a competent reader can derive from the rest, every
+  hedge, and every sentence about the text itself.
+- Do not restate what a signature, a type, or an implementation already says.
+- Keep the reasoning. Brevity removes words. Keep the connectives that carry
+  the argument: because, so, but, therefore. A paragraph reads like an
+  argument that a person would say aloud.
 
-Brevity removes words, not reasoning. A list of disconnected facts is short
-but costs the reader more. Keep the connectives that carry the argument:
-because, so, but, therefore. A paragraph should read like an argument a
-person would say aloud.
+## Communication shape
 
-## Write from the accepted baseline
+Choose the smallest form that makes the point clear.
 
-Agent turns are episodic. Each turn, and especially each turn after a
-context compaction, overweights the immediately preceding state, so a
-rejected intermediate attempt can feel like the beginning of the story. That
-makes a common failure mode look locally reasonable:
-`A requested → A+B implemented → B rejected → B removed`, followed by a
-comment, design note, or evergreen entry explaining that the system
-"intentionally avoids B". From the accepted baseline, B was never part of
-the design. The correct durable story is `base → A`, unless B is an accepted
-historical alternative the audience genuinely needs to understand.
+- Use compact ASCII diagrams, trees, and code sketches when they show
+  relationships more clearly than prose: arrows for flow or dependency, call
+  trees for runtime calls, shallow trees for structure, pseudocode for logic
+  or interfaces, a focused diff when the reader knows the starting shape.
+  Keep only the relevant labels. Mark a partial sketch as partial. Put each
+  visual beside its explanation and cut the prose that repeats it.
+- Use bullets for distinct items and numbers for ordered steps. Nest only for
+  a real relationship, and keep nesting shallow.
+- Use short paragraphs for connected reasoning and one sentence for a simple
+  answer. Add headings only when distinct topics need navigation.
 
-Write from the coordinates above, not from conversational chronology. A
-durable document never refers to a conversation, thread, or turn the reader
-has not seen; "as discussed" and "per the earlier message" are residue. The
-same final state may need different projections for a maintainer familiar with
-an older release and for a new reader, but neither inherits accidental
-intermediate states from the agent loop.
+## Write from the accepted state
 
-Apply the **residue test** to anything a rejected path introduced:
+Agent turns are episodic. Each turn, and each turn after a compaction,
+overweights the state just before it, so a rejected attempt can feel like
+the start of the story. A common pattern: A requested, A+B implemented, B
+rejected, B removed, then a note that the system "intentionally avoids B".
+From the accepted baseline, B never existed. The durable story is
+`base -> A`, unless the reader needs B as an accepted alternative.
 
-> If the rejected intermediate state had never existed, would this comment,
-> abstraction, compatibility path, test, or explanation still be necessary?
+Never refer to a conversation, a thread, or a turn that the reader has not
+seen ("as discussed"). One accepted state can need one text for a maintainer
+of an older release and another for a new reader. Neither text inherits
+intermediate states of the agent loop.
 
-If not, remove it from current text and code. Keep the rejected path only
-where history itself is useful evidence, in the journal, VCS history, or
-the idea DAG (runtime-and-continuity.md, historical evidence). The operational
-shorthand: **write as if the wrong turn never happened.** This is narrative
-hygiene, not history deletion. Narratives are baseline-relative and
-audience-relative, not turn-relative.
+**The residue test.** If the rejected intermediate state had never existed,
+would this comment, abstraction, compatibility path, test, or explanation
+still be necessary? If not, remove it. Keep the rejected path only in the
+journal or the VCS history, and only when it is useful evidence. Write as if
+the wrong turn never happened. This hygiene deletes no history.
 
 ## Keep bookkeeping where its readers look
 
-Governance envelopes belong in metadata, as intent-and-interfaces.md places them.
-Provenance, verification against earlier runs, machine records, file
-ownership, and open process questions serve maintainers and agents. They
-belong in an appendix, a README, a journal, or module documentation. When the reader needs what a machine record shows, say
-it in a sentence or a small table and name the file that holds the record.
+Provenance, comparisons with earlier runs, machine records, file ownership,
+and open process questions serve maintainers and agents. Put them in an
+appendix, a README, the journal, or module documentation. When the reader
+needs what a record shows, say it in a sentence or a small table, and name
+the file that holds the record.
 
-## Failure modes
+## Check before you finish
 
-- A result stated as a bare value, with no unit, direction, or comparison.
-- A list of short, true sentences with no "because", "so", or "but".
-- A decision-changing caveat that appears only in the limits.
-- A docstring that restates the signature and omits the reason.
-- A README that explains what a rejected design would have done.
-- Long sentences, passive voice, two names for one concept.
-
-## Check before finishing
-
-Read the title and the first paragraph as the intended reader with no other
-context. They should be able to say why it matters, what was found or changed,
-and what it means for them. Then ask: would I say these sentences aloud to this
-person? Rewrite each sentence that fails.
+Read the title and the first paragraph as the reader, with no other context.
+The reader should know why it matters, what was found or changed, and what
+it means for them. Would you say each sentence aloud to this person? Rewrite
+each sentence that fails.
