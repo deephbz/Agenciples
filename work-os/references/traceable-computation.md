@@ -145,7 +145,7 @@ remediation.
 
 When remediation becomes frequent and deterministic, harden it into the
 executable and leave the document with rationale and a pointer
-(source-allocation.md, the hardening gradient).
+(intent-and-interfaces.md, the hardening gradient).
 
 ## Failure modes
 

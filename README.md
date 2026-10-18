@@ -58,7 +58,7 @@ can load them: governance envelopes close to the artifact
 ([intent-and-interfaces.md](work-os/references/intent-and-interfaces.md)); agent-facing
 interfaces with few verbs, schema for coordinates, prose for meaning, and
 review as a risk-based policy rather than a universal gate
-([domain-modeling.md](work-os/references/domain-modeling.md)); one
+([intent-and-interfaces.md](work-os/references/intent-and-interfaces.md)); one
 authoritative record with model-, machine-, and human-facing views, and one
 canonical home per artifact
 ([research-artifacts.md](work-os/references/research-artifacts.md));
@@ -90,7 +90,7 @@ The eleven playbooks, one per router row:
   are we?": the shaping → exploration → consolidation → hardening → sharing
   ladder, stage windows for tests, linters, CI, and abstraction, premature
   vs overdue rigor.
-- [domain-modeling.md](work-os/references/domain-modeling.md) —
+- [intent-and-interfaces.md](work-os/references/intent-and-interfaces.md) —
   glossary-first ontology design, distinctions into types, the smallest safe
   contract, interfaces for capable agents, gates that encode invariants
   rather than ceremony, intent as the optimization target, the three-force
@@ -99,7 +99,7 @@ The eleven playbooks, one per router row:
   governance envelopes: purpose, scope, invariants, non-goals; local
   placement; not API reference; scope change as an escalation event; review
   order envelope, surface, implementation.
-- [source-allocation.md](work-os/references/source-allocation.md) — one
+- [intent-and-interfaces.md](work-os/references/intent-and-interfaces.md) — one
   home per fact, truth migrating from docs into types, natural vs
   programming language as one medium chosen by verifiability, interleaved
   maintainer notes, user-facing vs maintainer-facing documents, the

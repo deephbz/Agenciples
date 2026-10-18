@@ -3,7 +3,7 @@
 Applies whenever a person or an agent other than the author reads the text:
 replies, reports, documents, READMEs, docstrings, comments, design notes,
 change descriptions, commit messages, and messages. Where the text lives is
-source-allocation.md's concern; this reference covers how to write it.
+intent-and-interfaces.md's concern; this reference covers how to write it.
 Lineage: Strunk & White, ASD-STE100 Simplified Technical English, minimum
 description length, the pyramid principle (Minto), the abstract of a good
 research paper, and public speaking.
