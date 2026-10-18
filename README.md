@@ -114,7 +114,7 @@ The eleven playbooks, one per router row:
   validation / bookkeeping split, dual-mode interfaces, semantic DAGs and
   materialization transparency, provenance on persisted results, the
   reverse bridge from runtime outcomes to guidance.
-- [verified-claims.md](work-os/references/verified-claims.md) — a trace is
+- [rigor-and-evidence.md](work-os/references/rigor-and-evidence.md) — a trace is
   not a verification, the anchor menu, predict before run, checks that
   detect independent risk, compatibility follows contracts, evidence reuse.
 - [research-artifacts.md](work-os/references/research-artifacts.md) — the

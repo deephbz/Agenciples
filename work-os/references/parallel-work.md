@@ -37,7 +37,7 @@ Wait where missing information prevents useful progress or safe correction.
 4. When an input changes, find the affected work. Keep valid results, repair
    invalid results, and stop work whose expected value has disappeared.
 5. Check the assumptions against the actual inputs before accepting dependent
-   results. [Verified claims](verified-claims.md) owns the evidence standard.
+   results. [Rigor and evidence](rigor-and-evidence.md) owns the evidence standard.
 
 Feedback can go both ways between parts of the work. A dependency DAG can
 represent successive versions: `question_v1 -> analysis_v1 -> question_v2`.
