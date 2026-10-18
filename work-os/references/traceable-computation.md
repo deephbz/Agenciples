@@ -1,157 +1,116 @@
-# Traceable Computation
+---
+purpose: Make computations whose correctness depends on data meaning inspectable step by step.
+scope: What to trace, trace mode, node identity, provenance on results, the reverse bridge.
+out-of-scope: Operating a pipeline; proof (rigor-and-evidence.md); homes and retention (conventions.md).
+---
 
-Applies when designing or refactoring a data or computation pipeline,
-debugging a wrong number, or deciding what to log or persist. Lineage:
-distributed tracing (Dapper, OpenTelemetry), data provenance (W3C PROV,
-OpenLineage), reproducible research (Claerbout/Donoho), Stripe canonical log
-lines, lazy computation graphs (Dask, PyTorch).
+# Traceable computation
 
-This reference pairs with verified-claims.md. This one says where to invest
-in investigability. That one says what counts as proof and what spending is
-waste.
+## Trace the computation
 
-## Scope: the computation, not the operation
+Trace a computation when its correctness depends on the meaning of the data
+and of each step:
 
-Traceability is for computations whose correctness depends on the meaning of
-the data and of each step. Two typical cases:
-
-- **Semantic data pipelines.** ETL and analysis pipelines where joins,
-  filters, selections, concatenations, and aggregations rely on column
-  semantics, units, grain, and input schemas. A wrong assumption about one
-  column silently corrupts everything downstream.
-- **Deep derivations behind a simple output.** A scalar, an index, a single
-  ranking, produced by many steps. The output gives no hint of which step
+- **Pipelines that depend on data meaning.** Joins, filters, concatenations,
+  and aggregations rely on column meaning, units, grain, and input schemas.
+  One wrong assumption about a column corrupts everything downstream.
+- **Deep derivations behind a simple output.** A scalar, an index, or a
+  ranking comes from many steps, and the output gives no hint which step
   went wrong.
 
-Operating the pipeline is not in scope: running a script, editing code,
-an ad hoc analysis run, a batch job that calls an analysis script. These are
-research ops, and they get no traceability apparatus of their own.
+Operating the pipeline gets no trace apparatus: running a script, editing
+code, an ad hoc run, a batch job that calls an analysis.
 
-Classify work before building anything (after forward-implementation-first):
+Sort the work before you build anything:
 
-1. **Semantic implementation** — producers, consumers, schemas, final
-   outputs. Build it.
-2. **Focused validation** — behavior, schema, samples, measured performance.
-   Build it (verified-claims.md).
-3. **Administrative bookkeeping** — hashes, locks, receipts, inventories,
-   catalogues, dashboards, markers. Skip it unless the user asks or the
-   artifact is part of the product.
+1. **Core work**: producers, consumers, schemas, final outputs. Build it.
+2. **Focused validation**: behavior, schema, samples, measured performance.
+   Build it (rigor-and-evidence.md).
+3. **Bookkeeping**: hashes, locks, receipts, inventories, catalogues,
+   dashboards, markers. Skip it unless the human asks or the product needs
+   it.
 
-Missing or stale bookkeeping is never a reason to redo semantic work. Redo a
-stage only when input meaning changed, output is malformed, or a dependency
-changed.
+Redo a stage only when its input meaning changed, its output is malformed,
+or a dependency changed.
 
-## The dual-mode interface
+## Add a trace mode once the shape settles
 
-In-scope computations get challenged at every layer: the data, the filter,
-the aggregation, the metric, the framing. So they need two modes, designed
-together from the start:
+In exploration, inspect state ad hoc. Once the pipeline's shape settles, give
+it two modes:
 
-- **Default mode**: clean, stable, returns only what the caller needs
-  (one scalar per day).
-- **Trace mode**: opt-in. Returns a trace object alongside the result that
-  lets a human or agent descend into any step: input snapshot or hash, rows
-  filtered and why, the semantic assumptions made about each input,
-  treatments applied, intermediate aggregates, weights, missing-value
-  handling, config, code version. The model is a computation graph
-  inspected node by node, lazy like Dask or eager like PyTorch. A reader
-  must be able to descend into every step without asking the author.
+- **Default mode** is clean and stable, and returns only what the caller
+  needs, such as one scalar per day.
+- **Trace mode** is opt-in. It returns a trace object that lets a human or an
+  agent descend into any step: input snapshot or hash, rows filtered and
+  why, the assumptions about each input, treatments, intermediate
+  aggregates, weights, missing-value handling, config, code version. Think
+  of a computation graph inspected node by node, as in Dask or PyTorch.
 
-The promotion rule: the second time anyone pokes at the same internal state
-in a notebook or debugger, that state has earned a place in the trace
-interface. Recurring ad hoc inspection is a missing API, not a debugging
-habit.
+The second time anyone pokes at the same internal state in a notebook or a
+debugger, that state earns a place in the trace. Recurring ad hoc
+inspection is a missing API.
 
-Implementation notes:
+- Keep each step callable and testable on its own. If step 3 runs only
+  through steps 1 to 5, debugging step 3 is archaeology.
+- Emit one canonical record per meaningful run: inputs, config,
+  environment, code version, timing, outcome. The record is a side effect of
+  the run. It never gates the next run.
+- Content-address large trace payloads and store the reference in the
+  record.
+- Traces are evidence: raw and append-only. Summaries derive from them
+  (runtime-and-continuity.md).
+- Recording after the fact costs more than constraining the surface so that
+  untraced state changes cannot happen: containerized runs, no mutation over
+  SSH, config-only entry points. Prefer constraint for experiment
+  infrastructure.
 
-- Keep low-level primitives directly callable and testable on their own,
-  even when normally invoked through higher-level workflows. If the only
-  way to run step 3 is to run steps 1 to 5, debugging step 3 is archaeology.
-- Emit one canonical record per meaningful run: a single structured entry
-  with inputs, config, environment, code version, timing, and outcome. This
-  is a side-effect of running, not a gate on the next run.
-- Trace payloads get big. Content-address them (hash-named files, git
-  objects) and store the reference in the canonical record.
-- Traces are raw and append-only. Any compressed view (summary stats, "what
-  happened" notes) is derived and rebuildable from raw. Compressing then
-  discarding raw is how systems quietly corrupt: measured on agents,
-  self-summarization took task accuracy from 100% to 54%.
-- Two complementary strategies: record everything after the fact, or
-  constrain the interaction surface so untraceable state changes cannot
-  happen (containerized runs, no SSH mutation, config-only entry points).
-  Constraining is usually cheaper than reconstructing. Prefer it for
-  experiment infrastructure.
+## Nodes have identity; files are materializations
 
-## Semantic DAGs and materialization transparency
+Model a pipeline as a DAG. Nodes are meaningful data states (raw, filtered,
+joined, features, metrics, report). Edges are transformations. A node's
+identity is its input versions, parameters, code, and environment
+assumptions. A file on disk does not define it.
 
-Model a pipeline as a DAG whose nodes are meaningful data states (raw,
-filtered, joined, features, metrics, report) and whose edges are
-transformations. A node's identity is **semantic**: input data versions +
-parameters + transformation code + environment assumptions. It is not
-whether a file currently exists on disk.
-
-- A persisted intermediate is a *materialized view* of a DAG node. The node
-  means the same thing whether computed live or loaded from cache; callers
-  cannot tell the difference.
-- Cache keys encode semantic identity. If inputs, parameters, code, or
-  assumptions changed, it is a different node: invalidate, don't reuse.
-  Store the identity alongside the materialization so staleness is
-  checkable.
-- "The file exists" is not "the result is valid." Stale materializations
-  produced by old code under old assumptions are the classic quiet
-  corruption of research pipelines.
-- This bounds what to keep: materialize intermediates for speed,
-  inspection, or audit; delete them freely otherwise, since the source
-  bundle plus the DAG can regenerate any node (research-artifacts.md).
+- A persisted intermediate is a materialized view of a node. A caller cannot
+  tell a cache load from a live computation.
+- The cache key encodes the node's identity. A change in input, parameter,
+  code, or assumption makes a different node: invalidate it. Store the
+  identity beside the file, so staleness is checkable.
+- An existing file is no proof of a valid result. Stale files from old code
+  under old assumptions are the classic quiet corruption of research
+  pipelines.
+- Materialize an intermediate for speed, inspection, or audit. The source
+  bundle and the DAG regenerate any node (research-artifacts.md).
 
 ## Provenance rides on persisted results
 
-Whenever a result outlives the session (a figure, a metric, a table),
-persist next to it: the underlying data or a content-addressed pointer, the
-exact config, the code version, the environment identity, and the
-verification anchor used (verified-claims.md). A figure whose dataframe is
-gone is a screenshot, not a result.
-
-This is the only place hashes and revisions are required. They belong to the
-result artifact, not to the operation that produced it.
+A result that outlives the session (a figure, a metric, a table) carries the
+data or a content-addressed pointer to it, the exact config, the code
+version, the environment, and the anchor checked (rigor-and-evidence.md).
+Hashes and revisions are required here and nowhere else. The operation that
+made the result needs none.
 
 ## The reverse bridge
 
-An API is the forward bridge: an agent turns intent into calls on typed code.
-The reverse bridge should not depend on the agent reading a traceback and
-guessing which document matters. At each **actionable semantic boundary** (a
-branch that changes the next action, a recoverable failure, a terminal
-outcome) the executable surfaces a **semantic outcome** with a stable
-identifier and **guidance references** to the authoritative intent or
-remediation.
+An API is the forward bridge from intent to calls. The reverse bridge
+carries runtime outcomes back to guidance, so an agent does not guess from a
+traceback which document matters. At each actionable boundary (a branch that
+changes the next action, a recoverable failure, a terminal outcome), the
+executable reports an outcome with a stable identifier and references to the
+authoritative intent or remedy.
 
-- Route on meaning, not incidental control flow. Do not annotate every
-  `if`. Emit an outcome when the caller's next action changes. Preserve the
-  selected branch, exit code, signal, and traceback as evidence, but do not
-  make agents infer the outcome from those clues alone.
-- Keep the bridge structured. Put the outcome identifier, raw evidence, and
-  guidance references in a returned result, error, event, or canonical run
-  record; render a concise message as a projection. Code owns the conditions
-  and identifiers; docs own only the intent, rationale, and judgment-heavy
-  remediation that have not hardened into code.
-- Cover termination outside the process. A process cannot emit a hook after
-  `SIGKILL` or a host loss. The supervisor records timeouts, signals, and
-  missing terminal events, then attaches only the guidance justified by
-  that evidence; unknown causes stay unknown.
-- Verify the route. Exercise important outcomes, assert their identifiers,
-  and check that every guidance reference resolves within the versioned
-  source bundle. A pointer is routing metadata, not proof that the guidance
-  or the computation is correct.
+- Emit an outcome only when the caller's next action changes. Keep the
+  branch, exit code, signal, and traceback beside it as evidence.
+- Put the identifier, evidence, and guidance references in a returned
+  result, an error, an event, or the run record, and render a short message
+  from them. Code owns conditions and identifiers. Documents own the intent
+  and the judgment-heavy remedies that have not hardened into code.
+- A process cannot report after `SIGKILL` or a host loss. The supervisor
+  records timeouts, signals, and missing terminal events, and attaches only
+  the guidance that this evidence justifies. An unknown cause stays unknown.
+- Exercise important outcomes, assert their identifiers, and check that each
+  guidance reference resolves inside the source bundle. A resolved pointer
+  proves nothing about the guidance itself.
 
-When remediation becomes frequent and deterministic, harden it into the
-executable and leave the document with rationale and a pointer
-(intent-and-interfaces.md, the hardening gradient).
-
-## Failure modes
-
-- Tracing the operation: SHA-256 of every input file, git revision of every
-  script run, receipts and catalogues for an ad hoc analysis.
-- Treating a stale receipt as a correctness problem and replaying stages.
-- A pipeline whose step 3 can only be run through steps 1 to 5.
-- Cache hits keyed on file name rather than semantic identity.
-- A persisted metric with no data pointer, config, or anchor next to it.
+When a remedy becomes frequent and deterministic, harden it into the
+executable, and leave the rationale and a pointer in the document.
