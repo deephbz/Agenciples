@@ -29,16 +29,18 @@ on the harness.
    it pays.
 4. **Parallel by default.** Batch independent calls. Fan out exploration and
    verification. Overlap dependent work on explicit assumptions. Serial work
-   needs a named reason: an input not yet available, shared mutable state,
-   an irreversible action, or the human's review bandwidth.
+   needs a named reason, such as an input not yet available or shared
+   mutable state (parallel-work.md lists them).
 5. **One home per fact; every artifact describes itself.** Each artifact
-   that persists states at least its purpose and scope. Add other fields
-   when they clearly help. This convention applies to itself.
+   that persists states at least its purpose and scope, sized to its
+   intent; a trivial function needs only its signature. Add other fields
+   when they clearly help. This corpus follows the convention, and its
+   README describes the corpus.
 6. **Write from the accepted state, for the reader.**
 7. **Thin durable runtime, replaceable applications.** Continuity lives in
-   boring primitives: plain files (markdown, SQLite), git, `context.md`, and
-   the journal. Every other tool is an application that agents use through a
-   CLI, a skill, or an API.
+   boring primitives: the agent loop, plain files (markdown, SQLite), git,
+   `context.md`, and the journal. Every other tool is an application that
+   agents use through a CLI, a skill, or an API.
 
 Two invariants hold without loading anything:
 

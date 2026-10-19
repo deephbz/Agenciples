@@ -25,21 +25,18 @@ file and a reference disagree, fix this file.
   and relations. Encode behavior-affecting distinctions in types. Publish
   the smallest safe contract, then improve behind it. Distilling
   definitions stays human work; budget time for it.
-- A boundary moves when work broadens, narrows, or repurposes a
-  responsibility, changes a public invariant or a caller assumption, adds a
-  public concept or ownership boundary, moves a concern across modules,
-  repositories, or homes, or invalidates a non-goal (intent-and-interfaces.md).
-  Changes to goals, objectives, floors or ceilings, preference orders, or
-  governing constraints also escalate, wherever they are written. Competing
-  intents and an exhausted iteration budget also escalate. Review is optional
-  by default. A harness blocks only to enforce a demonstrated invariant.
+- Escalate a scope change (intent-and-interfaces.md lists the triggers),
+  competing intents, an exhausted iteration budget, or an irreversible
+  action. Review is optional by default. A harness blocks only to enforce an
+  invariant that convention cannot protect (intent-and-interfaces.md).
 
 ## 2. Durable properties, ephemeral plans
 
 - An envelope holds the durable properties of an artifact: at least purpose
   and scope, plus out-of-scope, objective, invariant, floor or ceiling,
-  preference order, non-goal, anchor, and status when they clearly help.
-  Each property names its anchor and becomes a check as it stabilizes.
+  preference order, non-goal, and status when they clearly help. Each
+  property names its anchor, or is marked provisional, and becomes a check
+  as it stabilizes.
 - The problem and the objective are durable. Refresh or discard plans and
   diagrams as evidence arrives.
 
@@ -68,8 +65,9 @@ file and a reference disagree, fix this file.
 - Other mentions point to the home. When a document and code hold one fact,
   one copy is stale. Truth migrates from prose into types and scripts as
   work matures.
-- The envelope sits in the native metadata of the artifact. Each artifact
-  lives in one of three homes. Variants stay; retries are replaced.
+- The envelope sits in the native metadata of the artifact, sized to its
+  intent. Each artifact lives in one of three storage locations. Variants
+  stay; retries are replaced.
 - A result is a machine-operable record with its provenance. Figures and
   dashboards are views of it.
 
@@ -102,8 +100,8 @@ needs. A task that spans two rows reads both.
 
 | Task | Read |
 |---|---|
-| Starting or joining work; choosing tests, linters, CI, or abstraction; deciding what counts as proof or whether to rerun; reviewing a research conclusion | [rigor-and-evidence.md](references/rigor-and-evidence.md) |
-| Designing a system, API, schema, or agent interface; naming concepts; drawing boundaries; writing an envelope; changing scope; review policy; where a spec or procedure lives | [intent-and-interfaces.md](references/intent-and-interfaces.md) |
+| Finding a component's stage; choosing tests, linters, CI, or abstraction; deciding what counts as proof or whether to rerun; reviewing a research conclusion | [rigor-and-evidence.md](references/rigor-and-evidence.md) |
+| Designing a system, API, schema, or agent interface; naming concepts; drawing boundaries; upgrading a dependency; writing an envelope; changing scope; review policy; where a contract or procedure lives | [intent-and-interfaces.md](references/intent-and-interfaces.md) |
 | Dividing work; fanning out to subagents; running attempts or checks in parallel; deciding what can start early | [parallel-work.md](references/parallel-work.md) |
 | Writing or reviewing any text a person or an agent reads | [writing-for-readers.md](references/writing-for-readers.md) |
 | Designing or debugging a data or computation pipeline; "why is this number wrong"; caching; deciding what to log or persist with a result | [traceable-computation.md](references/traceable-computation.md) |

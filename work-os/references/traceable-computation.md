@@ -1,7 +1,8 @@
 ---
 purpose: Make computations whose correctness depends on data meaning inspectable step by step.
 scope: What to trace, trace mode, node identity, provenance on results, the reverse bridge.
-out-of-scope: Operating a pipeline; proof (rigor-and-evidence.md); homes and retention (conventions.md).
+out-of-scope: Proof (rigor-and-evidence.md); storage locations and retention (conventions.md).
+non-goal: Operating a pipeline.
 ---
 
 # Traceable computation

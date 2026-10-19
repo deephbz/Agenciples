@@ -29,11 +29,15 @@ a search index, a memory service, a CI system. The agent uses an application thr
 skill, or an API, and keeps the state of the work in the runtime. So you can
 replace an application without losing work.
 
-- Add to the runtime only what every task needs and every tool can read.
+- Add to the runtime only what every task needs for durability or
+  correctness, in a format every tool can read.
 - Give each application a CLI or an API that agents can call, and a skill
   that says when to call it.
 - Some scaffolds compensate for current model limits: skill graphs, bespoke
-  memory protocols. Better models may dissolve them. Keep continuity in
+  memory protocols. A scaffold names the limit it compensates for and a
+  probe that shows the limit. Remove it when a current model passes the
+  probe without it. Invest instead in what agents act on (CLIs, APIs,
+  records, checks): its value grows with model capability. Keep continuity in
   the runtime primitives, which survive. Boring formats with obvious
   semantics transfer. Clever formats do not.
 
@@ -87,6 +91,10 @@ and standing instructions need human ratification wherever they are written,
 including `context.md` and the journal. Reversible implementation choices
 inside the envelope remain agent work. intent-and-interfaces.md defines
 governing constraints and gives the escalation procedure.
+
+Instructions are deployed code. A running session keeps the instructions it
+loaded, so after a change, assume live sessions run the old version until
+they restart.
 
 - A skill or instruction states intent, properties, and checks, written as
   actions and checks an agent can carry out. Paragraphs of facts and
