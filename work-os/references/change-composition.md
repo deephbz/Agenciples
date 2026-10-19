@@ -1,7 +1,8 @@
 ---
 purpose: Keep the intent of each change recoverable and reviewable while many agents edit one codebase.
 scope: Work headed for review; base, changes, amend or sibling or stack, isolated and integrated review, descriptions, handoff.
-out-of-scope: Exploration; VCS commands; shipping a bit (ship-a-bit).
+out-of-scope: Exploration (parallel-work.md, research-artifacts.md); shipping a bit (ship-a-bit).
+non-goal: Teaching VCS commands.
 ---
 
 # Change composition

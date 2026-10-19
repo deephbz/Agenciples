@@ -1,7 +1,7 @@
 ---
 purpose: Keep research reproducible, and keep its results usable by agents and humans.
 scope: Durable problem and objective, optional plans and diagrams, results, source bundle, backend first.
-out-of-scope: Homes and retention (conventions.md); provenance fields (traceable-computation.md); views (intent-and-interfaces.md).
+out-of-scope: Storage locations and retention (conventions.md); provenance fields (traceable-computation.md); views (intent-and-interfaces.md).
 ---
 
 # Research artifacts
@@ -54,7 +54,7 @@ instructions, evaluation criteria, and environment assumptions. An
 instruction needed for reproduction is source, so version it. The test:
 given only the bundle, can a human or an agent rerun the work, change a
 parameter, test a counterfactual, and extend it? Persist final artifacts
-under a clear name in their home. Intermediates are disposable
+under a clear name in their storage location. Intermediates are disposable
 (conventions.md).
 
 ## Backend first

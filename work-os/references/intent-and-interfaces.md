@@ -1,6 +1,6 @@
 ---
 purpose: Turn human intent into envelopes, ontologies, and interfaces that agents search inside.
-scope: Envelope fields, scope change, review, ontology, agent interfaces, views, boundaries, where facts live.
+scope: Envelope fields, declared and observed halves, scope change, review, ontology, agent interfaces, views, boundaries, dependency facts, where facts live.
 out-of-scope: Envelope placement (conventions.md); sentence style (writing-for-readers.md).
 ---
 
@@ -14,7 +14,10 @@ conversation.
 
 An envelope holds the durable properties of one artifact. It states only
 what the implementation cannot express. Agents optimize freely inside the
-envelope and never move it silently.
+envelope and never move it silently. Features, fixes, and upgrades that keep
+every property true are ordinary work. An envelope bounds the search but
+does not choose inside it; the change's own description and judgment still
+decide.
 
 | Field | States |
 |---|---|
@@ -23,10 +26,10 @@ envelope and never move it silently.
 | out-of-scope | neighboring concerns it does not own, and where they live |
 | objective | a quantity to improve, with its direction |
 | invariant | a statement that must stay true |
-| floor / ceiling | the worst acceptable value of a metric, or the most a cost may reach |
+| floor / ceiling | a hard limit: a floor for a metric that should stay high, a ceiling for one that should stay low; every preference order respects it |
 | preference order | which objective wins when two conflict |
 | non-goal | an outcome the work does not pursue, even when it is reachable |
-| anchor | how a property is checked |
+| anchor | how a property is checked: a test, a metric, a probe, or human review; a property with none is marked provisional |
 | status | the stage, when it changes how the artifact evolves |
 
 Purpose and scope are the minimum. Add other fields only when they clearly
@@ -37,8 +40,16 @@ when a neighboring responsibility needs clarification. Never write "Takes an
 integer and returns a string."
 conventions.md gives the format and the placement.
 
+The envelope is the declared half of a self-description. Derive the observed
+half (signatures, dependencies, topology, versions, test results) from the
+artifact with a tool; never write it by hand. Drift is a difference between
+the two halves: report it, and never close it by editing the envelope.
+
+A parent's envelope judges each change to a child. A child change that
+leaves the parent's scope is a scope change of the parent.
+
 Each property moves toward a check as it stabilizes. An invariant becomes a
-type or an assertion. An objective becomes a benchmark with a floor. Code
+type or an assertion. An objective becomes a benchmark with a limit. Code
 may rely on the envelope: add no defensive code for inputs that its
 invariants exclude.
 
@@ -46,28 +57,33 @@ invariants exclude.
 
 Surface the change before you proceed when the work would:
 
-- add or change a goal, objective, floor or ceiling, preference order, or
-  governing constraint (a limit set by the human or an accepted envelope);
+- add, change, or weaken a goal, objective, floor or ceiling, preference
+  order, anchor, or governing constraint (a limit set by the human or an
+  accepted envelope);
 - broaden or narrow a responsibility;
 - change a public invariant or a caller assumption;
 - add a public concept or an ownership boundary;
 - repurpose an artifact for another audience or lifecycle;
-- move a concern across modules, repositories, or homes;
+- move a concern across modules, repositories, or storage locations;
 - invalidate a non-goal.
 
 These triggers apply wherever the change is written, including `context.md`
-and the journal. State the current envelope, the proposal, and why the intent
-or boundary needs to change. After human ratification, rewrite the envelope
-to state the new intent. Do not escalate wording or implementation inside the
-envelope. Do not edit an envelope to justify an implementation that left it.
-When the human changes the scope, old comments stop being policy.
+and the journal. State the current envelope, the proposal, and why the
+intent or boundary needs to change. After human ratification, rewrite the
+envelope to state the new intent. An envelope that adds a public concept or
+an ownership boundary is a proposal until the human ratifies it. An envelope
+for an internal part inside an accepted parent envelope is agent work. Do
+not escalate wording or implementation inside the envelope. Do not edit an
+envelope to justify an implementation that left it. When the human changes
+the scope, old comments stop being policy.
 
 ## Review and gates
 
 Review is optional by default. The human asks for review when work is
 complex, risky, or hard to reverse. Do not force plan submission or approval
-states on every task. A harness blocks execution only to enforce a
-demonstrated invariant that convention cannot protect.
+states on every task. A harness blocks execution only to enforce an
+invariant that convention cannot protect: one shown to fail, or one that
+guards an irreversible action.
 
 Review in this order: envelope, public surface (names, types, APIs,
 outputs), implementation. A wrong boundary produces thousands of lines that
@@ -151,19 +167,24 @@ security, deployment, reproducibility). An irreversible constraint
 late decision locks the system into the wrong shape. The order prevents
 both micro-fragments and blobs.
 
+What a dependency provides is evidence, not a property. Record what you rely
+on at the adapter, with the dependency's version and the check that observed
+it, and check it again on each upgrade. Your intent changes with your goals;
+a dependency changes on its own schedule.
+
 ## One home per fact
 
-Every spec, behavior, and procedure has one authoritative home. Every other
+Every contract, behavior, and procedure has one authoritative home. Every other
 mention points to it. When a document and code hold the same fact, one copy
 is already stale. Pointers run both ways: a document names the module that
-carries its spec, and the module names the document that motivates it.
+carries its contract, and the module names the document that motivates it.
 Trimming a document to pointers loses nothing. Duplication loses the answer
 to which copy is authoritative.
 
 ## Truth migrates from prose into code
 
 - In shaping, the truth lives in prose and diagrams.
-- As interfaces stabilize, the spec for shape, behavior, event order, and
+- As interfaces stabilize, the contract for shape, behavior, event order, and
   hierarchy moves into types and signatures. Trim the document to intent,
   rationale, constraints, real alternatives, and pointers.
 - Procedures harden with use: prose instruction, then shell script, then

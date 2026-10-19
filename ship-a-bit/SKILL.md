@@ -1,11 +1,12 @@
 ---
 name: ship-a-bit
-description: Cut one small, mature bit out of exploratory work, solve one stated problem with it, and deliver it as a clean, verified lineage on the product base.
+description: Turn one small, mature part of messy exploratory work into a clean, verified series of changes on the main branch that solves one stated problem and is ready for review. Invoke by hand.
 disable-model-invocation: true
 metadata:
   purpose: Ship one small, mature bit of exploratory work as a clean, verified lineage on the product base.
   scope: Problem statement, choice of bit, cleanup, quality bar, graph shape, verification.
-  out-of-scope: Principles (work-os); publication without the human's go.
+  out-of-scope: Principles (work-os).
+  non-goal: Publication without the human's go.
 ---
 
 # Ship a bit

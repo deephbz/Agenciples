@@ -90,11 +90,14 @@ rationalization.
 ## Compatibility follows contracts
 
 Preserve old behavior only for an accepted contract, a verified active
-consumer, or an explicit migration. Otherwise replace the old design and
-delete the obsolete path. Add no aliases, shims, fallbacks, dual reads or
-writes, or legacy configuration. The age of code does not prove that a
-consumer exists. Compatibility code names the contract or the consumer that
-it protects.
+consumer, or an explicit migration. Otherwise replace the old design, delete
+the obsolete path, and add no aliases, shims, fallbacks, dual reads or
+writes, or legacy configuration. A consumer includes every running version
+and every stored record in an old format. An explicit migration names the
+versions it supports and the condition that ends it. A change of meaning
+under an unchanged name is a breaking change. The age of code does not prove
+that a consumer exists. Compatibility code names the contract or the
+consumer that it protects.
 
 ## Evidence stays valid until an input changes
 
