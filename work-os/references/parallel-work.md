@@ -1,6 +1,6 @@
 ---
 purpose: Cut the elapsed time to accepted results with parallel work by default.
-scope: Batching, fan-out, competing attempts, parallel checks, workspaces, merging, early starts, serial reasons, cost.
+scope: Cost model, batching, fan-out, competing attempts, parallel checks, workspaces, merging, early starts, speculation, serial reasons, elapsed-time cost.
 out-of-scope: Composing edits for review (change-composition.md); the evidence standard (rigor-and-evidence.md).
 ---
 
@@ -10,10 +10,16 @@ Parallel work is the default. Serial work needs a named reason. Progress is
 the elapsed time to an accepted result, or useful learning per unit of time.
 Activity and agent count do not measure progress.
 
-The evidence for this default is provisional. Concurrent engineering and
-speculative parallelism support the mechanism, but no comparison yet shows
-the elapsed-time gain for a particular agent workflow. Measure the gain
-before you claim it.
+Elapsed time is the scarce resource. Compute, tokens, subagents, and
+discarded attempts are cheap. When a start can shorten the path to an
+accepted result, start it, even when it may be wasted. Hard limits still
+bind (What forces serial work). The human's attention is also scarce, so
+speculative and failed work never reaches the human as a decision or a
+review item.
+
+This preference order is the owner's intent. The size of the gain in a given
+workflow is provisional. Concurrent engineering and speculative parallelism
+support the mechanism; measure the gain before you claim it.
 
 ## Batch independent calls
 
@@ -66,9 +72,10 @@ preparation can start before the implementation exists.
 1. For each early start, state the assumption or preliminary input it uses,
    and the check that must pass before you accept its result. Match the
    detail to the risk.
-2. Prefer work that stays useful when the input changes. Split off a small
-   shared decision (a contract, a protocol, a schema) when it releases
-   several parts.
+2. When two early starts save the same time, prefer the one that stays
+   useful when the input changes. Do not skip a start only because it may
+   be wasted. Split off a small shared decision (a contract, a protocol, a
+   schema) when it releases several parts.
 3. Share partial results early. Revise the plan inside the agreed scope when
    new information changes what can proceed.
 4. When an input changes, find the affected work. Keep valid results, repair
@@ -79,6 +86,23 @@ preparation can start before the implementation exists.
 Feedback can run both ways: `question_v1 -> analysis_v1 -> question_v2`. A
 plan need not predict later revisions to support useful work now.
 
+## Speculate on success
+
+Steps A, B, and C usually run in order, and B and C are worthless if A
+fails. Start all three together. If A succeeds, B and C are already done. If
+A fails, the loss is compute.
+
+1. State in B and C that they assume A succeeds, and which part of A's
+   result they assume.
+2. Accept the combined result only after A succeeds and a check confirms B
+   and C against A's actual result.
+3. B and C make no irreversible or externally visible effect until A
+   succeeds: no publish, push, message, migration, or deletion of shared
+   data.
+4. When A fails, stop B and C and discard their output. Record in the
+   journal only what the failure showed. Do not report the discarded work to
+   the human.
+
 ## What forces serial work
 
 - **An input not yet available** that prevents useful progress or safe
@@ -88,14 +112,15 @@ plan need not predict later revisions to support useful work now.
   it needs first.
 - **The human's review bandwidth.** The human reads one thing at a time.
   Batch questions, and queue results for review in priority order.
-- **A resource limit**: rate limits, compute, one lock.
+- **A hard resource limit**: a rate limit, a quota, one lock, or a machine
+  at capacity. Compute cost alone is no reason.
 
 ## Count the elapsed-time cost
 
-Compare the time saved with the cost of coordination, human review, rework,
-and competition for resources. Some rework is worth a sooner result. Start
-fewer parts early when late changes repeatedly invalidate large amounts of
-work. Spend scarce capacity on work that controls the completion time or
-resolves important uncertainty. Judge a parallel policy by the elapsed time
-to the same accepted result, including waiting, checks, and repair. More
-parallel work stays inside the agreed scope.
+Wasted compute costs nothing here. Coordination, merging, human review, and
+contention for a hard limit cost time. A start that adds them to the
+critical path can lose time. Failed speculative work adds nothing to it when
+you discard it unread. Spend a hard limit on work that controls the
+completion time or resolves important uncertainty. Judge a parallel policy
+by the elapsed time to the same accepted result, including waiting, checks,
+and repair. More parallel work stays inside the agreed scope.
