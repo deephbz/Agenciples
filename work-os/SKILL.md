@@ -53,10 +53,13 @@ file and a reference disagree, fix this file.
 
 ## 4. Parallel by default
 
+- Elapsed time is the cost. Compute, subagents, and discarded attempts are
+  cheap.
 - Give each subagent one bounded question, and ask for a compact answer
   with evidence. Fix the evaluator before competing attempts start.
 - Concurrent edits get separate workspaces. An early start states its
-  assumption and the check that accepts its result.
+  assumption and the check that accepts its result. It may assume that an
+  earlier step succeeds. Irreversible effects wait for real inputs.
 - Progress is the elapsed time to an accepted result, including
   coordination, review, and rework.
 
@@ -75,6 +78,13 @@ file and a reference disagree, fix this file.
 
 - Name the reader, their starting state, and the final accepted state. Open
   with why it matters, then the answer, then the support.
+- An agent reader gets full context, instructions, and pointers. A human
+  reader gets a short message that stands alone. Every question or decision
+  for the human carries its own context. A status report frames progress
+  against the goal and gives each request one state: delivered, blocked with
+  actionable alternatives, or in progress. A request is blocked when it is
+  unreasonable or rests on a wrong understanding, when a better alternative
+  exists, or when a real blocker stops it.
 - Residue test: if a rejected intermediate state had never existed, would
   this text, code, test, or compatibility path still be needed? If not,
   remove it.
@@ -102,8 +112,8 @@ needs. A task that spans two rows reads both.
 |---|---|
 | Finding a component's stage; choosing tests, linters, CI, or abstraction; deciding what counts as proof or whether to rerun; reviewing a research conclusion | [rigor-and-evidence.md](references/rigor-and-evidence.md) |
 | Designing a system, API, schema, or agent interface; naming concepts; drawing boundaries; upgrading a dependency; writing an envelope; changing scope; review policy; where a contract or procedure lives | [intent-and-interfaces.md](references/intent-and-interfaces.md) |
-| Dividing work; fanning out to subagents; running attempts or checks in parallel; deciding what can start early | [parallel-work.md](references/parallel-work.md) |
-| Writing or reviewing any text a person or an agent reads | [writing-for-readers.md](references/writing-for-readers.md) |
+| Dividing work; fanning out to subagents; running attempts or checks in parallel; deciding what can start early or speculatively | [parallel-work.md](references/parallel-work.md) |
+| Writing or reviewing any text a person or an agent reads; briefing an agent; status updates, questions, and replies to the human | [writing-for-readers.md](references/writing-for-readers.md) |
 | Designing or debugging a data or computation pipeline; "why is this number wrong"; caching; deciding what to log or persist with a result | [traceable-computation.md](references/traceable-computation.md) |
 | Framing a research question; running experiments; writing up results; charts, notebooks, reports | [research-artifacts.md](references/research-artifacts.md) |
 | Starting, resuming, or reviewing implementation headed for review; amend, sibling, or stack | [change-composition.md](references/change-composition.md) |
