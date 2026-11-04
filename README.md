@@ -48,7 +48,7 @@ authoritative. This table only says when each file loads.
 | [references/rigor-and-evidence.md](work-os/references/rigor-and-evidence.md) | on a router match |
 | [references/intent-and-interfaces.md](work-os/references/intent-and-interfaces.md) | on a router match |
 | [references/parallel-work.md](work-os/references/parallel-work.md) | on a router match |
-| [references/writing-for-readers.md](work-os/references/writing-for-readers.md) | on a router match; its register applies to every reply |
+| [references/writing-for-readers.md](work-os/references/writing-for-readers.md) | on a router match; its register applies to every final message, every update for the human, and every durable text |
 | [references/traceable-computation.md](work-os/references/traceable-computation.md) | on a router match |
 | [references/research-artifacts.md](work-os/references/research-artifacts.md) | on a router match |
 | [references/change-composition.md](work-os/references/change-composition.md) | on a router match |

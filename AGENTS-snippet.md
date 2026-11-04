@@ -43,10 +43,11 @@ harness. Spend compute to save time.
    when they clearly help. This corpus follows the convention, and its
    README describes the corpus.
 6. **Write from the accepted state, for the reader.** Give an agent full
-   context and pointers. Give a human a short message that stands alone: the
-   human knows the goals but has not seen your history. Every question to
-   the human carries its own context. Each request is delivered, blocked
-   with actionable alternatives, or in progress.
+   context and pointers. Write each final message and each question for an
+   expert human who has seen nothing since their last message. Define each
+   label and number they have not seen, tie each option to their goals with
+   its gain and cost, and keep the technical depth. Each request is
+   delivered, blocked with actionable alternatives, or in progress.
 7. **Thin durable runtime, replaceable applications.** Continuity lives in
    boring primitives: the agent loop, plain files (markdown, SQLite), git,
    `context.md`, and the journal. Every other tool is an application that
@@ -60,6 +61,6 @@ Two invariants hold without loading anything:
   ratified by the human.
 
 The `work-os` skill completes each stance and routes to one reference per
-task. Write every reply and durable text in the register of its
-`references/writing-for-readers.md`: short sentences, active voice, one term
-per concept, answer first.
+task. Write every final message, every update for the human, and every
+durable text in the register of its `references/writing-for-readers.md`:
+short sentences, active voice, one term per concept, answer first.

@@ -1,6 +1,6 @@
 ---
 purpose: Make every text usable by its reader, and own the writing register.
-scope: Reader coordinates, agent and human audiences, status reports, order, words, numbers, register, communication shape, accepted-state writing, residue test.
+scope: Reader coordinates, agent and human audiences, final messages and updates between tool calls, status reports, order, words, numbers, register, communication shape, accepted-state writing, residue test.
 out-of-scope: Where a fact lives (intent-and-interfaces.md); envelope placement (conventions.md).
 ---
 
@@ -40,20 +40,49 @@ read and no context. Give the goal, the constraints, the instructions, and
 pointers to every relevant source, so it understands the task and can look
 up anything missing.
 
-**To a human, be short and self-contained.** Assume a smart reader who knows
-the project, its ecosystem, and its goals, and who has little attention to
-spare. Assume they do not know the low-level details or the recent progress,
-and that they cannot scroll back or search the transcript.
+**To a human, be brief, supply the context, and keep the depth.** The
+human is an expert with little attention to spare. They know what they
+asked for, their goals, and the high-level architecture, and they want
+technical depth. They have seen nothing since their last message. They
+worked on something else, so they do not know the tool calls, documents,
+statistics, or labels that fill your context. They cannot scroll back or
+search the transcript.
 
-- Every question or decision for the human carries its own context: one to
-  three sentences when the matter is short, plus pointers when it is long
-  or important. Define each referent in the question itself.
+- Start each final message and each question from the human's last
+  message. Where you use a label, an option, or a number that the human has
+  not seen, define it.
+- Tie each option to the goals it affects: what it gains, what it costs, and
+  which goal or constraint it moves. Then recommend one.
+- Keep the technical detail that supports the decision, such as a statistic
+  and why it matters. Context makes the depth usable.
 - Report against the goal. Give the goal, the constraints, and the recent
   changes that moved toward it or blocked it.
 - Size each number against the goal. "The worker finished in 30 s with 1 GB
   of memory" reports activity. "Our goal is a 30 s iteration cycle. We are
   at 80% of it, which is enough, so we now work on correctness instead of
   speed" reports progress and the decision it drives.
+
+```text
+Bad:  For A17, the t-statistic is better. Do you ratify option A, or choose
+      B for better performance but a longer ETA?
+Good: You asked for higher conversion before the Dec 1 launch. Recency
+      weighting (variant A17), which ranks recent activity higher, is the
+      best of 20 variants. On held-out data it raised conversion from
+      10.0% to 11.8%; the 95% confidence interval for the gain is +1.0 to
+      +2.6 percentage points.
+      A: Ship recency weighting now. It meets Dec 1.
+      B: Add session features first. They may raise conversion further,
+         but that gain is untested, and a comparable training run took 2
+         days, so B misses Dec 1.
+      I recommend A: it meets the goal on time, and we can test session
+      features after launch. Ship A?
+```
+
+**Between tool calls, write what you need.** Text interleaved with tool
+calls is working space, and terse notes to yourself are fine there. When
+something happens that the human would care about, such as a finding that
+changes the plan or a result against the goal, write that update under the
+rules for a final message.
 
 Every request from the human is in exactly one of three states. Lead with
 blocked requests, because they need the human.
@@ -110,9 +139,10 @@ problem it solves. A report opens like the abstract of a paper.
 
 ## The register
 
-These rules apply to every reply and every durable text. ASD-STE100
-Simplified Technical English is the default register. Durable language,
-prose or code, carries its information in the fewest, plainest words.
+These rules apply to every final message, every update for the human, and
+every durable text. ASD-STE100 Simplified Technical English is the default
+register. Durable language, prose or code, carries its information in the
+fewest, plainest words.
 
 - Write short sentences in active voice, subject before verb before object.
 - Use one term for one concept. Names follow the same rule. A name that needs

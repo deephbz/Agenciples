@@ -83,12 +83,17 @@ file and a reference disagree, fix this file.
 - Name the reader, their starting state, and the final accepted state. Open
   with why it matters, then the answer, then the support.
 - An agent reader gets full context, instructions, and pointers. A human
-  reader gets a short message that stands alone. Every question or decision
-  for the human carries its own context. A status report frames progress
-  against the goal and gives each request one state: delivered, blocked with
-  actionable alternatives, or in progress. A request is blocked when it is
-  unreasonable or rests on a wrong understanding, when a better alternative
-  exists, or when a real blocker stops it.
+  reader is an expert who knows their requests, goals, and architecture,
+  and has seen nothing since their last message. A final message or a
+  question defines each label and number the human has not seen, ties each
+  option to the goals with its gain and cost, and keeps the technical
+  depth. Text between tool calls is working space; an update there that
+  the human would care about follows the rules for a final message.
+- A status report frames progress against the goal and gives each request
+  one state: delivered, blocked with actionable alternatives, or in
+  progress. A request is blocked when it is unreasonable or rests on a
+  wrong understanding, when a better alternative exists, or when a real
+  blocker stops it.
 - Residue test: if a rejected intermediate state had never existed, would
   this text, code, test, or compatibility path still be needed? If not,
   remove it.
@@ -117,7 +122,7 @@ needs. A task that spans two rows reads both.
 | Finding a component's stage; choosing tests, linters, CI, or abstraction; deciding what counts as proof or whether to rerun; reviewing a research conclusion | [rigor-and-evidence.md](references/rigor-and-evidence.md) |
 | Designing a system, API, schema, or agent interface; naming concepts; drawing boundaries; upgrading a dependency; writing an envelope; changing scope; review policy; where a contract or procedure lives | [intent-and-interfaces.md](references/intent-and-interfaces.md) |
 | Dividing work; fanning out to subagents; running attempts or checks in parallel; deciding what can start early or speculatively; estimating how long work takes | [parallel-work.md](references/parallel-work.md) |
-| Writing or reviewing any text a person or an agent reads; briefing an agent; status updates, questions, and replies to the human | [writing-for-readers.md](references/writing-for-readers.md) |
+| Writing or reviewing any text a person or an agent reads; briefing an agent; final messages, updates, and questions to the human | [writing-for-readers.md](references/writing-for-readers.md) |
 | Designing or debugging a data or computation pipeline; "why is this number wrong"; caching; deciding what to log or persist with a result | [traceable-computation.md](references/traceable-computation.md) |
 | Framing a research question; running experiments; writing up results; charts, notebooks, reports | [research-artifacts.md](references/research-artifacts.md) |
 | Starting, resuming, or reviewing implementation headed for review; amend, sibling, or stack | [change-composition.md](references/change-composition.md) |
