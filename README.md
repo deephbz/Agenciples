@@ -95,6 +95,19 @@ Before each commit, check three things:
    each reference has a router row.
 3. The text follows the register in `work-os/references/writing-for-readers.md`.
 
+Each commit and pull request that changes the snippet, a skill, or a
+reference carries a token tree. The tree gives the tokens before, after,
+added, removed, and net per layer and per changed file, at 4 characters
+per token. It shows what the change costs in context, beside what it means.
+
+```bash
+scripts/token-stats origin/master       # for a pull request description
+git config core.hooksPath .githooks     # put the tree in each commit message
+```
+
+The hooks path replaces any global hooks path. If you already use one, call
+`scripts/token-stats --hook "$@"` from your own `prepare-commit-msg`.
+
 Inside this repository, an agent proposes changes and the human ratifies
 them. Changing a file's front matter is a scope change
 (`work-os/references/intent-and-interfaces.md`). Check a change to
