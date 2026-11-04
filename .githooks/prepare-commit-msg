@@ -1,0 +1,3 @@
+#!/bin/sh
+# Put the token tree for the staged L0, L1, and L2 change into the message.
+exec "$(git rev-parse --show-toplevel)/scripts/token-stats" --hook "$@"
