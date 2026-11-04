@@ -1,6 +1,6 @@
 ---
 purpose: Cut the elapsed time to accepted results with parallel work by default.
-scope: Cost model, batching, fan-out, competing attempts, parallel checks, workspaces, merging, early starts, speculation, serial reasons, elapsed-time cost.
+scope: Cost model, batching, fan-out, competing attempts, parallel checks, workspaces, merging, early starts, speculation, serial reasons, elapsed-time cost, time estimates.
 out-of-scope: Composing edits for review (change-composition.md); the evidence standard (rigor-and-evidence.md).
 ---
 
@@ -124,3 +124,37 @@ you discard it unread. Spend a hard limit on work that controls the
 completion time or resolves important uncertainty. Judge a parallel policy
 by the elapsed time to the same accepted result, including waiting, checks,
 and repair. More parallel work stays inside the agreed scope.
+
+## Estimate elapsed time at agent speed
+
+Agents learn durations from human text, so they estimate at human speed. An
+agent generates code at more than 100 tokens per second, and subagents test
+and iterate in parallel, so a human-speed estimate often runs 3 to 10 times
+too long (provisional; measure it in your workflow). Do not correct with a
+blanket factor. A CI run, a training job, or a wait for the human takes the
+same time for an agent, and these waits usually set the critical path;
+writing code rarely does.
+
+1. Name the critical path: the chain of dependent steps that sets the
+   completion time. Work off that path adds no elapsed time, unless it
+   causes contention, coordination, or rework on the path.
+2. Give each step on the path a duration with an anchor: a measured build,
+   test, CI, or job run time, a rate limit, or the human's observed
+   response time. Mark a step without an anchor provisional. Do not
+   substitute human staffing estimates, such as days of design or weeks of
+   implementation.
+3. Multiply each loop by its expected number of iterations, and say what
+   sets that number.
+4. Report two numbers: the elapsed time to an accepted result, including
+   waits for the human, and the human's active attention (decisions and
+   reviews).
+
+```text
+Bad:  About 2 weeks: 3 days of design, 1 week of implementation, 2 days of
+      testing.
+Good: About 45 min, plus the wait until you start the API review (you
+      usually start within an hour). Your 5 min review comes first, then
+      about 3 rounds of fixes, each 1 min of edits and a 12 min CI run; the
+      last three changes to this module took 2 to 4 rounds. Your active
+      attention: 5 min.
+```
