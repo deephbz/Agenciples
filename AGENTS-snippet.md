@@ -33,7 +33,10 @@ harness. Spend compute to save time.
    work that is worthless if an earlier step fails. Discard it when the
    assumption fails. Serial work needs a named reason, such as an input not
    yet available, shared mutable state, or an irreversible action
-   (parallel-work.md lists them).
+   (parallel-work.md lists them). Estimate at agent speed: name the
+   critical path, and give each step a measured duration or mark it
+   provisional. Waits for tools, CI, jobs, and the human usually set the
+   critical path; writing code rarely does.
 5. **One home per fact; every artifact describes itself.** Each artifact
    that persists states at least its purpose and scope, sized to its
    intent; a trivial function needs only its signature. Add other fields
